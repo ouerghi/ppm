@@ -12,8 +12,6 @@ class RegistrationController extends Controller
      */
     public function index()
     {
-        return $this->render('registration/index.html.twig', [
-            'controller_name' => 'RegistrationController',
-        ]);
+        return $this->render('Registration/index.html.twig');
     }
 }

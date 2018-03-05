@@ -1,4 +1,5 @@
-
+# phpstorm ide .idea ignore
+.idea
 ###> symfony/framework-bundle ###
 .env
 /public/bundles/
