@@ -1,3 +1,6 @@
+
+#public css js file
+/public/build/
 # phpstorm ide .idea ignore
 .idea
 ###> symfony/framework-bundle ###
