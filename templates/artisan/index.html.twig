@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="container" style="margin-top: 2rem;">
+<div class="container">
 
     {% for message in app.flashes('notice') %}
         <div class="flash-notice">
@@ -10,14 +10,44 @@
             </div>
         </div>
     {% endfor %}
-    <div class="jumbotron">
+    <div class="">
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <p>Username: {{ app.user.username }}</p>
+            <p> agent : {{ app.user.username }}</p>
         {% endif %}
-        list of all companyss
-        {% if is_granted('ROLE_DMS') %}
-            <a href="...">Delete</a>
-        {% endif %}
+
+        <div class="table-responsive-md">
+            <table class="table table-hover">
+                <caption>list of all artisan</caption>
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Cin</th>
+                    <th>action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for artisan in artisans %}
+                <tr>
+                    <th>{{ "%'.07d"|format(artisan.id) ~ '-' ~ artisan.ville.government }}</th>
+                    <td>{{ artisan.firstName }}</td>
+                    <td>{{ artisan.lastName }}</td>
+                    <td>{{ artisan.cin }}</td>
+                    <td>
+                        <form id="del" action="{{ path('artisan_delete', {'id': artisan.id}) }}" method="post">
+                            <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                <a href="{{ path('artisan_view', {'id': artisan.id}) }}" type="button" class="btn btn-secondary btn-success">view</a>
+                                <button id="deleteArtisan" type="submit"  class="btn btn-secondary btn-warning" value="text 1">delete</button>
+                            </div>
+                        </form>
+
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
     </div>
 </div>

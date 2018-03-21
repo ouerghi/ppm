@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Repository\VilleRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -30,6 +32,15 @@ class UserType extends AbstractType
         // our builder he present a registration form
         $builder
             ->add('username', TextType::class)
+            ->add('ville', EntityType::class, array(
+                'class'         => 'App\Entity\Ville',
+                'placeholder' => 'Choose your ville',
+                'query_builder' => function(VilleRepository $ville) {
+                    return $ville->getVille();
+                },
+                'choice_label'  => 'location',
+                'attr'  => array('class' => 'ville')
+            ))
             ->add('password', PasswordType::class)
             ->add('roles', ChoiceType::class, array(
                 'choices' => $role,

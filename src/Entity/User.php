@@ -32,6 +32,28 @@ class User implements UserInterface, \Serializable
      */
     private $roles = array();
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Ville")
+     *  @ORM\JoinColumn(nullable=false)
+     */
+    private $ville;
+
+    /**
+     * @return mixed
+     */
+    public function getVille ()
+    {
+        return $this->ville;
+    }
+
+    /**
+     * @param mixed $ville
+     */
+    public function setVille (Ville $ville): void
+    {
+        $this->ville = $ville;
+    }
+
 
     /**
      * @return mixed

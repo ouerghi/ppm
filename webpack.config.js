@@ -14,6 +14,12 @@ Encore
 
     // uncomment to define the assets of the project
      .addEntry('app', './assets/js/app.js')
+     .addEntry('main', './assets/js/main.js')
+
+
+
+
+
      .enableBuildNotifications()
     // .addStyleEntry('css/app', './assets/css/app.scss')
 
@@ -31,6 +37,8 @@ Encore
     .autoProvideVariables({
         'window.Tether': 'tether'
     })
+
+
 ;
 
 module.exports = Encore.getWebpackConfig();

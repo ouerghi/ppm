@@ -3,18 +3,19 @@
 {% block title %}Hello!{% endblock %}
 
 {% block body %}
-   {%  if user is defined  %}
-    {{ dump(user) }}
+    {%  if user is defined  %}
+        {{ dump(user) }}
     {% endif %}
-<div class="container">
+    <div class="container">
 
         <h4 class="display-3 text-center">form registration</h4>
         {{ form_start(form, { 'attr' : { 'class' : 'form-signin' } }) }}
+        {{ form_row(form.ville) }}
         {{ form_row(form.username) }}
         {{ form_row(form.password) }}
         {{ form_row(form.roles) }}
         <button type="submit" class="btn btn-primary">Register</button>
         {{ form_end(form) }}
 
-</div>
+    </div>
 {% endblock %}

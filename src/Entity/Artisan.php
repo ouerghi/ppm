@@ -23,6 +23,58 @@ class Artisan
      private $user;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Activity")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $activity;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Trades")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $trades;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Ville")
+     * * @ORM\JoinColumn(nullable=false)
+     */
+    private $ville;
+
+    /**
+     * @return mixed
+     */
+    public function getVille ()
+    {
+        return $this->ville;
+    }
+
+    /**
+     * @param mixed $ville
+     */
+    public function setVille (Ville $ville): void
+    {
+        $this->ville = $ville;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getActivity ()
+    {
+        return $this->activity;
+    }
+
+    /**
+     * @param mixed $activity
+     */
+    public function setActivity ( Activity $activity): void
+    {
+        $this->activity = $activity;
+    }
+
+
+
+    /**
      * @ORM\Column(type="string", length=200)
      */
     private $firstName;
@@ -47,6 +99,8 @@ class Artisan
         $this->date = new \DateTime();
     }
 
+
+
     /**
      * @return mixed
      */
@@ -70,7 +124,8 @@ class Artisan
      */
     public function getId ()
     {
-         return sprintf("%'.07d",$this->id);
+         //return sprintf("%'.07d",$this->id);
+        return $this->id;
     }
 
     /**
@@ -137,6 +192,22 @@ class Artisan
     public function setCin ($cin): void
     {
         $this->cin = $cin;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTrades ()
+    {
+        return $this->trades;
+    }
+
+    /**
+     * @param mixed $trades
+     */
+    public function setTrades ( Trades $trades): void
+    {
+        $this->trades = $trades;
     }
 
 

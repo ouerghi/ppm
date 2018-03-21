@@ -4,3 +4,8 @@
 
 logout:
     path: /logout
+
+#ville:
+#    path: /lol/to
+#    controller: App\Controller\ArtisanController::lol
+
