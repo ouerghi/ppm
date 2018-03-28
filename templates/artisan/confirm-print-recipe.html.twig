@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a type="button" href="{{ path('addArtisan') }}" class="btn btn-secondary btn-outline-danger">Cancel</a>
+            <a type="button" target="_blank" href="{{ path('printRecipe', {'id' :  artisan.id}) }}" class="btn btn-secondary btn-outline-primary">Confirm print</a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+

@@ -1,0 +1,168 @@
+/* loadin style of the page add-artisan loader of activity*/
+
+.loading {
+    margin: auto;
+    margin-top: 10px;
+    width: 30px;
+    height: 30px;
+    display: block;
+    background:url("../static/load.gif");
+}
+.cssload-container{
+    display: block;
+    margin:15px auto;
+    width:30px;
+}
+
+.cssload-loading{
+    width: 6px;
+    height: 6px;
+    margin: auto;
+    text-align: left;
+    transform-origin:center;
+    -o-transform-origin:center;
+    -ms-transform-origin:center;
+    -webkit-transform-origin:center;
+    -moz-transform-origin:center;
+    animation:cssload-loading-ani1 1.15s ease-in-out infinite;
+    -o-animation:cssload-loading-ani1 1.15s ease-in-out infinite;
+    -ms-animation:cssload-loading-ani1 1.15s ease-in-out infinite;
+    -webkit-animation:cssload-loading-ani1 1.15s ease-in-out infinite;
+    -moz-animation:cssload-loading-ani1 1.15s ease-in-out infinite;
+}
+.cssload-loading i,
+.cssload-loading i:before,
+.cssload-loading i:after{
+    content: "";
+    position:absolute;
+    width: 6px;
+    height: 6px;
+    display: inline-block;
+    border-radius: 50%;
+}
+.cssload-loading i:before{
+    transform:translate(0,-6px) scale(0.75);
+    -o-transform:translate(0,-6px) scale(0.75);
+    -ms-transform:translate(0,-6px) scale(0.75);
+    -webkit-transform:translate(0,-6px) scale(0.75);
+    -moz-transform:translate(0,-6px) scale(0.75);
+
+}
+.cssload-loading i:after{
+    transform:translate(0,-10px) scale(0.5);
+    -o-transform:translate(0,-10px) scale(0.5);
+    -ms-transform:translate(0,-10px) scale(0.5);
+    -webkit-transform:translate(0,-10px) scale(0.5);
+    -moz-transform:translate(0,-10px) scale(0.5);
+}
+.cssload-loading i:nth-child(1){
+    transform:translate(0,15px);
+    -o-transform:translate(0,15px);
+    -ms-transform:translate(0,15px);
+    -webkit-transform:translate(0,15px);
+    -moz-transform:translate(0,15px);
+}
+.cssload-loading i:nth-child(1),
+.cssload-loading i:nth-child(1):before,
+.cssload-loading i:nth-child(1):after{
+    background: rgb(255,179,100);
+}
+.cssload-loading i:nth-child(2),
+.cssload-loading i:nth-child(2):before,
+.cssload-loading i:nth-child(2):after{
+    background: rgb(0,168,146);
+}
+.cssload-loading i:nth-child(2){
+    transform:rotate(90deg) translate(0,15px);
+    -o-transform:rotate(90deg) translate(0,15px);
+    -ms-transform:rotate(90deg) translate(0,15px);
+    -webkit-transform:rotate(90deg) translate(0,15px);
+    -moz-transform:rotate(90deg) translate(0,15px);
+}
+.cssload-loading i:nth-child(3),
+.cssload-loading i:nth-child(3):before,
+.cssload-loading i:nth-child(3):after{
+    background: rgb(31,76,89);
+}
+.cssload-loading i:nth-child(3){
+    transform:rotate(180deg) translate(0,15px);
+    -o-transform:rotate(180deg) translate(0,15px);
+    -ms-transform:rotate(180deg) translate(0,15px);
+    -webkit-transform:rotate(180deg) translate(0,15px);
+    -moz-transform:rotate(180deg) translate(0,15px);
+}
+.cssload-loading i:nth-child(4),
+.cssload-loading i:nth-child(4):before,
+.cssload-loading i:nth-child(4):after{
+    background: rgb(255,89,84);
+}
+.cssload-loading i:nth-child(4){
+    transform:rotate(270deg) translate(0,15px);
+    -o-transform:rotate(270deg) translate(0,15px);
+    -ms-transform:rotate(270deg) translate(0,15px);
+    -webkit-transform:rotate(270deg) translate(0,15px);
+    -moz-transform:rotate(270deg) translate(0,15px);
+}
+
+
+@keyframes cssload-loading-ani1{
+    80%,100%{
+        transform:rotate(360deg);
+    }
+}
+
+@-o-keyframes cssload-loading-ani1{
+    80%,100%{
+        -o-transform:rotate(360deg);
+    }
+}
+
+@-ms-keyframes cssload-loading-ani1{
+    80%,100%{
+        -ms-transform:rotate(360deg);
+    }
+}
+
+@-webkit-keyframes cssload-loading-ani1{
+    80%,100%{
+        -webkit-transform:rotate(360deg);
+    }
+}
+
+@-moz-keyframes cssload-loading-ani1{
+    80%,100%{
+        -moz-transform:rotate(360deg);
+    }
+}
+/* end of loader style*/
+
+/* swal style */
+
+.swal-overlay {
+    background-color: rgba(43, 165, 137, 0.45);
+}
+
+/* style starter template*/
+body {
+    height: 100%;
+}
+
+body {
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    -ms-flex-align: center;
+    -ms-flex-pack: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding-bottom: 40px;
+    background-color: #f5f5f5;
+    padding-top: 5rem;
+}
+
+.starter-template {
+    padding: 3rem 1.5rem;
+    text-align: center;
+}

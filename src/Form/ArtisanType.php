@@ -34,16 +34,20 @@ class ArtisanType extends AbstractType
                 'class'         => 'App\Entity\Ville',
                 'placeholder' => 'Choice your ville',
                 'choice_label'  => 'location',
-                'query_builder' => function(VilleRepository $ville) use($gov) {
+                'query_builder' => /**
+                 * @param VilleRepository $ville
+                 * @return \Doctrine\ORM\QueryBuilder
+                 */
+                    function(VilleRepository $ville) use($gov) {
                     return $ville->getGovernment($gov);
                 },
-                'attr'  => array('class' => 'ville')
+                'attr'  => array('class' => 'select2 ville ')
             ))
             ->add('activity', EntityType::class, array(
                 'class'         => 'App\Entity\Activity',
                 'placeholder' => 'Choice your activity',
                 'choice_label'  => 'name',
-                'attr'  => array('class' => 'activity')
+                'attr'  => array('class' => 'select2 activity')
             ))
 
         ;
@@ -54,7 +58,7 @@ class ArtisanType extends AbstractType
                 'class' => 'App\Entity\Trades',
                 'placeholder' => 'Choose your trade',
                 'choice_label'  => 'name',
-                'attr'  => array('class' => 'trade'),
+                'attr'  => array('class' => 'select2 trade'),
                 'choices' => $trades,
             ));
         };

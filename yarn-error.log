@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js watch
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js dev
 
 PATH: 
   C:\Python27\;C:\Python27\Scripts;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Bitnami\wampstack-7\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files (x86)\Microsoft SQL Server\110\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\120\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\130\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\130\DTS\Binn\;C:\Program Files (x86)\Graphviz2.20\Bin;C:\metasploit-framework\bin\;C:\Program Files\nodejs\;C:\Program Files (x86)\Yarn\bin\;C:\Bitnami\wampstack-7.1\php\;C:\Users\icm\AppData\Local\Microsoft\WindowsApps;C:\Users\icm\AppData\Local\learn_ide\bin;C:\Users\icm\PhpstormProjects\composer.phar;C:\Users\icm\AppData\Roaming\Composer\vendor\bin;C:\ProgramData\ComposerSetup\bin\;C:\Program Files\Microsoft VS Code\bin;C:\Users\icm\AppData\Local\Microsoft\WindowsApps;C:\Program Files (x86)\Nmap;C:\Users\icm\Desktop\latex\miktex\bin\x64\;C:\Users\icm\AppData\Roaming\npm;C:\Users\icm\AppData\Local\Yarn\bin;C:\Program Files (x86)\Yarn\bin;
@@ -17,7 +17,6 @@ npm manifest:
   {
       "devDependencies": {
           "@symfony/webpack-encore": "^0.19.0",
-          "bootstrap": "^4.0.0-beta",
           "copy-webpack-plugin": "^4.5.1",
           "postcss-loader": "^2.1.1",
           "webpack-notifier": "^1.6.0"
@@ -31,15 +30,19 @@ npm manifest:
           "build": "encore production"
       },
       "dependencies": {
-          "bootstrap-loader": "^2.2.0",
+          "@fortawesome/fontawesome-free-webfonts": "^1.0.4",
+          "awesome-bootstrap-checkbox": "^1.0.1",
+          "bootstrap": "^3.3.7",
           "font-awesome": "^4.7.0",
+          "fontawesome": "^4.7.2",
+          "jasny-bootstrap": "^3.1.3",
           "jquery": "^3.3.1",
-          "npm": "^5.7.1",
-          "popper.js": "^1.14.0",
+          "popper": "^1.0.1",
+          "popper.js": "^1.14.1",
           "sweetalert": "^2.1.0",
+          "switchery": "0.0.2",
           "tether": "^1.4.3"
       }
-  
   }
 
 yarn manifest: 
@@ -6733,9 +6736,9 @@ Lockfile:
 
 Trace: 
   Error: Command failed.
-  Exit code: 1
+  Exit code: 2
   Command: C:\WINDOWS\system32\cmd.exe
-  Arguments: /d /s /c encore dev --watch
+  Arguments: /d /s /c encore dev
   Directory: C:\Users\icm\PhpstormProjects\ppm
   Output:
   

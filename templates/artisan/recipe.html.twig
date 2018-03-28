@@ -1,0 +1,52 @@
+<style type="text/css">
+    <!--
+    table.page_header {width: 100%; border: none; background-color: #DDDDFF; border-bottom: solid 1mm #AAAADD; padding: 2mm }
+    table.page_footer {width: 100%; border: none; background-color: #DDDDFF; border-top: solid 1mm #AAAADD; padding: 2mm}
+    h1 {color: #000033}
+    h2 {color: #000055}
+    h3 {color: #000077}
+
+    div.standard
+    {
+        padding-left: 5mm;
+    }
+    -->
+</style>
+<page backtop="25mm" backbottom="14mm" backleft="10mm" backright="10mm" style="font-size: 12pt">
+    <page_header>
+        <table class="page_header">
+            <tr>
+                <td style="width: 40%; text-align: left;float: left"><a href="" ><img width="100" height="50" src="https://www.tunisienumerique.com/wp-content/uploads/2017/09/commek.jpg" alt=""></a></td>
+                <td style="width: 40%; text-align: left"><h1>Recipe  of Artisan </h1></td>
+                <td style="width: 10%; text-align: left;float: right">{{ "now"|date("m/d/Y") }}</td>
+            </tr>
+        </table>
+    </page_header>
+    <page_footer>
+        <table class="page_footer">
+            <tr>
+                <td style="width: 100%; text-align: right">
+                    page [[page_cu]]/[[page_nb]]
+                </td>
+            </tr>
+        </table>
+    </page_footer>
+    <bookmark title="Chapter 1" level="0" ></bookmark><h1>informations artisan </h1>
+    <div class="standard">
+        Nom de l'artisan : {{ artisan.lastName }} <br>
+        Prénom de l'artisan : {{ artisan.firstName }}
+    </div>
+    <div class="standard">
+        Nom de l'artisan : {{ artisan.lastName }} <br>
+        Prénom de l'artisan : {{ artisan.firstName }}
+    </div>
+</page>
+
+<page pageset="old">
+    <bookmark title="Chapter 2" level="0" ><h1>Infomrations agent</h1></bookmark>
+    <div class="standard">
+       ville client {{ artisan.ville.location }} <BR>
+        ville agent {{ artisan.user.ville.location }}
+    </div>
+
+</page>

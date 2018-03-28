@@ -19,6 +19,19 @@ class ArtisanRepository extends ServiceEntityRepository
         parent::__construct($registry, Artisan::class);
     }
 
+    public function getGovernmentUser($govUser)
+    {
+        return $this
+            ->createQueryBuilder('a')
+            ->leftJoin('a.ville','v')
+            ->addSelect('v')
+            ->where('v.government = :govUser')
+            ->setParameter('govUser', $govUser)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     /*
     public function findBySomething($value)
     {

@@ -3,9 +3,10 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArtisanRepository")
+ * @UniqueEntity(fields={"cin"}, message="This field must be unique")
  */
 class Artisan
 {
@@ -36,7 +37,7 @@ class Artisan
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Ville")
-     * * @ORM\JoinColumn(nullable=false)
+     *  @ORM\JoinColumn(nullable=false)
      */
     private $ville;
 

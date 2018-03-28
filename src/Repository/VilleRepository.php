@@ -31,12 +31,7 @@ class VilleRepository extends ServiceEntityRepository
     public function getVille ()
     {
         return $this
-            ->createQueryBuilder('v')
-            //->select('g.government')->distinct()
-            //->from('App:Ville','')
-        ;
-
-
+            ->createQueryBuilder('v');
     }
 
     /*

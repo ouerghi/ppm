@@ -4,30 +4,62 @@ namespace App\Controller;
 
 use App\Entity\Artisan;
 use App\Form\ArtisanType;
+use App\Form\EditArtisanType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 
 class ArtisanController extends Controller
 {
     /**
-     * @Route("/artisan", name="artisan")
+     * @Route("/", name="home")
+     * @return Response
      */
-    public function listArtisan()
+    public function home()
     {
+        return new Response('hello artisan');
+    }
+    /**
+     * @Route("/artisan" ,name="artisan")
+     * @param AuthorizationCheckerInterface $authorizationChecker
+     * @return Response
+     */
+    public function listArtisan(AuthorizationCheckerInterface $authorizationChecker)
+    {
+
         $em = $this->getDoctrine()->getManager();
-        $artisans = $em->getRepository('App:Artisan')->findAll();
+        // get the  user who is logged in
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        // get the government of the use who is logged in
+        $govUser = $user->getVille()->getGovernment();
+
+        // check if the current user has role_admin if yes he get all artisan result
+        if (true === $authorizationChecker->isGranted('ROLE_ADMIN'))
+        {
+            $artisans = $em->getRepository('App:Artisan')->findAll();
+
+        }else {
+            // use the method of repository getGovernmentUser
+            // return the list of object artisan locate in the same ville of user ville.user = ville.artisan
+            $artisans = $em->getRepository('App:Artisan')->getGovernmentUser($govUser);
+        }
+
+        // return the response to the view
         return $this->render('artisan/index.html.twig', array(
-            'artisans' => $artisans
+            'artisans' => $artisans,
+            'user' => $user
         ));
     }
 
 
     /**
-     * @Route("/add-artisan/", name="addArtisan")
+     * @Route("/add-artisan", name="addArtisan")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -55,15 +87,10 @@ class ArtisanController extends Controller
             $em->persist($artisan);
             $em->flush();
 
-            // clear form after successful submit
-            unset($artisan);
-            unset($form);
-            $artisan = new Artisan();
-            $form = $this->createForm(ArtisanType::class, $artisan);
             // message flash for the view
-            $this->addFlash('notice', 'the artisan is successfully registered');
-            // redirect to the artisan route
-            $this->redirectToRoute('artisan');
+            $this->addFlash('notice', 'the artisan is successfully registered please print his recipe ');
+            // redirect to the recipe  route with last id artisan for argument
+           return  $this->redirectToRoute('confirmPrintRecipe', array('id' => $artisan->getId()));
 
         }
 
@@ -75,7 +102,7 @@ class ArtisanController extends Controller
 
 
     /**
-     * @Route("/add-artisan/{id}", name="trade")
+     * @Route("/add-artisan/{id}",options={"expose"=true} , name="trade")
      * @param $id
      * @return JsonResponse
      */
@@ -102,22 +129,129 @@ class ArtisanController extends Controller
     }
 
     /**
-     * @Route("/delete-artisan/{id}", name="artisan_delete")
-     * @param $id
-     * @return Response
+     * @Route("/delete", options={"expose"=true}, name="delete")
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function deleteArtisan($id)
+    public function deleteArtisan(Request $request)
     {
-        return new Response('delete page');
+        if ($request->isXmlHttpRequest())
+        {
+            // create the instance Json
+            $json = new JsonResponse();
+            //set the header with content-type json
+            $json->headers->set('Content-type', 'application/json');
+            // initialise the manager
+            $em = $this->getDoctrine()->getManager();
+            // get the id of artisan
+            $id = $request->query->get('id');
+            // load artisan from database
+            $artisan = $em->getRepository('App:Artisan')->find($id);
+            //test if the artisan doesn't exist return an error status to the error function ajax
+            if (null === $artisan) {
+                return $json->setData(array(
+                    'status' =>'error',
+                    'message' =>'ERROR this artisan does not exist  ...'
+                ));
+            }
+
+            //get the CSRF with the delete-item
+            $submittedToken = $request->query->get('token');
+            // test if the CSRF is true if of do the delete operation of artisan
+            if ($this->isCsrfTokenValid('delete-item', $submittedToken))
+            {
+                //delete the artisan from database
+                $em->remove($artisan);
+                $em->flush();
+                return $json->setData(array(
+                    'status' =>'success',
+                    'message' =>'Artisan Deleted Successfully ...'
+                ));
+
+            }
+        }
     }
 
     /**
-     * @Route("/view-artisan/{id}", name="artisan_view")
+     * @Route("/view-artisan/{id}",requirements={"id" = "\d+"},  name="artisan_view")
+     * @param Request $request
      * @param $id
      * @return Response
      */
-    public function ViewArtisan($id)
+    public function ViewArtisan(Request $request, $id)
     {
-        return new Response('view artisan page');
+     //  load the artisan from database
+        $em = $this->getDoctrine()->getManager();
+        $artisan = $em->getRepository('App:Artisan')->find($id);
+        // test if the artisan exist else throw an exception
+        if (null === $artisan)
+        {
+            throw new NotFoundHttpException("  The artisan with the id n° ".$id." doesn't exist");
+        }
+        // create the form from the editformtype
+        $form = $this->get('form.factory')->create(EditArtisanType::class, $artisan);
+        // handle the request
+        $form->handleRequest($request);
+        //test if the form is valid and submitted
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            // update the artisan
+            $em->persist($artisan);
+            $em->flush();
+            // edit the flashBag message
+            $this->addFlash(
+                'notice',
+                'Your changes were saved'
+            );
+            return $this->redirectToRoute('artisan');
+
+        }
+        return $this->render('artisan/view.html.twig', array(
+            'artisan' => $artisan,
+            'form' => $form->createView()
+        ));
     }
+
+
+    /**
+     * @Route("/print-recipe/{id}", name="printRecipe", requirements={"id"="\d+"})
+     * @ParamConverter("Artisan", options={"mapping":{"id": "id"}})
+     * @param Artisan $artisan
+     * @return Response
+     */
+    public function printRecipe(Artisan $artisan)
+    {
+
+        $template = $this->renderView('artisan/recipe.html.twig', array(
+            'artisan' => $artisan
+        ));
+
+        $html2pdf = $this->get('recipe.html2pdf');
+        $html2pdf->create('P', 'A4', 'fr', true, 'UTF-8', array(10,15,10,15));
+        return $html2pdf->generatePdf($template, "recipe");
+
+    }
+
+    /**
+     * @Route("/confirm-print-recipe/{id}", name="confirmPrintRecipe")
+     * @ParamConverter("artisan", options={"mapping" : {"id" : "id"}})
+     * @param Artisan $artisan
+     * @return Response
+     */
+    public function confirmPrintRecipe(Artisan $artisan)
+    {
+        return $this->render('artisan/confirm-print-recipe.html.twig', array(
+            'artisan' => $artisan
+        ));
+    }
+
+    /**
+     * @Route("/test", name="test")
+     */
+    public function test()
+    {
+        return $this->render('artisan/test.html.twig');
+    }
+
+
 }

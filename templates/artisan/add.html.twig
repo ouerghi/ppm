@@ -1,23 +1,96 @@
+
+
 {% extends 'base.html.twig' %}
 
-{% block body %}
-<div class="well">
-    {% for flashMessage in app.session.flashbag.get('notice') %}
-    <div class="alert  alert-success">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        {{ flashMessage }}
+{% block content %}
+
+    <div class="wrapper  theme-1-active pimary-color-green">
+        <!--Preloader-->
+        {#<div class="preloader-it">#}
+        {#<div class="la-anim-1"></div>#}
+        {#</div>#}
+        <!--/Preloader-->
+        {% block body %}
+
+            <!-- Right Sidebar Backdrop -->
+            <div class="right-sidebar-backdrop"></div>
+            <!-- /Right Sidebar Backdrop -->
+
+            <!-- Top Menu Items -->
+            {# include the navbar from direcctory inc#}
+            {% include 'inc/navbar/nav.html.twig' %}
+            <!-- /Top Menu Items -->
+
+            {# sidebar left #}
+            {% include 'inc/sideBarLeft/sideBar.html.twig' %}
+
+            <!-- Right Sidebar Menu -->
+            {% include 'inc/navbar/sidbar.right.setting.html.twig' %}
+            <!-- /Right Sidebar Menu -->
+
+        {% endblock %}
+
+        <!-- Main Content -->
+        {% block main %}
+
+            <div class="page-wrapper">
+                <div class="container-fluid">
+                    <!-- mel7it -->
+                    <p style="color: #fafafa;line-height: 0 !important;margin-top: -40px " >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim eveniet itaque molestiae temporibus. Ab alias amet ex fugiat harum itaque modi mollitia nemo officiis omnis quam, tenetur veniam voluptate voluptatibus.</p>
+                    <!-- /mel7it -->
+                    <!-- Title -->
+                    {% for flashMessage in app.session.flashbag.get('notice') %}
+                        <div class="alert  alert-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            {{ flashMessage }}
+                        </div>
+                    {% endfor %}
+                    <div class="row heading-bg">
+                        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                            <h5 class="txt-dark">Add a new Artisan</h5>
+                        </div>
+                        <!-- Breadcrumb -->
+                        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                            <ol class="breadcrumb">
+                                <li><a href="{{ path('home') }}">Dashboard</a></li>
+                                <li class="active"><span>add artisan</span></li>
+                            </ol>
+                        </div>
+                        <!-- /Breadcrumb -->
+                    </div>
+                    <!-- /Title -->
+                    <!-- Row -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="panel panel-default card-view">
+                                <div class="panel-heading">
+                                    <div class="pull-left">
+                                        <h6 class="panel-title txt-dark">Form</h6>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="panel-wrapper collapse in">
+                                    <div class="panel-body">
+                                        <div class="form-wrap">
+                                            {{ form_start(form) }}
+
+                                            {{ form_widget(form) }}
+                                            {{ form_row(form.ville) }}
+                                            <button type="submit" class="btn btn-primary"> send</button>
+                                            {{ form_end(form) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Row -->
+
+                </div>
+            </div>
+        {% endblock %}
     </div>
-        {% endfor %}
-
-    <h4>add a new artisan</h4>
-    {{ form_start(form) }}
-
-    {{ form_widget(form) }}
-    <button type="submit" class="btn btn-primary"> send</button>
-    {{ form_end(form) }}
-</div>
-
-
-
 {% endblock %}
+
+
 

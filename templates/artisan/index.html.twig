@@ -4,8 +4,8 @@
 <div class="container">
 
     {% for message in app.flashes('notice') %}
-        <div class="flash-notice">
-            <div class="alert alert-success" role="alert">
+        <div class="flash-notice ">
+            <div class="alert alert-success"  role="alert">
                 {{ message }}
             </div>
         </div>
@@ -35,12 +35,12 @@
                     <td>{{ artisan.lastName }}</td>
                     <td>{{ artisan.cin }}</td>
                     <td>
-                        <form id="del" action="{{ path('artisan_delete', {'id': artisan.id}) }}" method="post">
+
                             <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                                 <a href="{{ path('artisan_view', {'id': artisan.id}) }}" type="button" class="btn btn-secondary btn-success">view</a>
-                                <button id="deleteArtisan" type="submit"  class="btn btn-secondary btn-warning" value="text 1">delete</button>
+                                {#generate a csrf with name 'delete-item' with function deleteArtisan in the main.js file #}
+                                <a id="deleteArtisan" onclick="deleteArtisan({{ artisan.id }},'{{ csrf_token('delete-item') }}')"   type="submit"  class=" btn btn-secondary btn-danger" >delete</a>
                             </div>
-                        </form>
 
                     </td>
                 </tr>

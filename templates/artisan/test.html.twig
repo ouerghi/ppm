@@ -1,6 +1,44 @@
 {% extends 'base.html.twig' %}
+{% block content %}
 
+<div class="wrapper  theme-1-active pimary-color-green">
+    <!--Preloader-->
+    {#<div class="preloader-it">#}
+    {#<div class="la-anim-1"></div>#}
+    {#</div>#}
+    <!--/Preloader-->
 {% block body %}
-{{ form(form) }}
+
+    <!-- Right Sidebar Backdrop -->
+    <div class="right-sidebar-backdrop"></div>
+    <!-- /Right Sidebar Backdrop -->
+
+        <!-- Top Menu Items -->
+        {# include the navbar from direcctory inc#}
+        {% include 'inc/navbar/nav.html.twig' %}
+        <!-- /Top Menu Items -->
+
+        {# sidebar left #}
+       {% include 'inc/sideBarLeft/sideBar.html.twig' %}
+
+        <!-- Right Sidebar Menu -->
+       {% include 'inc/navbar/sidbar.right.setting.html.twig' %}
+        <!-- /Right Sidebar Menu -->
+
 {% endblock %}
+
+        <!-- Main Content -->
+      {% block main %}
+          <div class="page-wrapper">
+              <div class="container-fluid">
+
+               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci alias assumenda cum dignissimos dolor eligendi explicabo, facilis illo, ipsam itaque optio, quam quasi ratione saepe sapiente tenetur ullam velit voluptatum.</p>
+
+              </div>
+          </div>
+      {% endblock %}
+</div>
+{% endblock %}
+
+
 

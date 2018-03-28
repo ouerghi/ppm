@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        {% for message in app.flashes('notice') %}
+            <div class="flash-notice ">
+                <div class="alert alert-success"  role="alert">
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+        <div class="well">
+            {{ form_start(form) }}
+            {{ form_row(form.ville) }}
+            {{ form_row(form.firstName) }}
+            {{ form_row(form.lastName) }}
+            {{ form_row(form.cin) }}
+            {{ form_row(form.activity) }}
+            {{ form_row(form.trades) }}
+            <input type="submit" name="update" class="btn btn-success" value="Update">
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
+

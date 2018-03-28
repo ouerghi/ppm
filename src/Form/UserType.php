@@ -34,12 +34,18 @@ class UserType extends AbstractType
             ->add('username', TextType::class)
             ->add('ville', EntityType::class, array(
                 'class'         => 'App\Entity\Ville',
-                'placeholder' => 'Choose your ville',
-                'query_builder' => function(VilleRepository $ville) {
-                    return $ville->getVille();
-                },
+                'placeholder' => 'Choose the ville',
                 'choice_label'  => 'location',
-                'attr'  => array('class' => 'ville')
+                'query_builder' => function(VilleRepository $ville) {
+                    return $ville->getVille()
+//                        ->select('v.government')
+//                        ->distinct()
+//                        ->where('v.order is not null')
+                        ;
+                },
+                'attr'  => array(
+                    'class' => 'ville',
+                )
             ))
             ->add('password', PasswordType::class)
             ->add('roles', ChoiceType::class, array(
@@ -48,7 +54,6 @@ class UserType extends AbstractType
                 'expanded' => true,
                 'required' => true,
                 'label' => 'Role users',
-
 
             ) )
         ;

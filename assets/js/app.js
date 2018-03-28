@@ -1,4 +1,11 @@
 'use strict';
+// css file to import
+import 'bootstrap/dist/css/bootstrap.css';
+import 'font-awesome/css/font-awesome.css';
+
+import '../css/login.css';
+import  '../css/style.css'
+import '../css/stylex.css';
 
 // js file to import
 import  $ from 'jquery';
@@ -8,14 +15,18 @@ import 'tether';
 import Popper from 'popper.js';
 global.Popper = Popper;
 require('bootstrap');
-//const Routing = require('./Routing');
+import '../js/jquery.slimscroll'
+import '../js/dropdown-bootstrap-extended'
+import 'switchery'
 import 'sweetalert';
+import '../js/jasny-bootstrap'
+import '../js/validator.min'
+import '../js/select2.full.min'
+import  '../js/bootstrap-select.min'
+import '../js/init'
 
-// css file to import
-import 'bootstrap/dist/css/bootstrap.css';
-import 'font-awesome/css/font-awesome.css';
-import '../css/login.css';
-import  '../css/style.css';
+
+
 
 
 let $activity = $('#artisan_activity');
@@ -39,8 +50,9 @@ $activity.change(function () {
     data[$activity.attr('name')] = $activity.val();
     // Submit data via AJAX to the form's action path.
     let id =$activity.val();
-    let url  = 'http://localhost:8000/add-artisan/' + id;
-
+    // let url  = 'http://localhost:8000/add-artisan/' + id;
+    let url =  Routing.generate('trade', { id : id });
+    console.log(url);
     $.ajax({
         url :url ,
         type: $form.attr('method'),
@@ -68,4 +80,5 @@ $activity.change(function () {
     });
     $artisan_trades.hide();
 });
+
 
