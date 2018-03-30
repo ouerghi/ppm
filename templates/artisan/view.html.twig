@@ -1,27 +1,141 @@
-{% extends 'base.html.twig' %}
 
-{% block body %}
-<div class="container">
-    <div class="row">
-        {% for message in app.flashes('notice') %}
-            <div class="flash-notice ">
-                <div class="alert alert-success"  role="alert">
-                    {{ message }}
-                </div>
-            </div>
-        {% endfor %}
-        <div class="well">
-            {{ form_start(form) }}
-            {{ form_row(form.ville) }}
-            {{ form_row(form.firstName) }}
-            {{ form_row(form.lastName) }}
-            {{ form_row(form.cin) }}
-            {{ form_row(form.activity) }}
-            {{ form_row(form.trades) }}
-            <input type="submit" name="update" class="btn btn-success" value="Update">
-            {{ form_end(form) }}
-        </div>
+{# page to view an artisan detail ppm/template/artisan/view.html.twig#}
+
+   {% extends 'base.html.twig' %}
+{% block content %}
+
+    <div class="wrapper  theme-1-active pimary-color-green">
+        <!--Preloader-->
+        {#<div class="preloader-it">#}
+        {#<div class="la-anim-1"></div>#}
+        {#</div>#}
+        <!--/Preloader-->
+        {% block body %}
+
+            <!-- Right Sidebar Backdrop -->
+            <div class="right-sidebar-backdrop"></div>
+            <!-- /Right Sidebar Backdrop -->
+
+            <!-- Top Menu Items -->
+            {# include the navbar from direcctory inc#}
+            {% include 'inc/navbar/nav.html.twig' %}
+            <!-- /Top Menu Items -->
+
+            {# sidebar left #}
+            {% include 'inc/sideBarLeft/sideBar.html.twig' %}
+
+            <!-- Right Sidebar Menu -->
+            {% include 'inc/navbar/sidbar.right.setting.html.twig' %}
+            <!-- /Right Sidebar Menu -->
+
+        {% endblock %}
+
+        <!-- Main Content -->
+        {% block main %}
+            <div class="page-wrapper">
+                <div class="container-fluid">
+                    <!-- mel7it -->
+                    <p style="color: #fafafa;line-height: 0 !important;margin-top: -40px " >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim eveniet itaque molestiae temporibus. Ab alias amet ex fugiat harum itaque modi mollitia nemo officiis omnis quam, tenetur veniam voluptate voluptatibus.</p>
+                    <!-- /mel7it -->
+                    <!-- Row -->
+                    <!-- Title -->
+                    <div class="row heading-bg">
+                        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                            <h5 class="txt-dark">Update an  Artisan</h5>
+                        </div>
+                        <!-- Breadcrumb -->
+                        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                            <ol class="breadcrumb">
+                                <li><a href="{{ path('home') }}">Dashboard</a></li>
+                                <li><a href="{{ path('artisans') }}">List artisans</a></li>
+                                <li class="active"><span>update an  artisan</span></li>
+                            </ol>
+                        </div>
+                        <!-- /Breadcrumb -->
+                    </div>
+                    <!-- /Title -->
+
+                    <div class="row">
+                        <div class=" col-md-offset-1 col-md-10">
+                            <div class="panel panel-default card-view">
+                                <div class="panel-heading">
+                                    <div class="pull-left">
+                                        <h6 class="panel-title txt-dark">Form with icon</h6>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="panel-wrapper collapse in">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-xs-12">
+                                                <div class="form-wrap">
+                                                    {{ form_start(form) }}
+                                                        <div class="form-group">
+                                                            {{ form_label(form.ville) }}
+                                                            {{ form_errors(form.ville) }}
+                                                            <div class="input-group">
+                                                                <div class="input-group-addon"><i class="icon-home"></i></div>
+                                                                {{ form_widget(form.ville) }}
+                                                            </div>
+                                                        </div>
+                                                    <div class="form-group">
+                                                        {{ form_label(form.firstName) }}
+                                                        {{ form_errors(form.firstName) }}
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon"><i class="icon-user"></i></div>
+                                                            {{ form_widget(form.firstName) }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {{ form_label(form.lastName) }}
+                                                        {{ form_errors(form.lastName) }}
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon"><i class="icon-user"></i></div>
+                                                            {{ form_widget(form.lastName) }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {{ form_label(form.cin) }}
+                                                        {{ form_errors(form.cin) }}
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon"><i class="icon-basic-home"></i></div>
+                                                            {{ form_widget(form.cin) }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {{ form_label(form.activity) }}
+                                                        {{ form_errors(form.activity) }}
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon"><i class="icon-wrench"></i></div>
+                                                            {{ form_widget(form.activity) }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {{ form_label(form.trades) }}
+                                                        {{ form_errors(form.trades) }}
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon"><i class="icon-anchor"></i></div>
+                                                            {{ form_widget(form.trades) }}
+                                                        </div>
+                                                    </div>
+                                                        <button type="submit" name="update" class="btn btn-success mr-10">Submit</button>
+                                                        <button type="submit" class="btn btn-default">Cancel</button>
+                                                    {{ form_end(form) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /Row -->
+
+                </div> <!--end of container fluid -->
+            </div> <!-- end of page-wrapper -->
+        {% endblock %}
     </div>
-</div>
 {% endblock %}
-

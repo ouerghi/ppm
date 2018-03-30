@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Artisan;
 use App\Form\ArtisanType;
 use App\Form\EditArtisanType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,6 +14,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 
 class ArtisanController extends Controller
@@ -173,7 +178,7 @@ class ArtisanController extends Controller
     }
 
     /**
-     * @Route("/view-artisan/{id}",requirements={"id" = "\d+"},  name="artisan_view")
+     * @Route("/view-artisan/{id}", options={"expose"=true}, requirements={"id" = "\d+"},  name="artisan_view")
      * @param Request $request
      * @param $id
      * @return Response
@@ -203,7 +208,7 @@ class ArtisanController extends Controller
                 'notice',
                 'Your changes were saved'
             );
-            return $this->redirectToRoute('artisan');
+            return $this->redirectToRoute('artisans');
 
         }
         return $this->render('artisan/view.html.twig', array(
@@ -246,11 +251,75 @@ class ArtisanController extends Controller
     }
 
     /**
-     * @Route("/test", name="test")
+     * @Route("/artisans", name="artisans")
+     * @param AuthorizationCheckerInterface $authorizationChecker
+     * @Method({"GET"})
+     * @return Response
+     */
+    public function ListArtisanJson(AuthorizationCheckerInterface $authorizationChecker)
+    {
+        $em = $this->getDoctrine()->getManager();
+        // get the  user who is logged in
+//        $user = $this->get('security.token_storage')->getToken()->getUser();
+//        // get the government of the use who is logged in
+//        $govUser = $user->getVille()->getGovernment();
+//
+//        // check if the current user has role_admin if yes he get all artisan result
+//        if (true === $authorizationChecker->isGranted('ROLE_ADMIN'))
+//        {
+//            $artisans = $em->getRepository('App:Artisan')->findAll();
+//
+//        }else {
+//            // use the method of repository getGovernmentUser
+//            // return the list of object artisan locate in the same ville of user ville.user = ville.artisan
+//            $artisans = $em->getRepository('App:Artisan')->getGovernmentUser($govUser);
+//        }
+
+//        // return the response to the view
+//        return $this->render('artisan/list-artisans.html.twig', array(
+//            'artisans' => $artisans,
+//            'user' => $user
+//        ));
+        $artisans = $em->getRepository('App:Artisan')->findAll();
+        $serializer = $this->container->get('jms_serializer');
+        $data = $serializer->serialize($artisans, 'json' );
+        $response = new Response($data);
+        $response->headers->set('Content-Type', 'application/json');
+//        return $response;
+
+        return $this->render('artisan/list-artisans.html.twig', array(
+            'artisans' => $response,
+//            'user' => $user
+        ));
+    }
+
+    /**
+     * @Route("/test", options={"expose"=true} , name="test")
      */
     public function test()
     {
-        return $this->render('artisan/test.html.twig');
+
+        $em = $this->getDoctrine()->getManager();
+        $artisans = $em->getRepository('App:Artisan')->findAll();
+        $serializer = $this->container->get('jms_serializer');
+        $data = $serializer->serialize($artisans, 'json' );
+        $response = new Response($data);
+        $response->headers->set('Content-Type', 'application/json');
+         return $response;
+
+//        $encoder = new JsonEncoder();
+//        $normalizer = new ObjectNormalizer();
+//
+//        $normalizer->setCircularReferenceHandler(function ($object) {
+//            return $object->getName();
+//        });
+//
+//        $serializer = new Serializer(array($normalizer), array($encoder));
+//       $data =  $serializer->serialize($artisans, 'json');
+//        $response = new Response($data);
+//         return $response;
+
+
     }
 
 

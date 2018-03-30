@@ -1,54 +1,111 @@
+{# page to list all artisan in the ville of user except admin role  ppm/template/artisan/index
+html.twig#}
+
 {% extends 'base.html.twig' %}
+{% block content %}
 
-{% block body %}
-<div class="container">
+    <div class="wrapper  theme-1-active pimary-color-green">
+        <!--Preloader-->
+        {#<div class="preloader-it">#}
+        {#<div class="la-anim-1"></div>#}
+        {#</div>#}
+        <!--/Preloader-->
+        {% block body %}
 
-    {% for message in app.flashes('notice') %}
-        <div class="flash-notice ">
-            <div class="alert alert-success"  role="alert">
-                {{ message }}
-            </div>
-        </div>
-    {% endfor %}
-    <div class="">
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <p> agent : {{ app.user.username }}</p>
-        {% endif %}
+            <!-- Right Sidebar Backdrop -->
+            <div class="right-sidebar-backdrop"></div>
+            <!-- /Right Sidebar Backdrop -->
 
-        <div class="table-responsive-md">
-            <table class="table table-hover">
-                <caption>list of all artisan</caption>
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
-                    <th scope="col">Cin</th>
-                    <th>action</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for artisan in artisans %}
-                <tr>
-                    <th>{{ "%'.07d"|format(artisan.id) ~ '-' ~ artisan.ville.government }}</th>
-                    <td>{{ artisan.firstName }}</td>
-                    <td>{{ artisan.lastName }}</td>
-                    <td>{{ artisan.cin }}</td>
-                    <td>
+            <!-- Top Menu Items -->
+            {# include the navbar from direcctory inc#}
+            {% include 'inc/navbar/nav.html.twig' %}
+            <!-- /Top Menu Items -->
 
-                            <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                                <a href="{{ path('artisan_view', {'id': artisan.id}) }}" type="button" class="btn btn-secondary btn-success">view</a>
-                                {#generate a csrf with name 'delete-item' with function deleteArtisan in the main.js file #}
-                                <a id="deleteArtisan" onclick="deleteArtisan({{ artisan.id }},'{{ csrf_token('delete-item') }}')"   type="submit"  class=" btn btn-secondary btn-danger" >delete</a>
+            {# sidebar left #}
+            {% include 'inc/sideBarLeft/sideBar.html.twig' %}
+
+            <!-- Right Sidebar Menu -->
+            {% include 'inc/navbar/sidbar.right.setting.html.twig' %}
+            <!-- /Right Sidebar Menu -->
+
+        {% endblock %}
+
+        <!-- Main Content -->
+        {% block main %}
+            <div class="page-wrapper">
+                <div class="container-fluid">
+
+                    <!-- mel7it -->
+                    <p style="color: #fafafa;line-height: 0 !important;margin-top: -40px " >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim eveniet itaque molestiae temporibus. Ab alias amet ex fugiat harum itaque modi mollitia nemo officiis omnis quam, tenetur veniam voluptate voluptatibus.</p>
+                    <!-- /mel7it -->
+                    <div class="row heading-bg">
+                        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                            <h5 class="txt-dark">Detail Artisan</h5>
+                        </div>
+                        <!-- Breadcrumb -->
+                        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                            <ol class="breadcrumb">
+                                <li><a href="{{ path('home') }}">Dashboard</a></li>
+                                <li class="active"><span>detail artisan</span></li>
+                            </ol>
+                        </div>
+                        <!-- /Breadcrumb -->
+                    </div>
+                    {# message flash #}
+                    {% for message in app.flashes('notice') %}
+                        <div class="flash-notice ">
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <i class="zmdi zmdi-check pr-15 pull-left"></i><p class="pull-left">{{ message }}</p>
+                                <div class="clearfix"></div>
                             </div>
-
-                    </td>
-                </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-
+                        </div>
+                    {% endfor %}
+                    <div class="col-sm-12">
+                        <div class="panel panel-default card-view">
+                            <div class="panel-heading">
+                                <div class="pull-left">
+                                    <h6 class="panel-title txt-dark">List Artisans</h6>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="panel-wrapper collapse in">
+                                <div class="panel-body">
+                                    <div class="table-wrap mt-40">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered mb-0">
+                                                <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>First Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>Cin</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                               {% for artisan in artisans %}
+                                                   <tr>
+                                                       <th>{{ "%'.07d"|format(artisan.id) ~ '-' ~ artisan.ville.government }}</th>
+                                                       <td>{{ artisan.firstName }}</td>
+                                                       <td>{{ artisan.lastName }}</td>
+                                                       <td>{{ artisan.cin }}</td>
+                                                       <td class="text-nowrap">
+                                                           <a href="{{ path('artisan_view', {'id': artisan.id}) }}" class="mr-25" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                                           <a id="deleteArtisan" onclick="deleteArtisan({{ artisan.id }},'{{ csrf_token('delete-item') }}')" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
+                                                       </td>
+                                                   </tr>
+                                                   {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
     </div>
-</div>
 {% endblock %}

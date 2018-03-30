@@ -1,14 +1,89 @@
+{# page to confirm print a new  artisan ppm/template/artisan/confirm-print-recipe.html.twig#}
+
 {% extends 'base.html.twig' %}
 
-{% block body %}
-<div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <div class="btn-group" role="group" aria-label="Basic example">
-            <a type="button" href="{{ path('addArtisan') }}" class="btn btn-secondary btn-outline-danger">Cancel</a>
-            <a type="button" target="_blank" href="{{ path('printRecipe', {'id' :  artisan.id}) }}" class="btn btn-secondary btn-outline-primary">Confirm print</a>
-        </div>
-    </div>
+{% block content %}
 
-</div>
+    <div class="wrapper  theme-1-active pimary-color-green">
+        <!--Preloader-->
+        {#<div class="preloader-it">#}
+        {#<div class="la-anim-1"></div>#}
+        {#</div>#}
+        <!--/Preloader-->
+        {% block body %}
+
+            <!-- Right Sidebar Backdrop -->
+            <div class="right-sidebar-backdrop"></div>
+            <!-- /Right Sidebar Backdrop -->
+
+            <!-- Top Menu Items -->
+            {# include the navbar from direcctory inc#}
+            {% include 'inc/navbar/nav.html.twig' %}
+            <!-- /Top Menu Items -->
+
+            {# sidebar left #}
+            {% include 'inc/sideBarLeft/sideBar.html.twig' %}
+
+            <!-- Right Sidebar Menu -->
+            {% include 'inc/navbar/sidbar.right.setting.html.twig' %}
+            <!-- /Right Sidebar Menu -->
+
+        {% endblock %}
+
+        <!-- Main Content -->
+        {% block main %}
+            <div class="page-wrapper">
+                <div class="container-fluid">
+
+                    <p style="color: #fafafa;line-height: 0 !important;margin-top: -40px " >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim eveniet itaque molestiae temporibus. Ab alias amet ex fugiat harum itaque modi mollitia nemo officiis omnis quam, tenetur veniam voluptate voluptatibus.</p>
+
+                    <div class="row ">
+                        <div class="col-md-offset-2 col-md-6 ">
+                            <div class="panel panel-default card-view mt-75">
+                                <div class="panel-heading">
+                                    <div class="pull-left">
+                                        <h6 class="panel-title txt-dark">Confirme print</h6>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="panel-wrapper collapse in">
+                                    <div class="panel-body">
+                                        {% for flashMessage in app.session.flashbag.get('notice') %}
+                                            <div class="alert alert-success alert-dismissable">
+                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                                <i class="zmdi zmdi-check pr-15 pull-left"></i><p class="pull-left">   {{ flashMessage }}.</p>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        {% endfor %}
+                                        <p class="text-muted">please confirm the artisan's recipe impression .</p>
+                                        <div class="row ">
+                                            <div class="col-sm-12 col-xs-12 ">
+                                                <div class="button-list ">
+                                                    <a href="{{ path('addArtisan') }}" class="btn btn-danger btn-rounded">Cancel</a>
+                                                    <a target="_blank" href="{{ path('printRecipe', {'id' :  artisan.id}) }}" class="btn btn-success  btn-rounded btn-outline  btn-success">Confirm</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a type="button" href="{{ path('addArtisan') }}" class="btn btn-secondary btn-outline-danger">Cancel</a>
+                                <a type="button" target="_blank" href="{{ path('printRecipe', {'id' :  artisan.id}) }}" class="btn btn-secondary btn-outline-primary">Confirm print</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+    </div>
 {% endblock %}
+
+
+
 

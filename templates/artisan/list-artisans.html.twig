@@ -1,0 +1,153 @@
+{# page to list all artisan with filter input  ppm/template/artisan/list-artisans.html.twig#}
+
+{% extends 'base.html.twig' %}
+{% block content %}
+
+    <div class="wrapper  theme-1-active pimary-color-green">
+        <!--Preloader-->
+        {#<div class="preloader-it">#}
+        {#<div class="la-anim-1"></div>#}
+        {#</div>#}
+        <!--/Preloader-->
+        {% block body %}
+
+            <!-- Right Sidebar Backdrop -->
+            <div class="right-sidebar-backdrop"></div>
+            <!-- /Right Sidebar Backdrop -->
+
+            <!-- Top Menu Items -->
+            {# include the navbar from direcctory inc#}
+            {% include 'inc/navbar/nav.html.twig' %}
+            <!-- /Top Menu Items -->
+
+            {# sidebar left #}
+            {% include 'inc/sideBarLeft/sideBar.html.twig' %}
+
+            <!-- Right Sidebar Menu -->
+            {% include 'inc/navbar/sidbar.right.setting.html.twig' %}
+            <!-- /Right Sidebar Menu -->
+
+        {% endblock %}
+
+        <!-- Main Content -->
+        {% block main %}
+            <div class="page-wrapper">
+                <div class="container-fluid">
+                    <p style="color: #fafafa;line-height: 0 !important;margin-top: -40px " >ooLorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci alias assumenda cum dignissimos dolor eligendi explicabo, facilis illo, ipsam itaque optio, quam quasi ratione saepe sapiente tenetur ullam velit voluptatum.</p>
+                    <div class="row heading-bg">
+                        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                            <h5 class="txt-dark">Detail Artisan</h5>
+                        </div>
+                        <!-- Breadcrumb -->
+                        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                            <ol class="breadcrumb">
+                                <li><a href="{{ path('home') }}">Dashboard</a></li>
+                                <li class="active"><span>detail artisan</span></li>
+                            </ol>
+                        </div>
+                        <!-- /Breadcrumb -->
+                    </div>
+                    {# message flash #}
+                    {% for message in app.flashes('notice') %}
+                        <div class="flash-notice ">
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <i class="zmdi zmdi-check pr-15 pull-left"></i><p class="pull-left">{{ message }}</p>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <!-- Row -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="panel panel-default card-view">
+                                <div class="panel-heading">
+                                    <div class="pull-left">
+                                        <h6 class="panel-title txt-dark">Table artisan</h6>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="panel-wrapper collapse in">
+                                    <div class="panel-body">
+                                        <div class="table-wrap">
+                                            <div class="table-responsive">
+                                            <table class="table" id="table_js_artisan"
+                                                   data-buttons-class='warning  btn-outline'
+                                                   data-search="true"
+                                                   data-pagination="true"
+                                                   data-height="600">
+                                                <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th data-field="first_name" data-sortable="true" >First Name</th>
+                                                    <th data-field="last_name" data-sortable="true">Last Name</th>
+                                                    <th data-field="cin" data-sortable="true">Cin</th>
+                                                    <th data-field="ville.location" data-sortable="true">ville</th>
+                                                    <th data-field="activity.name" data-sortable="true">Activity</th>
+                                                </tr>
+                                                </thead>
+                                            </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Row -->
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+
+         $(document).ready(function () {
+             let url =  Routing.generate('test');
+             $.ajax({
+                 url: url,
+                 success: function (response) {
+                     console.log(response);
+
+                     $('#table_js_artisan').bootstrapTable({
+                         data: response,
+                         columns: [
+                                  {
+                                 field: 'operate',
+                                 title: 'Action',
+                                 align: 'center',
+                                 formatter: operateFormatter
+                             }
+
+                         ]
+
+                     });
+                 }
+             });
+             $(window).resize(function () {
+                 $('#table_js_artisan').bootstrapTable('resetView');
+             });
+
+             function operateFormatter(value, row, index) {
+                 // let wiw = JSON.stringify(row);
+                let url =  Routing.generate('artisan_view', {id: row.id});
+
+                 // console.log(row.id + ' ' + url );
+                 // console.log(wiw);
+                 return [
+                      '<a id="deleteArtisan" onclick="deleteArtisan( '+ row.id + ' , \'{{ csrf_token('delete-item') }}\')" title="" data-toggle="tooltip" data-original-title="Edit"   >  <i class="fa fa-trash text-danger"></i></a>    ',
+                      '<a href="' + url +'" class="text-inverse pr-10" title="" data-toggle="tooltip" data-original-title="Edit">  <i class="fa fa-edit txt-success"></i></a>',
+                 ].join('');
+             }
+
+         });
+
+
+    </script>
+{% endblock %}
+
+

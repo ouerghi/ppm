@@ -90,6 +90,7 @@ Project:	Droopy
 @import url(filter.css);
 @import url(../../node_modules/switchery/switchery.css);
 @import url(select2.min.css);
+@import url(bootstrap-table.min.css);
 @import url(lightgallery.css);
 @import url(../../node_modules/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css);
 /****************************/

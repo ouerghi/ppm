@@ -1,3 +1,5 @@
+{# page to test any template render ppm/template/artisan/test.html.twig#}
+
 {% extends 'base.html.twig' %}
 {% block content %}
 
@@ -32,13 +34,17 @@
           <div class="page-wrapper">
               <div class="container-fluid">
 
-               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci alias assumenda cum dignissimos dolor eligendi explicabo, facilis illo, ipsam itaque optio, quam quasi ratione saepe sapiente tenetur ullam velit voluptatum.</p>
-
+                  <!-- mel7it -->
+                  <p style="color: #fafafa;line-height: 0 !important;margin-top: -40px " >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim eveniet itaque molestiae temporibus. Ab alias amet ex fugiat harum itaque modi mollitia nemo officiis omnis quam, tenetur veniam voluptate voluptatibus.</p>
+                  <!-- /mel7it -->
+              {#{{ dump(artisans.content) }}#}
+                  <button id="lima" class="btn btn-rounded btn-success"> je suis un click</button>
               </div>
           </div>
       {% endblock %}
 </div>
 {% endblock %}
+
 
 
 

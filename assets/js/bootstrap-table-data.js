@@ -1,5 +1,7 @@
 /*Bootstrap Table Init*/
 
+import $ from "jquery";
+
 var data = [{
     "name": "bootstrap-table",
         "stargazers_count": "10",
@@ -27,12 +29,15 @@ var data = [{
         "description": "Redmine notification tools for chrome extension."
 }];
 
+
 $(function () {
 	"use strict";
 	$('#table_js,#table_js_1,#table_js_2').bootstrapTable({
         data: data
+
     });
-	
+
+
 	/*Scroll to top*/
 	$(document).on('click','#mybtn_top',function(e) {
         $('#table_js').bootstrapTable('scrollTo', 0);
@@ -57,5 +62,6 @@ $(function () {
         $('#table_js').bootstrapTable('scrollTo', 'bottom');
 		return false;
     });
+
 
 });

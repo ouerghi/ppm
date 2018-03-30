@@ -1,5 +1,5 @@
 
-
+{# page to add a new artisan ppm/template/artisan/add.html.twig#}
 {% extends 'base.html.twig' %}
 
 {% block content %}
@@ -39,12 +39,6 @@
                     <p style="color: #fafafa;line-height: 0 !important;margin-top: -40px " >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim eveniet itaque molestiae temporibus. Ab alias amet ex fugiat harum itaque modi mollitia nemo officiis omnis quam, tenetur veniam voluptate voluptatibus.</p>
                     <!-- /mel7it -->
                     <!-- Title -->
-                    {% for flashMessage in app.session.flashbag.get('notice') %}
-                        <div class="alert  alert-success">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            {{ flashMessage }}
-                        </div>
-                    {% endfor %}
                     <div class="row heading-bg">
                         <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
                             <h5 class="txt-dark">Add a new Artisan</h5>
