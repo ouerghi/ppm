@@ -83,6 +83,7 @@
                                                     <th data-field="first_name" data-sortable="true" >First Name</th>
                                                     <th data-field="last_name" data-sortable="true">Last Name</th>
                                                     <th data-field="cin" data-sortable="true">Cin</th>
+                                                    <th data-field="ville.government" data-sortable="true">Government</th>
                                                     <th data-field="ville.location" data-sortable="true">ville</th>
                                                     <th data-field="activity.name" data-sortable="true">Activity</th>
                                                 </tr>
@@ -107,7 +108,7 @@
     <script>
 
          $(document).ready(function () {
-             let url =  Routing.generate('test');
+             let url =  Routing.generate('all-artisans');
              $.ajax({
                  url: url,
                  success: function (response) {
@@ -127,9 +128,6 @@
 
                      });
                  }
-             });
-             $(window).resize(function () {
-                 $('#table_js_artisan').bootstrapTable('resetView');
              });
 
              function operateFormatter(value, row, index) {

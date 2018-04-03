@@ -15,9 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 
 class ArtisanController extends Controller
@@ -226,13 +223,15 @@ class ArtisanController extends Controller
      */
     public function printRecipe(Artisan $artisan)
     {
-
+        // get the template
         $template = $this->renderView('artisan/recipe.html.twig', array(
             'artisan' => $artisan
         ));
-
+        // initialise the service htmlToPdf from container
         $html2pdf = $this->get('recipe.html2pdf');
+        // create the pdf with the bellow option
         $html2pdf->create('P', 'A4', 'fr', true, 'UTF-8', array(10,15,10,15));
+        // return a generated pdf
         return $html2pdf->generatePdf($template, "recipe");
 
     }
@@ -245,6 +244,7 @@ class ArtisanController extends Controller
      */
     public function confirmPrintRecipe(Artisan $artisan)
     {
+        // return a view with artisan instance to confirm print
         return $this->render('artisan/confirm-print-recipe.html.twig', array(
             'artisan' => $artisan
         ));
@@ -252,72 +252,50 @@ class ArtisanController extends Controller
 
     /**
      * @Route("/artisans", name="artisans")
-     * @param AuthorizationCheckerInterface $authorizationChecker
      * @Method({"GET"})
      * @return Response
      */
-    public function ListArtisanJson(AuthorizationCheckerInterface $authorizationChecker)
+    public function ListArtisanJson()
     {
-        $em = $this->getDoctrine()->getManager();
-        // get the  user who is logged in
-//        $user = $this->get('security.token_storage')->getToken()->getUser();
-//        // get the government of the use who is logged in
-//        $govUser = $user->getVille()->getGovernment();
-//
-//        // check if the current user has role_admin if yes he get all artisan result
-//        if (true === $authorizationChecker->isGranted('ROLE_ADMIN'))
-//        {
-//            $artisans = $em->getRepository('App:Artisan')->findAll();
-//
-//        }else {
-//            // use the method of repository getGovernmentUser
-//            // return the list of object artisan locate in the same ville of user ville.user = ville.artisan
-//            $artisans = $em->getRepository('App:Artisan')->getGovernmentUser($govUser);
-//        }
-
-//        // return the response to the view
-//        return $this->render('artisan/list-artisans.html.twig', array(
-//            'artisans' => $artisans,
-//            'user' => $user
-//        ));
-        $artisans = $em->getRepository('App:Artisan')->findAll();
-        $serializer = $this->container->get('jms_serializer');
-        $data = $serializer->serialize($artisans, 'json' );
-        $response = new Response($data);
-        $response->headers->set('Content-Type', 'application/json');
-//        return $response;
-
-        return $this->render('artisan/list-artisans.html.twig', array(
-            'artisans' => $response,
-//            'user' => $user
-        ));
+        // just return a view the response is json data returned by the JsonArtisans action
+        return $this->render('artisan/list-artisans.html.twig');
     }
 
     /**
-     * @Route("/test", options={"expose"=true} , name="test")
+     * @Route("/all-artisans", options={"expose"=true} , name="all-artisans")
+     * @param AuthorizationCheckerInterface $authorizationChecker
+     * * @Method({"GET"})
+     * @return Response
      */
-    public function test()
+    public function JsonArtisans(AuthorizationCheckerInterface $authorizationChecker)
     {
 
         $em = $this->getDoctrine()->getManager();
-        $artisans = $em->getRepository('App:Artisan')->findAll();
-        $serializer = $this->container->get('jms_serializer');
-        $data = $serializer->serialize($artisans, 'json' );
-        $response = new Response($data);
-        $response->headers->set('Content-Type', 'application/json');
-         return $response;
+        // get the  user who is logged in
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        // get the government of the use who is logged in
+        $govUser = $user->getVille()->getGovernment();
 
-//        $encoder = new JsonEncoder();
-//        $normalizer = new ObjectNormalizer();
-//
-//        $normalizer->setCircularReferenceHandler(function ($object) {
-//            return $object->getName();
-//        });
-//
-//        $serializer = new Serializer(array($normalizer), array($encoder));
-//       $data =  $serializer->serialize($artisans, 'json');
-//        $response = new Response($data);
-//         return $response;
+        // check if the current user has role_admin if yes he get all artisan result
+        if (true === $authorizationChecker->isGranted('ROLE_ADMIN'))
+        {
+            $artisans = $em->getRepository('App:Artisan')->findAll();
+
+        }else {
+            // use the method of repository getGovernmentUser
+            // return the list of object artisan locate in the same ville of user ville.user = ville.artisan
+            $artisans = $em->getRepository('App:Artisan')->getGovernmentUser($govUser);
+        }
+        // get the serializer service from container
+        $serializer = $this->container->get('jms_serializer');
+        // serialize the data artisan
+        $data = $serializer->serialize($artisans, 'json' );
+        // create an instance of Response
+        $response = new Response($data);
+        // set the content type with the application/json to the browser
+        $response->headers->set('Content-Type', 'application/json');
+        // return response to the list-artisans.html.twig view
+         return $response;
 
 
     }

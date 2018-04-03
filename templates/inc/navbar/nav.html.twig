@@ -4,7 +4,7 @@
     <div class="mobile-only-brand pull-left">
         <div class="nav-header pull-left">
             <div class="logo-wrap">
-                <a href="index.html">
+                <a href="{{ path('home') }}">
                     <img class="brand-img" src="{{ asset('build/static/logo.png') }}" alt="brand"/>
                     <span class="brand-text">GPM </span>
                 </a>
@@ -24,24 +24,19 @@
     </div>
     <div id="mobile_only_nav" class="mobile-only-nav pull-right">
         <ul class="nav navbar-right top-nav pull-right">
+            {% if  app.user  %}
+                <li>
+                    <a id="open_right_sidebar" href="#"><i class="zmdi zmdi-settings top-nav-icon"></i></a>
+                </li>
+                <li>
+                    <a href="{{ path('logout') }}"  data-toggle="tooltip" data-original-title="Logout"><i class="zmdi zmdi-square-right top-nav-icon"></i></a>
+                </li>
+            {% else %}
             <li>
                 <a href="{{ path('login') }}"  ><i class="zmdi zmdi-account-o top-nav-icon"></i></a>
             </li>
-            <li>
-                <a href="{{ path('logout') }}" ><i class="zmdi zmdi-square-right top-nav-icon"></i></a>
-            </li>
-            <li>
-                <a id="open_right_sidebar" href="#"><i class="zmdi zmdi-settings top-nav-icon"></i></a>
-            </li>
-            <li class="dropdown ">
-                <a href="#" class="dropdown-toggle" id="dropdownMenu2" data-toggle="dropdown"><i class="zmdi zmdi-apps top-nav-icon"></i></a>
-                <ul class="dropdown-menu app-dropdown" aria-labelledby="dropdownMenu2">
-                    <li>
-                    <li><a href="#">Actionss</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="{{ path('addArtisan') }}">Something else here</a></li>
-                </ul>
-            </li>
+            {% endif %}
+
         </ul>
     </div>
 </nav>

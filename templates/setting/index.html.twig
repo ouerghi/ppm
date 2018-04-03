@@ -1,7 +1,6 @@
+{# page to test any template render ppm/template/setting/index.html.twig#}
 
-{# page to view an artisan detail ppm/template/artisan/view.html.twig#}
-
-   {% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 {% block content %}
 
     <div class="wrapper  theme-1-active pimary-color-green">
@@ -32,83 +31,91 @@
 
         <!-- Main Content -->
         {% block main %}
-            <div class="page-wrapper">
+            <div  class="page-wrapper">
                 <div class="container-fluid">
+
                     <!-- mel7it -->
                     <p style="color: #fafafa;line-height: 0 !important;margin-top: -40px " >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim eveniet itaque molestiae temporibus. Ab alias amet ex fugiat harum itaque modi mollitia nemo officiis omnis quam, tenetur veniam voluptate voluptatibus.</p>
                     <!-- /mel7it -->
-                    <!-- Row -->
-                    <!-- Title -->
+
+                   {#{{ dump(artisan) }}#}
                     <div class="row heading-bg">
-                        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                            <h5 class="txt-dark">Update an  Artisan</h5>
-                        </div>
                         <!-- Breadcrumb -->
-                        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        <div class="col-lg-9 col-sm-8 col-md-6 col-xs-12">
                             <ol class="breadcrumb">
                                 <li><a href="{{ path('home') }}">Dashboard</a></li>
-                                <li><a href="{{ path('artisans') }}">List artisans</a></li>
-                                <li class="active"><span>update an  artisan</span></li>
+                                <li class="active"><span>change activity artisan</span></li>
                             </ol>
                         </div>
                         <!-- /Breadcrumb -->
                     </div>
-                    <!-- /Title -->
-
+                    {# message flash #}
+                    {% for message in app.flashes('notice') %}
+                        <div class="flash-notice ">
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <i class="zmdi zmdi-check pr-15 pull-left"></i><p class="pull-left">{{ message }}</p>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    {% endfor %}
                     <div class="row">
-                        <div class=" col-md-offset-1 col-md-10">
+                        <div class="col-md-offset-2 col-md-8">
+                            <div class="well card-view">
+                                <h6 class="mb-15">Informations of last activity artisan</h6>
+                                <div class="user-others-details pl-15 pr-15">
+                                    <div class="mb-15">
+                                           <i class="zmdi zmdi-email-open inline-block mr-10"></i>CIN:
+                                         <span class="inline-block txt-dark">{{ artisan.cin }}</span>
+                                    </div>
+                                    <div class="mb-15">
+                                        <i class="zmdi zmdi-smartphone inline-block mr-10"></i> Activity
+                                        <span class="inline-block txt-dark">{{ artisan.activity.name }}</span>
+                                    </div>
+                                    <div class="mb-15">
+                                        <i class="zmdi zmdi-phone inline-block mr-10"></i> Trades:
+                                        <span class="inline-block txt-dark">{{ artisan.trades.name }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-offset-2 col-md-8">
                             <div class="panel panel-default card-view">
                                 <div class="panel-heading">
                                     <div class="pull-left">
-                                        <h6 class="panel-title txt-dark">Informations artisan</h6>
+                                        <h6 class="panel-title txt-dark">change activity</h6>
                                     </div>
-
                                     <div class="clearfix"></div>
                                 </div>
-
                                 <div class="panel-wrapper collapse in">
                                     <div class="panel-body">
                                         <div class="row">
                                             <div class="col-sm-12 col-xs-12">
                                                 <div class="form-wrap">
                                                     {{ form_start(form) }}
-                                                        <div class="form-group">
-                                                            {{ form_label(form.ville) }}
-                                                            {{ form_errors(form.ville) }}
-                                                            <div class="input-group">
-                                                                <div class="input-group-addon"><i class="icon-home"></i></div>
-                                                                {{ form_widget(form.ville) }}
-                                                            </div>
-                                                        </div>
-                                                    <div class="form-group">
-                                                        {{ form_label(form.firstName) }}
-                                                        {{ form_errors(form.firstName) }}
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon"><i class="icon-user"></i></div>
-                                                            {{ form_widget(form.firstName) }}
-                                                        </div>
+                                                   {{ form_row(form.firstName) }}
+                                                    {{ form_row(form.lastName) }}
+                                                    <div class="form-group" style="display: none">
+                                                        {{ form_label(form.ville) }}
+                                                        {{ form_errors(form.ville) }}
+                                                        {{ form_widget(form.ville) }}
                                                     </div>
                                                     <div class="form-group">
-                                                        {{ form_label(form.lastName) }}
-                                                        {{ form_errors(form.lastName) }}
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon"><i class="icon-user"></i></div>
-                                                            {{ form_widget(form.lastName) }}
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        {{ form_label(form.cin) }}
                                                         {{ form_errors(form.cin) }}
+                                                        {{ form_label(form.cin) }}
                                                         <div class="input-group">
-                                                            <div class="input-group-addon"><i class="icon-basic-home"></i></div>
+                                                            <div class="input-group-addon"><i class="ti-credit-card"></i></div>
                                                             {{ form_widget(form.cin) }}
                                                         </div>
                                                     </div>
+
                                                     <div class="form-group">
                                                         {{ form_label(form.activity) }}
                                                         {{ form_errors(form.activity) }}
                                                         <div class="input-group">
-                                                            <div class="input-group-addon"><i class="icon-wrench"></i></div>
+                                                            <div class="input-group-addon"><i class="ti-bell"></i></div>
                                                             {{ form_widget(form.activity) }}
                                                         </div>
                                                     </div>
@@ -116,13 +123,13 @@
                                                         {{ form_label(form.trades) }}
                                                         {{ form_errors(form.trades) }}
                                                         <div class="input-group">
-                                                            <div class="input-group-addon"><i class="icon-anchor"></i></div>
+                                                            <div class="input-group-addon"><i class="ti-layout-menu-v"></i></div>
                                                             {{ form_widget(form.trades) }}
                                                         </div>
                                                     </div>
-                                                    <a type="submit" name="update" class="btn btn-success mr-10">Submit</a>
-                                                    <a href="{{ path('change-activity', { id : artisan.id }) }}" class="btn btn-primary">Change activity</a>
-                                                    <a href="{{ path('artisans') }}" class="btn btn-danger">Cancel</a>
+
+                                                        <button type="submit" class="btn btn-success mr-10">Submit</button>
+                                                        <a href="{{ path('artisan_view', { id : artisan.id}) }}" class="btn btn-default">Cancel</a>
                                                     {{ form_end(form) }}
                                                 </div>
                                             </div>
@@ -133,10 +140,12 @@
                         </div>
 
                     </div>
-                    <!-- /Row -->
 
-                </div> <!--end of container fluid -->
-            </div> <!-- end of page-wrapper -->
+                </div>
+            </div>
         {% endblock %}
     </div>
 {% endblock %}
+
+
+
