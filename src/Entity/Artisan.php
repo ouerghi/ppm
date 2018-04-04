@@ -113,26 +113,10 @@ class Artisan
         $this->isActivityUpdated = $isActivityUpdated;
     }
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $old_id_artisan;
 
-    /**
-     * @return mixed
-     */
-    public function getOldIdArtisan ()
-    {
-        return $this->old_id_artisan;
-    }
 
-    /**
-     * @param mixed $old_id_artisan
-     */
-    public function setOldIdArtisan ($old_id_artisan): void
-    {
-        $this->old_id_artisan = $old_id_artisan;
-    }
+
+
 
     /**
      * Artisan constructor.

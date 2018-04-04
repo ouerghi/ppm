@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Artisan;
+use App\Entity\ArtisanHistory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,33 +21,31 @@ class ArtisanSettingController extends Controller
     public function index(Request $request, Artisan $artisan)
     {
         $em = $this->getDoctrine()->getManager();
-
+        // get the user agent authenticated
         $id_user=$this->get('security.token_storage')->getToken()->getUser()->getId();
         $user = $em->getRepository('App:User')->find($id_user);
 
-        $artisan_new_activity = new Artisan();
-        $form = $this->createForm('App\Form\EditActivityType', $artisan_new_activity);
+        $history_artisan = new ArtisanHistory();
+        $history_artisan->setArtisan($artisan);
+        $history_artisan->setActivity($artisan->getActivity());
+        $history_artisan->setTrade($artisan->getTrades());
+        $history_artisan->setOldCin($artisan->getCin());
+        $history_artisan->setUser($user);
+
+        $form = $this->createForm('App\Form\EditActivityType', $artisan);
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
-            $cin = $form->get('cin')->getData();
-
-            if ( $artisan->getCin() === $cin)
-            {
-                return  $this->redirectToRoute('change-activity', array('id' => $artisan_new_activity->getId()));
-            }
-            $artisan_new_activity = clone $artisan;
-            $artisan_new_activity->setCin($cin);
-            $artisan_new_activity->setIsActivityUpdated(true);
-            $artisan_new_activity->setUser($user);
-            $artisan_new_activity->setOldIdArtisan($artisan->getId());
-
-            $em->persist($artisan_new_activity);
+            dump($artisan);
+            $artisan->setIsActivityUpdated(true);
+            $em->persist($artisan);
+            $em->persist($history_artisan);
             $em->flush();
             // message flash for the view
             $this->addFlash('notice', 'the artisan activity is successfully changed ');
             // redirect to the recipe  route with last id artisan for argument
-            return  $this->redirectToRoute('confirmPrintRecipe', array('id' => $artisan_new_activity->getId()));
+            return  $this->redirectToRoute('confirmPrintRecipe', array('id' => $artisan->getId()));
 
         }
         return $this->render('setting/index.html.twig', [
