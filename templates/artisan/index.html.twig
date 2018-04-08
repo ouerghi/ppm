@@ -86,7 +86,7 @@ html.twig#}
                                                 <tbody>
                                                {% for artisan in artisans %}
                                                    <tr>
-                                                       <th>{{ "%'.07d"|format(artisan.id) ~ '-' ~ artisan.ville.government }}</th>
+                                                       <th>{{ "%'.07d"|format(artisan.id) ~ '-' ~ artisan.government.name }}</th>
                                                        <td>{{ artisan.firstName }}</td>
                                                        <td>{{ artisan.lastName }}</td>
                                                        <td>{{ artisan.cin }}</td>

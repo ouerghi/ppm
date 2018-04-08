@@ -30,6 +30,7 @@ class ArtisanSettingController extends Controller
         $history_artisan->setActivity($artisan->getActivity());
         $history_artisan->setTrade($artisan->getTrades());
         $history_artisan->setOldCin($artisan->getCin());
+        $history_artisan->setOldDateCreation($artisan->getDateCreation());
         $history_artisan->setUser($user);
 
         $form = $this->createForm('App\Form\EditActivityType', $artisan);

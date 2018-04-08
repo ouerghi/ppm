@@ -56,6 +56,26 @@ class ArtisanHistory
     {
         $this->user = $user;
     }
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $old_dateCreation ;
+
+    /**
+     * @return mixed
+     */
+    public function getOldDateCreation ()
+    {
+        return $this->old_dateCreation;
+    }
+
+    /**
+     * @param mixed $old_dateCreation
+     */
+    public function setOldDateCreation (\DateTime $old_dateCreation): void
+    {
+        $this->old_dateCreation = $old_dateCreation;
+    }
 
     /**
      * @ORM\Column(type="integer")

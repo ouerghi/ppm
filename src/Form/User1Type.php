@@ -4,9 +4,9 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use App\Repository\VilleRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -23,6 +23,7 @@ class User1Type extends AbstractType
         );
         $builder
             ->add('username')
+            ->add('password', PasswordType::class)
             ->add('roles', ChoiceType::class, array(
                 'choices' => $role,
                 'multiple' => true,
@@ -32,17 +33,10 @@ class User1Type extends AbstractType
 
             ) )
             ->add('isActive')
-            ->add('ville', EntityType::class, array(
-                'class'         => 'App\Entity\Ville',
-                'placeholder' => 'Choose the ville',
-                'choice_label'  => 'location',
-                'query_builder' => function(VilleRepository $ville) {
-                    return $ville->getVille()
-//                        ->select('v.government')
-//                        ->distinct()
-//                        ->where('v.order is not null')
-                        ;
-                },
+            ->add('government', EntityType::class, array(
+                'class'         => 'App\Entity\Government',
+                'placeholder' => 'Choisir le gouvernorat',
+                'choice_label'  => 'name',
                 'attr'  => array(
                     'class' => 'select2',
                 )

@@ -5,8 +5,10 @@ namespace App\Form;
 
 use App\Entity\Activity;
 use App\Entity\Artisan;
+use App\Repository\DelegationRepository;
 use App\Repository\VilleRepository;
 
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -30,16 +32,18 @@ class ArtisanType extends AbstractType
             ->add('firstName', TextType::class)
             ->add('lastName', TextType::class)
             ->add('cin', NumberType::class )
-            ->add('ville', EntityType::class, array(
-                'class'         => 'App\Entity\Ville',
-                'placeholder' => 'Choice your ville',
-                'choice_label'  => 'location',
+            ->add('dateCreation', DateType::class, array(
+            ))
+            ->add('delegation', EntityType::class, array(
+                'class'         => 'App\Entity\Delegation',
+                'placeholder' => 'Choisir une délégation',
+                'choice_label'  => 'name',
                 'query_builder' => /**
                  * @param VilleRepository $ville
                  * @return \Doctrine\ORM\QueryBuilder
                  */
-                    function(VilleRepository $ville) use($gov) {
-                    return $ville->getGovernment($gov);
+                    function(DelegationRepository $government) use($gov) {
+                    return $government->getDelegation($gov);
                 },
                 'attr'  => array('class' => 'select2 ville ')
             ))

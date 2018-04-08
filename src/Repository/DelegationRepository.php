@@ -19,6 +19,15 @@ class DelegationRepository extends ServiceEntityRepository
         parent::__construct($registry, Delegation::class);
     }
 
+    public function getDelegation ($gov)
+    {
+        return $this
+            ->createQueryBuilder('d')
+            ->where('d.government = :govUser')
+            ->setParameter('govUser', $gov)
+            ;
+    }
+
     /*
     public function findBySomething($value)
     {

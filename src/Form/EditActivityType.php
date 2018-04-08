@@ -15,9 +15,10 @@ class EditActivityType extends AbstractType
         $builder
             ->add('firstName', HiddenType::class)
             ->add('lastName', HiddenType::class)
-            ->add('ville', EntityType::class, array(
-                'class'         => 'App\Entity\Ville',
-                'choice_label'  => 'location',
+            ->remove('dateCreation')
+            ->add('delegation', EntityType::class, array(
+                'class'         => 'App\Entity\Delegation',
+                'choice_label'  => 'name',
                 'attr'  => array('class' => 'hidden ')
             ))
         ;

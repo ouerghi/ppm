@@ -19,6 +19,15 @@ class GovernmentRepository extends ServiceEntityRepository
         parent::__construct($registry, Government::class);
     }
 
+    public function getGovernment ($pattern)
+    {
+        return $this
+            ->createQueryBuilder('g')
+            ->where('g.id = :pattern')
+            ->setParameter('pattern',$pattern)
+            ;
+    }
+
     /*
     public function findBySomething($value)
     {

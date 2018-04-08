@@ -39,7 +39,7 @@ class ArtisanController extends Controller
         // get the  user who is logged in
         $user = $this->get('security.token_storage')->getToken()->getUser();
         // get the government of the use who is logged in
-        $govUser = $user->getVille()->getGovernment();
+        $govUser = $user->getGovernment()->getName();
 
         // check if the current user has role_admin if yes he get all artisan result
         if (true === $authorizationChecker->isGranted('ROLE_ADMIN'))
@@ -73,16 +73,17 @@ class ArtisanController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('App:User')->find($id_user);
         // government  of user(admin,drc ...)
-        $governemnt = $user->getVille()->getGovernment();
+        $government = $user->getGovernment()->getId();
 
         // create the form builder with the ville of user who is the app
         $form = $this->createForm(ArtisanType::class, $artisan,array(
-            'government' => $governemnt
+            'government' => $government
         ));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
-
+            $government = $artisan->getDelegation()->getGovernment();
+            $artisan->setGovernment($government);
             // set the user for the artisan
             $artisan->setUser($user);
             // persist and flush the artisan entity
@@ -185,13 +186,19 @@ class ArtisanController extends Controller
      //  load the artisan from database
         $em = $this->getDoctrine()->getManager();
         $artisan = $em->getRepository('App:Artisan')->find($id);
+        $user = $artisan->getUser();
+        $government = $user->getGovernment()->getId();
+
         // test if the artisan exist else throw an exception
         if (null === $artisan)
         {
             throw new NotFoundHttpException("  The artisan with the id n° ".$id." doesn't exist");
         }
         // create the form from the editformtype
-        $form = $this->get('form.factory')->create(EditArtisanType::class, $artisan);
+
+        $form = $this->createForm(EditArtisanType::class, $artisan,array(
+            'government' => $government
+        ));
         // handle the request
         $form->handleRequest($request);
         //test if the form is valid and submitted
@@ -274,7 +281,7 @@ class ArtisanController extends Controller
         // get the  user who is logged in
         $user = $this->get('security.token_storage')->getToken()->getUser();
         // get the government of the use who is logged in
-        $govUser = $user->getVille()->getGovernment();
+        $govUser = $user->getGovernment()->getName();
 
         // check if the current user has role_admin if yes he get all artisan result
         if (true === $authorizationChecker->isGranted('ROLE_ADMIN'))

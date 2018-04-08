@@ -36,25 +36,47 @@ class Artisan
     private $trades;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Ville")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Government")
      *  @ORM\JoinColumn(nullable=false)
      */
-    private $ville;
+    private $government;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Delegation")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $delegation;
 
     /**
      * @return mixed
      */
-    public function getVille ()
+    public function getDelegation ()
     {
-        return $this->ville;
+        return $this->delegation;
     }
 
     /**
-     * @param mixed $ville
+     * @param mixed $delegation
      */
-    public function setVille (Ville $ville): void
+    public function setDelegation (Delegation $delegation): void
     {
-        $this->ville = $ville;
+        $this->delegation = $delegation;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGovernment ()
+    {
+        return $this->government;
+    }
+
+    /**
+     * @param Government $government
+     */
+    public function setGovernment (Government $government): void
+    {
+        $this->government = $government;
     }
 
     /**
@@ -90,7 +112,28 @@ class Artisan
     /**
      * @ORM\Column(type="integer", unique=true)
      */
-    private $cin;
+    private $cin ;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $dateCreation ;
+
+    /**
+     * @return mixed
+     */
+    public function getDateCreation ()
+    {
+        return $this->dateCreation;
+    }
+
+    /**
+     * @param mixed $dateCreation
+     */
+    public function setDateCreation (\DateTime $dateCreation): void
+    {
+        $this->dateCreation = $dateCreation;
+    }
 
     /**
      * @ORM\Column(type="boolean")
@@ -115,15 +158,13 @@ class Artisan
 
 
 
-
-
-
     /**
      * Artisan constructor.
      */
     public function __construct ()
     {
         $this->date = new \DateTime();
+        $this->dateCreation = new \DateTime();
     }
 
 

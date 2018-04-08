@@ -23,7 +23,7 @@ class ArtisanRepository extends ServiceEntityRepository
     {
         return $this
             ->createQueryBuilder('a')
-            ->leftJoin('a.ville','v')
+            ->leftJoin('a.government','v')
             ->addSelect('v')
             ->where('v.government = :govUser')
             ->setParameter('govUser', $govUser)
