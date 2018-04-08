@@ -53,4 +53,19 @@ class ArtisanSettingController extends Controller
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/gov", name="gov")
+     */
+    public function gov()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $del = $em->getRepository('App:Delegation')->findAll();
+       //echo $del->getName().'---'.$del->getGovernment()->getName().'<br>';
+//        dump($del);
+        foreach ($del as $delegation )
+        echo $delegation->getGovernment()->getName().'<br>';
+        die();
+    }
+
 }

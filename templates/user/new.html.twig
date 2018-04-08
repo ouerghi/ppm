@@ -1,0 +1,66 @@
+
+{# page to test any template render ppm/template/artisan/test.html.twig#}
+
+{% extends 'base.html.twig' %}
+{% block title %}Nouveau gouvernement{% endblock %}
+{% block content %}
+
+    <div class="wrapper  theme-1-active pimary-color-green">
+        <!--Preloader-->
+        {#<div class="preloader-it">#}
+        {#<div class="la-anim-1"></div>#}
+        {#</div>#}
+        <!--/Preloader-->
+        {% block body %}
+
+            <!-- Right Sidebar Backdrop -->
+            <div class="right-sidebar-backdrop"></div>
+            <!-- /Right Sidebar Backdrop -->
+
+            <!-- Top Menu Items -->
+            {# include the navbar from direcctory inc#}
+            {% include 'inc/navbar/nav.html.twig' %}
+            <!-- /Top Menu Items -->
+
+            {# sidebar left #}
+            {% include 'inc/sideBarLeft/sideBar.html.twig' %}
+
+            <!-- Right Sidebar Menu -->
+            {% include 'inc/navbar/sidbar.right.setting.html.twig' %}
+            <!-- /Right Sidebar Menu -->
+
+        {% endblock %}
+
+        <!-- Main Content -->
+        {% block main %}
+            <div class="page-wrapper">
+                <div class="container-fluid">
+
+                    <!-- mel7it -->
+                    <p style="color: #fafafa;line-height: 0 !important;margin-top: -40px " >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim eveniet itaque molestiae temporibus. Ab alias amet ex fugiat harum itaque modi mollitia nemo officiis omnis quam, tenetur veniam voluptate voluptatibus.</p>
+                    <!-- /mel7it -->
+                    <div class="row heading-bg">
+                        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                            <h5 class="txt-dark">Créer un nouveau gouvernement</h5>
+                        </div>
+                        <!-- Breadcrumb -->
+
+                        <!-- /Breadcrumb -->
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ include('user/_form.html.twig') }}
+                        </div>
+                        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4 col-md-pull-2">
+                            <a class="btn btn-primary pull-right mt-20" href="{{ path('user_index') }}">retour à la liste</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}
+
+
+
+

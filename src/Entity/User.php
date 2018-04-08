@@ -92,6 +92,14 @@ class User implements UserInterface, \Serializable
      */
     private $isActive;
 
+    /**
+     * @return mixed
+     */
+    public function getisActive ()
+    {
+        return $this->isActive;
+    }
+
     public function __construct()
     {
         $this->isActive = true;
