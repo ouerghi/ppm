@@ -35,6 +35,28 @@
             <a href="javascript:void(0);" data-toggle="collapse" data-target="#param_dr"><div class="pull-left"><i class="zmdi zmdi-settings mr-20"></i><span class="right-nav-text">Paramétrages </span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
             <ul id="param_dr" class="collapse collapse-level-1 two-col-list">
                 <li>
+                    <a href="javascript:void(0);" data-toggle="collapse" data-target="#groupe_dr" class="" aria-expanded="true">Groupe d'activité<div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+                    <ul id="groupe_dr" class="collapse-level-2 collapse in" aria-expanded="true" style="">
+                        <li>
+                            <a href="{{ path('activity_index') }}">Groupe d'activité</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('activity_new') }}">Ajouter un Groupe d'activité</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" data-toggle="collapse" data-target="#activite_dr" class="" aria-expanded="true">Activité<div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+                    <ul id="activite_dr" class="collapse-level-2 collapse in" aria-expanded="true" style="">
+                        <li>
+                            <a href="{{ path('trades_index') }}">Liste d'activité</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('trades_new') }}">Ajouter une activité</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
                     <a href="javascript:void(0);" data-toggle="collapse" data-target="#gov_dr" class="" aria-expanded="true">Gouvernement<div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
                     <ul id="gov_dr" class="collapse-level-2 collapse in" aria-expanded="true" style="">
                         <li>

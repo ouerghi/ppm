@@ -67,10 +67,19 @@
                                     <div class="panel-body">
                                         <div class="form-wrap">
                                             {{ form_start(form) }}
-                                            {{ form_label(form.cin) }}
-                                            <span id="loader_cin"><i class="fa fa-spin fa-spinner"></i></span>
-                                            {{ form_errors(form.cin) }}
-                                            {{ form_widget(form.cin) }}
+                                            <div class="row mb-20">
+                                                <div class="col-md-6">
+                                                    {{ form_label(form.cin) }}
+                                                    <span id="loader_cin"><i class="fa fa-spin fa-spinner"></i></span>
+                                                    {{ form_errors(form.cin) }}
+                                                    {{ form_widget(form.cin) }}
+                                                </div>
+                                                <div  class="col-md-6 mb-10 mt-10 ">
+                                                    <ul id="content_search_cin" class="list-icons ">
+
+                                                    </ul>
+                                                </div>
+                                            </div>
                                             {{ form_row(form.delegation) }}
                                             {{ form_widget(form) }}
 

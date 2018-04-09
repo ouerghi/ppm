@@ -325,15 +325,15 @@ class ArtisanController extends Controller
         )
             ->setParameter('data', '%' . $data . '%');
         $results = $query->getResult();
-        // get the serializer service from container
-        $serializer = $this->container->get('jms_serializer');
-        // serialize the data artisan
-        $data = $serializer->serialize($results, 'json' );
-        // create an instance of Response
-        $response = new Response($data);
-        // set the content type with the application/json to the browser
-        $response->headers->set('Content-Type', 'application/json');
-        // return response to the list-artisans.html.twig view
+        $listCin = '<ul id="matchList">';
+        foreach ($results as $result) {
+            $matchStringBold = preg_replace('/('.$data.')/i', '<strong>$1</strong>', $result['cin']); // Replace text field input by bold one
+            $listCin .= '<li id="'.$result['id'].'" class="mb-10 ml-20"><i class="fa fa-genderless text-success mr-5"></i> '.$matchStringBold.'</li>'; // Create the matching list - we put maching name in the ID too
+        }
+        $listCin .= '</ul>';
+
+        $response = new JsonResponse();
+        $response->setData(array('listCin' => $listCin));
         return $response;
 
     }

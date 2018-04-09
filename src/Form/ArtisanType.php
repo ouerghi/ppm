@@ -44,6 +44,7 @@ class ArtisanType extends AbstractType
             ->add('cin', NumberType::class, array(
                 'attr' => array(
                     'placeholder' => 'Cin de  l\'artisan',
+                    'class' => 'ui-widget'
                 )
             ) )
             ->add('dateCreation', DateType::class, array(

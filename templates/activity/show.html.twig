@@ -2,7 +2,7 @@
 {# page to test any template render ppm/template/artisan/test.html.twig#}
 
 {% extends 'base.html.twig' %}
-{% block title %}Government index{% endblock %}
+{% block title %}groupe d'activité index{% endblock %}
 {% block content %}
 
     <div class="wrapper  theme-1-active pimary-color-green">
@@ -47,7 +47,7 @@
                             <div class="panel panel-default card-view">
                                 <div class="panel-heading">
                                     <div class="pull-left">
-                                        <h6 class="panel-title txt-dark">Detail Gouvernorat</h6>
+                                        <h6 class="panel-title txt-dark">Detail groupe d'activité</h6>
                                     </div>
                                     <div class="pull-right">
                                         <a class="text-primary"  href="{{ path('government_index') }}">retour à la liste</a>
@@ -68,11 +68,11 @@
                                                     </thead>
                                                     <tbody>
                                                     <tr>
-                                                        <td>{{ government.id }}</td>
-                                                        <td>{{ government.name }}</td>
+                                                        <td>{{ activity.id }}</td>
+                                                        <td>{{ activity.name }}</td>
                                                         <td>
-                                                            <a href="{{ path('government_show', {'id': government.id}) }}"class="mr-25" data-toggle="tooltip" data-original-title="Voir"> <i class="fa fa-eye text-inverse m-r-10 text-info"></i> </a>
-                                                            <a href="{{ path('government_edit', {'id': government.id}) }}" class="mr-25" data-toggle="tooltip" data-original-title="Modifier"> <i class="fa fa-pencil text-inverse m-r-10 text-success"></i> </a>
+                                                            <a href="{{ path('activity_show', {'id': activity.id}) }}"class="mr-25" data-toggle="tooltip" data-original-title="Voir"> <i class="fa fa-eye text-inverse m-r-10 text-info"></i> </a>
+                                                            <a href="{{ path('activity_edit', {'id': activity.id}) }}" class="mr-25" data-toggle="tooltip" data-original-title="Modifier"> <i class="fa fa-pencil text-inverse m-r-10 text-success"></i> </a>
 
                                                         </td>
                                                     </tr>
