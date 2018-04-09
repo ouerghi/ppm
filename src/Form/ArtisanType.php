@@ -29,9 +29,23 @@ class ArtisanType extends AbstractType
         $gov = $options['government'];
 
         $builder
-            ->add('firstName', TextType::class)
-            ->add('lastName', TextType::class)
-            ->add('cin', NumberType::class )
+            ->add('firstName', TextType::class, array(
+                'label' => 'prénom de l\'artisan',
+                'attr' => array(
+                    'placeholder' => 'Prénom de l\'artisan',
+                )
+            ))
+            ->add('lastName', TextType::class, array(
+                'label' => 'Nom de l\'artisan',
+                'attr' => array(
+                    'placeholder' => 'Nom de l\'artisan',
+                )
+            ))
+            ->add('cin', NumberType::class, array(
+                'attr' => array(
+                    'placeholder' => 'Cin de  l\'artisan',
+                )
+            ) )
             ->add('dateCreation', DateType::class, array(
             ))
             ->add('delegation', EntityType::class, array(
@@ -49,7 +63,8 @@ class ArtisanType extends AbstractType
             ))
             ->add('activity', EntityType::class, array(
                 'class'         => 'App\Entity\Activity',
-                'placeholder' => 'Choice your activity',
+                'placeholder' => 'Choisir un groupe d\'activité',
+                'label' => 'Choisir un groupe d\'activité',
                 'choice_label'  => 'name',
                 'attr'  => array('class' => 'select2 activity')
             ))
@@ -60,7 +75,8 @@ class ArtisanType extends AbstractType
 
             $form->add('trades', EntityType::class, array(
                 'class' => 'App\Entity\Trades',
-                'placeholder' => 'Choose your trade',
+                'placeholder' => 'Choisir une activité',
+                'label' => 'Choisir une activité',
                 'choice_label'  => 'name',
                 'attr'  => array('class' => 'select2 trade'),
                 'choices' => $trades,

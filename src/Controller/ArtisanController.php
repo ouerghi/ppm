@@ -39,7 +39,7 @@ class ArtisanController extends Controller
         // get the  user who is logged in
         $user = $this->get('security.token_storage')->getToken()->getUser();
         // get the government of the use who is logged in
-        $govUser = $user->getGovernment()->getName();
+        $govUser = $user->getGovernment()->getId();
 
         // check if the current user has role_admin if yes he get all artisan result
         if (true === $authorizationChecker->isGranted('ROLE_ADMIN'))
@@ -271,7 +271,7 @@ class ArtisanController extends Controller
     /**
      * @Route("/all-artisans", options={"expose"=true} , name="all-artisans")
      * @param AuthorizationCheckerInterface $authorizationChecker
-     * * @Method({"GET"})
+     * @Method({"GET"})
      * @return Response
      */
     public function JsonArtisans(AuthorizationCheckerInterface $authorizationChecker)
@@ -281,7 +281,7 @@ class ArtisanController extends Controller
         // get the  user who is logged in
         $user = $this->get('security.token_storage')->getToken()->getUser();
         // get the government of the use who is logged in
-        $govUser = $user->getGovernment()->getName();
+        $govUser = $user->getGovernment()->getId();
 
         // check if the current user has role_admin if yes he get all artisan result
         if (true === $authorizationChecker->isGranted('ROLE_ADMIN'))
@@ -304,6 +304,37 @@ class ArtisanController extends Controller
         // return response to the list-artisans.html.twig view
          return $response;
 
+
+    }
+
+    /**
+     * @Route("/search", options={"expose"= true}, name="search_cin")
+     * @param Request $request
+     * @return Response
+     * @Method({"POST"})
+     */
+    public function searchCin(Request $request)
+    {
+        $data = $request->get('input');
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(''
+            . 'SELECT a.id, a.cin '
+            . 'FROM App\Entity\Artisan a '
+            . 'WHERE a.cin LIKE :data '
+            . 'ORDER BY a.id ASC'
+        )
+            ->setParameter('data', '%' . $data . '%');
+        $results = $query->getResult();
+        // get the serializer service from container
+        $serializer = $this->container->get('jms_serializer');
+        // serialize the data artisan
+        $data = $serializer->serialize($results, 'json' );
+        // create an instance of Response
+        $response = new Response($data);
+        // set the content type with the application/json to the browser
+        $response->headers->set('Content-Type', 'application/json');
+        // return response to the list-artisans.html.twig view
+        return $response;
 
     }
 

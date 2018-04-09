@@ -41,13 +41,13 @@
                     <!-- Title -->
                     <div class="row heading-bg">
                         <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                            <h5 class="txt-dark">Add a new Artisan</h5>
+                            <h5 class="txt-dark">Ajouter un nouveau artisan</h5>
                         </div>
                         <!-- Breadcrumb -->
                         <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                             <ol class="breadcrumb">
                                 <li><a href="{{ path('home') }}">Dashboard</a></li>
-                                <li class="active"><span>add artisan</span></li>
+                                <li class="active"><span>Ajouter un artisan</span></li>
                             </ol>
                         </div>
                         <!-- /Breadcrumb -->
@@ -67,9 +67,14 @@
                                     <div class="panel-body">
                                         <div class="form-wrap">
                                             {{ form_start(form) }}
-                                            {{ form_widget(form) }}
+                                            {{ form_label(form.cin) }}
+                                            <span id="loader_cin"><i class="fa fa-spin fa-spinner"></i></span>
+                                            {{ form_errors(form.cin) }}
+                                            {{ form_widget(form.cin) }}
                                             {{ form_row(form.delegation) }}
-                                            <button type="submit" class="btn btn-success"> Submit</button>
+                                            {{ form_widget(form) }}
+
+                                            <button type="submit" class="btn btn-success"> Valider</button>
                                             {{ form_end(form) }}
                                         </div>
                                     </div>

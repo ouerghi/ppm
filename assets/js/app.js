@@ -26,6 +26,7 @@ import '../js/bootstrap-table.min';
 import '../js/dropdown-bootstrap-extended'
 import '../js/init'
 import '../js/component/dynamic-activity-select'
+import '../js/component/search-artisan-cin'
 
 
 
