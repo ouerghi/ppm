@@ -2,14 +2,15 @@
 
 {% extends 'base.html.twig' %}
 {% block content %}
+    <!--Preloader-->
+    <div class="preloader-it" >
+        <div class="la-anim-1 la-animate"></div>
+    </div>
 
     <div class="wrapper  theme-1-active pimary-color-green">
-        <!--Preloader-->
-        {#<div class="preloader-it">#}
-        {#<div class="la-anim-1"></div>#}
-        {#</div>#}
-        <!--/Preloader-->
+
         {% block body %}
+
 
             <!-- Right Sidebar Backdrop -->
             <div class="right-sidebar-backdrop"></div>
@@ -59,7 +60,7 @@
                     {% endfor %}
                     <!-- Row -->
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-md-12">
                             <div class="panel panel-default card-view">
                                 <div class="panel-heading">
                                     <div class="pull-left">
@@ -83,9 +84,7 @@
                                                     <th data-field="first_name" data-sortable="true" >Prénom</th>
                                                     <th data-field="last_name" data-sortable="true">Nom</th>
                                                     <th data-field="cin" data-sortable="true">Cin</th>
-                                                    <th data-field="government.name" data-sortable="true">Gouvernement</th>
-                                                    <th data-field="delegation.name" data-sortable="true">Délégation</th>
-                                                    <th data-field="activity.name" data-sortable="true">Activité</th>
+                                                    <th data-field="government.name" data-sortable="true">Gouvernorat</th>
                                                 </tr>
                                                 </thead>
                                             </table>
@@ -111,6 +110,7 @@
              let url =  Routing.generate('all-artisans');
              $.ajax({
                  url: url,
+                 method: "POST",
                  success: function (response) {
                      console.log(response);
 
@@ -132,13 +132,15 @@
 
              function operateFormatter(value, row, index) {
                  // let wiw = JSON.stringify(row);
-                let url =  Routing.generate('artisan_view', {id: row.id});
+                let url_view =  Routing.generate('artisan_view', {id: row.id});
+                 let artisan_show =  Routing.generate('artisan_show', {id: row.id});
 
                  // console.log(row.id + ' ' + url );
                  // console.log(wiw);
                  return [
-                      '<a id="deleteArtisan" onclick="deleteArtisan( '+ row.id + ' , \'{{ csrf_token('delete-item') }}\')" title="" data-toggle="tooltip" data-original-title="Edit"   >  <i class="fa fa-trash text-danger"></i></a>    ',
-                      '<a href="' + url +'" class="text-inverse pr-10" title="" data-toggle="tooltip" data-original-title="Edit">  <i class="fa fa-edit txt-success"></i></a>',
+                      '<a class="text-inverse pr-5" id="deleteArtisan" onclick="deleteArtisan( '+ row.id + ' , \'{{ csrf_token('delete-item') }}\')" title="" data-toggle="tooltip" data-original-title="Delete"   >  <i class="fa fa-trash text-danger"></i></a>    ',
+                      '<a href="' + url_view +'" class="text-inverse pr-5" title="" data-toggle="tooltip" data-original-title="Edit">  <i class="fa fa-edit txt-success"></i></a>',
+                      '<a href="' + artisan_show +'" class="text-inverse pr-5" title="" data-toggle="tooltip" data-original-title="Show">  <i class="fa fa-eye txt-warning"></i></a>',
                  ].join('');
              }
 

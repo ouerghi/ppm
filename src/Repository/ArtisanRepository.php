@@ -26,7 +26,31 @@ class ArtisanRepository extends ServiceEntityRepository
             ->leftJoin('a.government','g')
             ->addSelect('g')
             ->where('g.id = :govUser')
+            ->andWhere('a.isDeleted = 0')
+            ->orderBy('a.id', 'DESC')
             ->setParameter('govUser', $govUser)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+    public function getCin($cin)
+    {
+        return $this
+            ->createQueryBuilder('a')
+            ->where('a.cin LIKE :cin')
+            ->orderBy('a.cin', 'ASC')
+            ->setParameter('cin', '%' . $cin . '%')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function getArtisans()
+    {
+        return $this
+            ->createQueryBuilder('a')
+            ->where('a.isDeleted = 0')
+            ->orderBy('a.id', 'DESC')
             ->getQuery()
             ->getResult()
             ;

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Artisan;
+use App\Entity\ArtisanHistory;
 use App\Form\ArtisanType;
 use App\Form\EditArtisanType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -150,6 +151,19 @@ class ArtisanController extends Controller
             $id = $request->query->get('id');
             // load artisan from database
             $artisan = $em->getRepository('App:Artisan')->find($id);
+            // get the user agent authenticated
+            $id_user=$this->get('security.token_storage')->getToken()->getUser()->getId();
+            $user = $em->getRepository('App:User')->find($id_user);
+
+            $history_artisan = new ArtisanHistory();
+            $history_artisan->setArtisan($artisan);
+            $history_artisan->setActivity($artisan->getActivity());
+            $history_artisan->setTrade($artisan->getTrades());
+            $history_artisan->setOldCin($artisan->getCin());
+            $history_artisan->setOldDateCreation($artisan->getDateCreation());
+            $history_artisan->setUser($user);
+            $history_artisan->setArtisanDeleted(true);
+
             //test if the artisan doesn't exist return an error status to the error function ajax
             if (null === $artisan) {
                 return $json->setData(array(
@@ -163,9 +177,12 @@ class ArtisanController extends Controller
             // test if the CSRF is true if of do the delete operation of artisan
             if ($this->isCsrfTokenValid('delete-item', $submittedToken))
             {
+                $artisan->setIsDeleted(true);
+                $em->persist($history_artisan);
                 //delete the artisan from database
-                $em->remove($artisan);
+                $em->persist($artisan);
                 $em->flush();
+
                 return $json->setData(array(
                     'status' =>'success',
                     'message' =>'Artisan Deleted Successfully ...'
@@ -221,6 +238,31 @@ class ArtisanController extends Controller
         ));
     }
 
+    /**
+     * @Route("/show-artisan/{id}", options={"expose"=true}, requirements={"id" = "\d+"},  name="artisan_show")
+     * @param Request $request
+     * @param $id
+     * @return Response
+     */
+    public function showArtisan(Request $request, $id)
+    {
+        //  load the artisan from database
+        $em = $this->getDoctrine()->getManager();
+        $artisan = $em->getRepository('App:Artisan')->find($id);
+        $user = $artisan->getUser();
+
+        // test if the artisan exist else throw an exception
+        if (null === $artisan)
+        {
+            throw new NotFoundHttpException("  The artisan with the id n° ".$id." doesn't exist");
+        }
+
+
+        return $this->render('artisan/show.html.twig', array(
+            'artisan' => $artisan,
+            'user' => $user
+        ));
+    }
 
     /**
      * @Route("/print-recipe/{id}", name="printRecipe", requirements={"id"="\d+"})
@@ -271,7 +313,7 @@ class ArtisanController extends Controller
     /**
      * @Route("/all-artisans", options={"expose"=true} , name="all-artisans")
      * @param AuthorizationCheckerInterface $authorizationChecker
-     * @Method({"GET"})
+     * @Method({"POST"})
      * @return Response
      */
     public function JsonArtisans(AuthorizationCheckerInterface $authorizationChecker)
@@ -286,13 +328,14 @@ class ArtisanController extends Controller
         // check if the current user has role_admin if yes he get all artisan result
         if (true === $authorizationChecker->isGranted('ROLE_ADMIN'))
         {
-            $artisans = $em->getRepository('App:Artisan')->findAll();
+            $artisans = $em->getRepository('App:Artisan')->getArtisans();
 
         }else {
             // use the method of repository getGovernmentUser
             // return the list of object artisan locate in the same ville of user ville.user = ville.artisan
             $artisans = $em->getRepository('App:Artisan')->getGovernmentUser($govUser);
         }
+
         // get the serializer service from container
         $serializer = $this->container->get('jms_serializer');
         // serialize the data artisan
@@ -317,18 +360,11 @@ class ArtisanController extends Controller
     {
         $data = $request->get('input');
         $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery(''
-            . 'SELECT a.id, a.cin '
-            . 'FROM App\Entity\Artisan a '
-            . 'WHERE a.cin LIKE :data '
-            . 'ORDER BY a.id ASC'
-        )
-            ->setParameter('data', '%' . $data . '%');
-        $results = $query->getResult();
+        $results = $em->getRepository('App:Artisan')->getCin($data);
         $listCin = '<ul id="matchList">';
         foreach ($results as $result) {
-            $matchStringBold = preg_replace('/('.$data.')/i', '<strong>$1</strong>', $result['cin']); // Replace text field input by bold one
-            $listCin .= '<li id="'.$result['id'].'" class="mb-10 ml-20"><i class="fa fa-genderless text-success mr-5"></i> '.$matchStringBold.'</li>'; // Create the matching list - we put maching name in the ID too
+            $stringBold = preg_replace('/('.$data.')/i', '<strong>$1</strong>', $result->getCin()); // Replace text field input by bold one
+            $listCin .= '<li id="'.$result->getId().'" class="mb-10 ml-20"><i class="fa fa-genderless text-success mr-5"></i> '.$stringBold.'</li>'; // Create the matching list
         }
         $listCin .= '</ul>';
 

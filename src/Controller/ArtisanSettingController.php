@@ -4,15 +4,17 @@ namespace App\Controller;
 
 use App\Entity\Artisan;
 use App\Entity\ArtisanHistory;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ArtisanSettingController extends Controller
 {
     /**
-     * @Route("/activity/artisan/{id}", name="change-activity")
+     * @Route("edit/activity/artisan/{id}", name="change-activity")
      * @ParamConverter("Artisan", options={"mapping": {"id":"id"}})
      * @param Request $request
      * @param Artisan $artisan
@@ -31,6 +33,7 @@ class ArtisanSettingController extends Controller
         $history_artisan->setTrade($artisan->getTrades());
         $history_artisan->setOldCin($artisan->getCin());
         $history_artisan->setOldDateCreation($artisan->getDateCreation());
+        $history_artisan->setActivityChanged(true);
         $history_artisan->setUser($user);
 
         $form = $this->createForm('App\Form\EditActivityType', $artisan);
@@ -38,7 +41,7 @@ class ArtisanSettingController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
-            dump($artisan);
+            //dump($artisan);
             $artisan->setIsActivityUpdated(true);
             $em->persist($artisan);
             $em->persist($history_artisan);
@@ -56,17 +59,47 @@ class ArtisanSettingController extends Controller
     }
 
     /**
-     * @Route("/gov", name="gov")
+     * @Route("edit/government/artisan/{id}", name="change_government")
+     * @ParamConverter("Artisan", options={"mapping" : {"id" : "id"}})
+     * @param Request $request
+     * @param Artisan $artisan
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function gov()
+    public function changeGovernment(Request $request, Artisan $artisan)
     {
+        $government = new Artisan();
+        $form = $this->createForm('App\Form\EditGovernmentArtisanType', $government);
+        return $this->render('artisan/change_government.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route("/edit/gov/{id}",options={"expose"=true} , name="edit_gov")
+     * @param $id
+     * @Method({"POST"})
+     * @return JsonResponse
+     */
+    public function getDelegation($id)
+    {
+
         $em = $this->getDoctrine()->getManager();
-        $del = $em->getRepository('App:Delegation')->findAll();
-       //echo $del->getName().'---'.$del->getGovernment()->getName().'<br>';
-//        dump($del);
-        foreach ($del as $delegation )
-        echo $delegation->getGovernment()->getName().'<br>';
-        die();
+        $governmentDelegation = $em->getRepository('App:Delegation')->findBy(array('government' => $id));
+
+        if($governmentDelegation) {
+            foreach ($governmentDelegation as $del)
+                $delegation [] = array(
+                    'id' => $del->getId(),
+                    'name' => $del->getName()
+                );
+
+        } else {
+            $delegation = null;
+        }
+        $response = new JsonResponse();
+        return $response->setData(
+            $delegation
+        );
     }
 
 }

@@ -39,14 +39,14 @@ html.twig#}
                     <p style="color: #fafafa;line-height: 0 !important;margin-top: -40px " >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim eveniet itaque molestiae temporibus. Ab alias amet ex fugiat harum itaque modi mollitia nemo officiis omnis quam, tenetur veniam voluptate voluptatibus.</p>
                     <!-- /mel7it -->
                     <div class="row heading-bg">
-                        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                            <h5 class="txt-dark">Detail Artisan</h5>
+                        <div class=" col-md-4">
+                            <h5 class="txt-dark">Liste des artisans</h5>
                         </div>
                         <!-- Breadcrumb -->
-                        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        <div class="col-sm-8 ">
                             <ol class="breadcrumb">
                                 <li><a href="{{ path('home') }}">Dashboard</a></li>
-                                <li class="active"><span>detail artisan</span></li>
+                                <li class="active"><span>liste des artisan</span></li>
                             </ol>
                         </div>
                         <!-- /Breadcrumb -->
@@ -61,11 +61,11 @@ html.twig#}
                             </div>
                         </div>
                     {% endfor %}
-                    <div class="col-sm-12">
+                    <div class="col-md-12">
                         <div class="panel panel-default card-view">
                             <div class="panel-heading">
                                 <div class="pull-left">
-                                    <h6 class="panel-title txt-dark">List Artisans</h6>
+                                    <h6 class="panel-title txt-dark">Liste des artisans</h6>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
@@ -77,8 +77,8 @@ html.twig#}
                                                 <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>First Name</th>
-                                                    <th>Last Name</th>
+                                                    <th>Prénom</th>
+                                                    <th>Nom</th>
                                                     <th>Cin</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -91,8 +91,8 @@ html.twig#}
                                                        <td>{{ artisan.lastName }}</td>
                                                        <td>{{ artisan.cin }}</td>
                                                        <td class="text-nowrap">
-                                                           <a href="{{ path('artisan_view', {'id': artisan.id}) }}" class="mr-25" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
-                                                           <a id="deleteArtisan" onclick="deleteArtisan({{ artisan.id }},'{{ csrf_token('delete-item') }}')" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
+                                                           <a href="{{ path('artisan_view', {'id': artisan.id}) }}" class="mr-25" data-toggle="tooltip" data-original-title="Modifier"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                                           <a id="deleteArtisan" onclick="deleteArtisan({{ artisan.id }},'{{ csrf_token('delete-item') }}')" data-toggle="tooltip" data-original-title="Supprimer"> <i class="fa fa-close text-danger"></i> </a>
                                                        </td>
                                                    </tr>
                                                    {% endfor %}

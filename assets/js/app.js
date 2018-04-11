@@ -27,6 +27,7 @@ import '../js/dropdown-bootstrap-extended'
 import 'jquery-autocomplete/jquery.autocomplete.css'
 import '../js/init'
 import '../js/component/dynamic-activity-select'
+import '../js/component/government-delegation-select'
 import '../js/component/search-artisan-cin'
 
 

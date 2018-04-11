@@ -1,6 +1,7 @@
-{# page to regiser a new artisan ppm/template/registration/index.html.twig#}
 
+{# page to add a new artisan ppm/template/artisan/add.html.twig#}
 {% extends 'base.html.twig' %}
+
 {% block content %}
 
     <div class="wrapper  theme-1-active pimary-color-green">
@@ -35,18 +36,18 @@
             <div class="page-wrapper">
                 <div class="container-fluid">
                     <!-- mel7it -->
-                  <p style="color: #fafafa;line-height: 0 !important;margin-top: -40px " >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim eveniet itaque molestiae temporibus. Ab alias amet ex fugiat harum itaque modi mollitia nemo officiis omnis quam, tenetur veniam voluptate voluptatibus.</p>
+                    <p style="color: #fafafa;line-height: 0 !important;margin-top: -40px " >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim eveniet itaque molestiae temporibus. Ab alias amet ex fugiat harum itaque modi mollitia nemo officiis omnis quam, tenetur veniam voluptate voluptatibus.</p>
                     <!-- /mel7it -->
                     <!-- Title -->
                     <div class="row heading-bg">
                         <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                            <h5 class="txt-dark">Ajouter un nouveau utilisateur</h5>
+                            <h5 class="txt-dark">Changer le gouvernorat </h5>
                         </div>
                         <!-- Breadcrumb -->
                         <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                             <ol class="breadcrumb">
                                 <li><a href="{{ path('home') }}">Dashboard</a></li>
-                                <li class="active"><span>ajouter un utilisateur</span></li>
+                                <li class="active"><span>Changer le gouvernorat</span></li>
                             </ol>
                         </div>
                         <!-- /Breadcrumb -->
@@ -65,22 +66,8 @@
                                 <div class="panel-wrapper collapse in">
                                     <div class="panel-body">
                                         <div class="form-wrap">
-                                            {{ form_start(form,
-                                                {'attr':
-                                                    {'data-toggle':'validator',
-                                                    'role':'form',
-                                                    'novalidate':'true'
-                                                    }
-                                                })
-                                            }}
-                                            {{ form_row(form.government, {'attr' : {'class': 'select2'}}) }}
-                                            {{ form_row(form.username) }}
-                                            {{ form_row(form.password) }}
-                                            {{ form_row(form.roles) }}
-
-
-
-                                            <button type="submit" class="btn btn-success btn-rounded">Valider</button>
+                                            {{ form(form) }}
+                                            <button type="submit" class="btn btn-success"> Valider</button>
                                             {{ form_end(form) }}
                                         </div>
                                     </div>

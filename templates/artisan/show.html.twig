@@ -1,0 +1,228 @@
+
+{# page to view an artisan detail ppm/template/artisan/view.html.twig#}
+
+   {% extends 'base.html.twig' %}
+{% block content %}
+
+    <div class="wrapper  theme-1-active pimary-color-green">
+        <!--Preloader-->
+        {#<div class="preloader-it">#}
+        {#<div class="la-anim-1"></div>#}
+        {#</div>#}
+        <!--/Preloader-->
+        {% block body %}
+
+            <!-- Right Sidebar Backdrop -->
+            <div class="right-sidebar-backdrop"></div>
+            <!-- /Right Sidebar Backdrop -->
+
+            <!-- Top Menu Items -->
+            {# include the navbar from direcctory inc#}
+            {% include 'inc/navbar/nav.html.twig' %}
+            <!-- /Top Menu Items -->
+
+            {# sidebar left #}
+            {% include 'inc/sideBarLeft/sideBar.html.twig' %}
+
+            <!-- Right Sidebar Menu -->
+            {% include 'inc/navbar/sidbar.right.setting.html.twig' %}
+            <!-- /Right Sidebar Menu -->
+
+        {% endblock %}
+
+        <!-- Main Content -->
+        {% block main %}
+            <div class="page-wrapper">
+                <div class="container-fluid">
+                    <!-- mel7it -->
+                    <p style="color: #fafafa;line-height: 0 !important;margin-top: -40px " >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim eveniet itaque molestiae temporibus. Ab alias amet ex fugiat harum itaque modi mollitia nemo officiis omnis quam, tenetur veniam voluptate voluptatibus.</p>
+                    <!-- /mel7it -->
+                    <!-- Row -->
+                    <!-- Title -->
+                    <div class="row heading-bg">
+                        <div class=" col-md-4 ">
+                            <h5 class="txt-dark">Détail d'un  Artisan</h5>
+                        </div>
+                        <!-- Breadcrumb -->
+                        <div class=" col-md-8 ">
+                            <ol class="breadcrumb">
+                                <li><a href="{{ path('home') }}">Dashboard</a></li>
+                                <li><a href="{{ path('artisans') }}">Liste des  artisans</a></li>
+                                <li class="active"><span>Modifier un  artisan</span></li>
+                            </ol>
+                        </div>
+                        <!-- /Breadcrumb -->
+                    </div>
+                    <!-- /Title -->
+
+                    <div class="row">
+                        <div class=" col-md-12">
+                            <div class="panel panel-default card-view">
+                                <div class="panel-heading">
+                                    <div class="pull-left">
+                                        <h6 class="panel-title txt-dark">Detail artisan</h6>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="panel-wrapper collapse in">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-wrap">
+                                                    <form class="form-horizontal" role="form">
+                                                        <div class="form-body">
+                                                            <h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>Info Artisan</h6>
+                                                            <hr class="light-grey-hr">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-3">Prénom:</label>
+                                                                        <div class="col-md-9">
+                                                                            <p class="form-control-static"> {{ artisan.firstName }} </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--/span-->
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-3">Nom:</label>
+                                                                        <div class="col-md-9">
+                                                                            <p class="form-control-static"> {{ artisan.lastName }} </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--/span-->
+                                                            </div>
+                                                            <!-- /Row -->
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-3">Genre:</label>
+                                                                        <div class="col-md-9">
+                                                                            <p class="form-control-static"> Male </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--/span-->
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-3">Date de naissance :</label>
+                                                                        <div class="col-md-9">
+                                                                            <p class="form-control-static"> 24/05/1990 </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--/span-->
+                                                            </div>
+                                                            <!-- /Row -->
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-3">Type :</label>
+                                                                        <div class="col-md-9">
+                                                                            <p class="form-control-static"> SARL </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--/span-->
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-3">Active? :</label>
+                                                                        <div class="col-md-9">
+                                                                            <p class="form-control-static"> OUI </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--/span-->
+                                                            </div>
+                                                            <!-- /Row -->
+
+                                                            <div class="seprator-block"></div>
+
+                                                            <h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account-box mr-10"></i>addresse</h6>
+                                                            <hr class="light-grey-hr">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-3">Address:</label>
+                                                                        <div class="col-md-9">
+                                                                            <p class="form-control-static"> 1  rue de la liberté.
+                                                                                ben-arous</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-3">Gouvernorat:</label>
+                                                                        <div class="col-md-9">
+                                                                            <p class="form-control-static"> {{ artisan.government.name }} </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--/span-->
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-3">Délégation:</label>
+                                                                        <div class="col-md-9">
+                                                                            <p class="form-control-static"> {{ artisan.delegation.name }}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--/span-->
+                                                            </div>
+                                                            <!-- /Row -->
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-3">Code postal:</label>
+                                                                        <div class="col-md-9">
+                                                                            <p class="form-control-static"> 2050 </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--/span-->
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-md-3">Pays:</label>
+                                                                        <div class="col-md-9">
+                                                                            <p class="form-control-static"> Tunise </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--/span-->
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-actions mt-10">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="row">
+                                                                        <div class="col-md-offset-3 col-md-9">
+                                                                            <a href="{{ path('artisan_view', {'id': artisan.id}) }}"  class="btn btn-success btn-icon left-icon  mr-10"> <i class="zmdi zmdi-edit"></i> <span>Modifier</span></a>
+                                                                            <a href="{{ path('artisans') }}" type="button" class="btn btn-default">Annuler</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6"> </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /Row -->
+
+                </div> <!--end of container fluid -->
+            </div> <!-- end of page-wrapper -->
+        {% endblock %}
+    </div>
+{% endblock %}

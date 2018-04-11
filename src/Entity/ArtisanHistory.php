@@ -83,6 +83,47 @@ class ArtisanHistory
     private $old_cin;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $activityChanged = false;
+
+    /**
+     * @return mixed
+     */
+    public function getActivityChanged ()
+    {
+        return $this->activityChanged;
+    }
+
+    /**
+     * @param mixed $activityChanged
+     */
+    public function setActivityChanged ($activityChanged): void
+    {
+        $this->activityChanged = $activityChanged;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getArtisanDeleted ()
+    {
+        return $this->artisanDeleted;
+    }
+
+    /**
+     * @param mixed $artisanDeleted
+     */
+    public function setArtisanDeleted ($artisanDeleted): void
+    {
+        $this->artisanDeleted = $artisanDeleted;
+    }
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $artisanDeleted = false ;
+
+    /**
      * @return mixed
      */
     public function getOldCin ()

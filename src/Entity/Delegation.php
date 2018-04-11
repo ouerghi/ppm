@@ -20,7 +20,7 @@ class Delegation
      */
     private $name;
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Government")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Government", inversedBy="delegation")
      * @ORM\JoinColumn(nullable=false)
      */
 

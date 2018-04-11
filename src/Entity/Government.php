@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,6 +20,24 @@ class Government
      * @ORM\Column(type="string", length=21)
      */
     private $name;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Delegation", mappedBy="government")
+     */
+    private $delegation;
+
+    public function __construct ()
+    {
+        $this->delegation = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDelegation ()
+    {
+        return $this->delegation;
+    }
 
     /**
      * @return mixed

@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
@@ -16,37 +14,31 @@ class Artisan
      * @ORM\Column(type="integer")
      */
     private $id;
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(nullable=false)
      */
-     private $user;
-
+    private $user;
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Activity")
      * @ORM\JoinColumn(nullable=false)
      */
     private $activity;
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Trades")
      * @ORM\JoinColumn(nullable=false)
      */
     private $trades;
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Government")
      *  @ORM\JoinColumn(nullable=false)
      */
     private $government;
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Delegation")
      * @ORM\JoinColumn(nullable=false)
      */
     private $delegation;
-
     /**
      * @return mixed
      */
@@ -54,7 +46,6 @@ class Artisan
     {
         return $this->delegation;
     }
-
     /**
      * @param mixed $delegation
      */
@@ -62,7 +53,6 @@ class Artisan
     {
         $this->delegation = $delegation;
     }
-
     /**
      * @return mixed
      */
@@ -70,7 +60,6 @@ class Artisan
     {
         return $this->government;
     }
-
     /**
      * @param Government $government
      */
@@ -78,7 +67,6 @@ class Artisan
     {
         $this->government = $government;
     }
-
     /**
      * @return mixed
      */
@@ -86,7 +74,6 @@ class Artisan
     {
         return $this->activity;
     }
-
     /**
      * @param mixed $activity
      */
@@ -94,9 +81,6 @@ class Artisan
     {
         $this->activity = $activity;
     }
-
-
-
     /**
      * @ORM\Column(type="string", length=200)
      */
@@ -115,9 +99,31 @@ class Artisan
     private $cin ;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isDeleted = false ;
+
+    /**
+     * @return mixed
+     */
+    public function getIsDeleted ()
+    {
+        return $this->isDeleted;
+    }
+
+    /**
+     * @param mixed $isDeleted
+     */
+    public function setIsDeleted ($isDeleted): void
+    {
+        $this->isDeleted = $isDeleted;
+    }
+
+    /**
      * @ORM\Column(type="date")
      */
     private $dateCreation ;
+
 
     /**
      * @return mixed
@@ -126,7 +132,6 @@ class Artisan
     {
         return $this->dateCreation;
     }
-
     /**
      * @param mixed $dateCreation
      */
@@ -134,12 +139,10 @@ class Artisan
     {
         $this->dateCreation = $dateCreation;
     }
-
     /**
      * @ORM\Column(type="boolean")
      */
     private $isActivityUpdated = false;
-
     /**
      * @return mixed
      */
@@ -147,7 +150,6 @@ class Artisan
     {
         return $this->isActivityUpdated;
     }
-
     /**
      * @param mixed $isActivityUpdated
      */
@@ -155,9 +157,6 @@ class Artisan
     {
         $this->isActivityUpdated = $isActivityUpdated;
     }
-
-
-
     /**
      * Artisan constructor.
      */
@@ -166,9 +165,6 @@ class Artisan
         $this->date = new \DateTime();
         $this->dateCreation = new \DateTime();
     }
-
-
-
     /**
      * @return mixed
      */
@@ -176,26 +172,21 @@ class Artisan
     {
         return $this->user;
     }
-
-
     /**
      * @param User $user
      */
     public function setUser (User $user)
     {
         $this->user = $user;
-
     }
-
     /**
      * @return mixed
      */
     public function getId ()
     {
-         //return sprintf("%'.07d",$this->id);
+        //return sprintf("%'.07d",$this->id);
         return $this->id;
     }
-
     /**
      * @param mixed $id
      */
@@ -203,7 +194,6 @@ class Artisan
     {
         $this->id = $id;
     }
-
     /**
      * @return mixed
      */
@@ -211,7 +201,6 @@ class Artisan
     {
         return $this->firstName;
     }
-
     /**
      * @param mixed $firstName
      */
@@ -219,7 +208,6 @@ class Artisan
     {
         $this->firstName = $firstName;
     }
-
     /**
      * @return mixed
      */
@@ -227,7 +215,6 @@ class Artisan
     {
         return $this->lastName;
     }
-
     /**
      * @param mixed $lastName
      */
@@ -235,7 +222,6 @@ class Artisan
     {
         $this->lastName = $lastName;
     }
-
     /**
      * @return mixed
      */
@@ -243,9 +229,6 @@ class Artisan
     {
         return $this->date;
     }
-
-
-
     /**
      * @return mixed
      */
@@ -253,7 +236,6 @@ class Artisan
     {
         return $this->cin;
     }
-
     /**
      * @param mixed $cin
      */
@@ -261,7 +243,6 @@ class Artisan
     {
         $this->cin = $cin;
     }
-
     /**
      * @return mixed
      */
@@ -269,7 +250,6 @@ class Artisan
     {
         return $this->trades;
     }
-
     /**
      * @param mixed $trades
      */
@@ -277,6 +257,4 @@ class Artisan
     {
         $this->trades = $trades;
     }
-
-
 }
