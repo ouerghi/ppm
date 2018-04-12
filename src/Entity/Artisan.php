@@ -40,6 +40,27 @@ class Artisan
      */
     private $delegation;
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Juridique")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $juridique;
+
+    /**
+     * @return mixed
+     */
+    public function getJuridique ()
+    {
+        return $this->juridique;
+    }
+
+    /**
+     * @param mixed $juridique
+     */
+    public function setJuridique ($juridique): void
+    {
+        $this->juridique = $juridique;
+    }
+    /**
      * @return mixed
      */
     public function getDelegation ()
@@ -99,6 +120,26 @@ class Artisan
     private $cin ;
 
     /**
+     * @ORM\Column(type="smallint", length=1)
+     */
+     private $typeArtisan;
+
+    /**
+     * @return mixed
+     */
+    public function getTypeArtisan ()
+    {
+        return $this->typeArtisan;
+    }
+
+    /**
+     * @param mixed $typeArtisan
+     */
+    public function setTypeArtisan ( $typeArtisan): void
+    {
+        $this->typeArtisan = $typeArtisan;
+    }
+    /**
      * @ORM\Column(type="boolean")
      */
     private $isDeleted = false ;
@@ -139,6 +180,27 @@ class Artisan
     {
         $this->dateCreation = $dateCreation;
     }
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $birthday ;
+
+    /**
+     * @return mixed
+     */
+    public function getBirthday ()
+    {
+        return $this->birthday;
+    }
+
+    /**
+     * @param mixed $birthday
+     */
+    public function setBirthday ( \DateTime $birthday): void
+    {
+        $this->birthday = $birthday;
+    }
+
     /**
      * @ORM\Column(type="boolean")
      */

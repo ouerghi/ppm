@@ -30,10 +30,13 @@ class UserType extends AbstractType
         );
         // our builder he present a registration form
         $builder
-            ->add('username', TextType::class)
+            ->add('username', TextType::class, array(
+                'label'=> 'Nom utilisateur',
+            ))
             ->add('government', EntityType::class, array(
                 'class'         => 'App\Entity\Government',
-                'placeholder' => 'Choisir le gouvernorat',
+                'placeholder' => 'Selectionner un gouvernorat',
+                'label'=> 'Gouvernorat',
                 'choice_label'  => 'name',
                 'attr'  => array(
                     'class' => 'government',
@@ -45,7 +48,7 @@ class UserType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'required' => true,
-                'label' => 'Role users',
+                'label' => 'Role Utilisateurs',
 
             ) )
         ;

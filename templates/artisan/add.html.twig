@@ -67,21 +67,77 @@
                                     <div class="panel-body">
                                         <div class="form-wrap">
                                             {{ form_start(form) }}
+                                            <div class="row">
+                                               <div class="col-md-6">
+                                                   <div class="form-group mb-30">
+                                                       {{ form_label(form.typeArtisan) }}
+                                                       {{ form_errors(form.firstName) }}
+                                                       <div class="radio radio-info radio-inline">
+                                                           {{ form_widget(form.typeArtisan) }}
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                            </div>
                                             <div class="row mb-20">
-                                                <div class="col-md-6">
-                                                    {{ form_label(form.cin) }}
-                                                    <span id="loader_cin"><i class="fa fa-spin fa-spinner"></i></span>
-                                                    {{ form_errors(form.cin) }}
-                                                    {{ form_widget(form.cin) }}
+                                               <div class="col-md-4">
+                                                   <div class="form-group">
+                                                       {{ form_label(form.firstName) }}
+                                                       {{ form_errors(form.firstName) }}
+                                                       <div class="input-group">
+                                                           <div class="input-group-addon"><i class="icon-user"></i></div>
+                                                           {{ form_widget(form.firstName) }}
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        {{ form_label(form.lastName) }}
+                                                        {{ form_errors(form.lastName) }}
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon"><i class="icon-user"></i></div>
+                                                            {{ form_widget(form.lastName) }}
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div  class="col-md-6 mb-10 mt-10 ">
-                                                    <ul id="content_search_cin" class="list-icons ">
-
-                                                    </ul>
+                                                <div class="col-md-4">
+                                                    {{ form_row(form.birthday) }}
                                                 </div>
                                             </div>
-                                            {{ form_row(form.delegation) }}
-                                            {{ form_widget(form) }}
+                                            <div class="row mb-20">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        {{ form_label(form.cin) }}
+                                                        <span id="loader_cin"><i class="fa fa-spin fa-spinner"></i></span>
+                                                        {{ form_errors(form.cin) }}
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon"><i class="icon-user"></i></div>
+                                                            {{ form_widget(form.cin) }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 mt-15" id="content_search_cin"></div>
+                                                <div class="col-md-3">
+                                                    {{ form_row(form.juridique) }}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    {{ form_row(form.dateCreation) }}
+                                                </div>
+                                            </div>
+                                           <div class="row">
+                                               <div class="col-md-6">
+                                                   {{ form_row(form.delegation) }}
+                                               </div>
+                                           </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    {{ form_row(form.activity) }}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    {{ form_row(form.trades) }}
+                                                </div>
+                                            </div>
 
                                             <button type="submit" class="btn btn-success"> Valider</button>
                                             {{ form_end(form) }}

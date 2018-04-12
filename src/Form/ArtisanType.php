@@ -8,6 +8,8 @@ use App\Entity\Artisan;
 use App\Repository\DelegationRepository;
 use App\Repository\VilleRepository;
 
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -27,6 +29,10 @@ class ArtisanType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $gov = $options['government'];
+        $typeArtisan = array(
+            'Artisan' => 1,
+            'Société' => 2
+        );
 
         $builder
             ->add('firstName', TextType::class, array(
@@ -41,13 +47,28 @@ class ArtisanType extends AbstractType
                     'placeholder' => 'Nom de l\'artisan',
                 )
             ))
+            ->add('birthday', BirthdayType::class, array(
+                'label' => 'Date de naissance'
+            ))
             ->add('cin', NumberType::class, array(
                 'attr' => array(
                     'placeholder' => 'Cin de  l\'artisan',
                     'class' => 'ui-widget'
                 )
-            ) )
+            ))
             ->add('dateCreation', DateType::class, array(
+            ))
+            ->add('typeArtisan', ChoiceType::class, array(
+                'choices' => $typeArtisan,
+                'data' => 1,
+                'expanded' => true,
+                'label' => 'Artisan/Société'
+            ))
+            ->add('juridique', EntityType::class, array(
+                'class' => 'App\Entity\Juridique',
+                'placeholder' => 'Choisir une forme juridique',
+                'choice_label' => 'name',
+                'attr'  => array('class' => 'select2 ')
             ))
             ->add('delegation', EntityType::class, array(
                 'class'         => 'App\Entity\Delegation',
