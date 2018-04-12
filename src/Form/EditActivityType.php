@@ -16,6 +16,9 @@ class EditActivityType extends AbstractType
             ->add('firstName', HiddenType::class)
             ->add('lastName', HiddenType::class)
             ->remove('dateCreation')
+            ->remove('typeArtisan')
+            ->remove('juridique')
+            ->remove('birthday')
             ->add('delegation', EntityType::class, array(
                 'class'         => 'App\Entity\Delegation',
                 'choice_label'  => 'name',
