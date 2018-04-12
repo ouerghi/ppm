@@ -21,35 +21,7 @@ class EditArtisanType extends AbstractType
             ->add('lastName', TextType::class, array('label' => 'Nom de l\'artisan'))
             ->add('firstName', TextType::class, array('label' => 'Prénom de l\'artisan'))
             ->add('cin', TextType::class)
-            ->add('activity', EntityType::class, array(
-                'class'         => 'App\Entity\Activity',
-                'placeholder' => 'Choisir parmi les groupes d\'activité',
-                'choice_label'  => 'name',
-                'label' =>  'Groupe d\'activité',
-                'attr' => array('class' => 'select2')
-            ))
-            ->add('trades', EntityType::class, array(
-                'class' => 'App\Entity\Trades',
-                'placeholder' => 'Choisir une activité',
-                'choice_label'  => 'name',
-                'label' =>  'Liste d\'activité',
-                'attr' => array(
-                    'class' => 'select2',
-                )
-            ))
-            ->add('delegation', EntityType::class, array(
-                'class'         => 'App\Entity\Delegation',
-                'placeholder' => 'Choisir une délégation',
-                'choice_label'  => 'name',
-                'query_builder' => /**
-                 * @param DelegationRepository $delegation
-                 * @return \Doctrine\ORM\QueryBuilder
-                 */
-                    function(DelegationRepository $delegation) use($gov) {
-                        return $delegation->getDelegation($gov);
-                    },
-                'attr'  => array('class' => 'select2 ville ')
-            ))
+
         ;
     }
 

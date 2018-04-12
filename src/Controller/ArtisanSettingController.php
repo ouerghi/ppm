@@ -34,6 +34,8 @@ class ArtisanSettingController extends Controller
         $history_artisan->setOldCin($artisan->getCin());
         $history_artisan->setOldDateCreation($artisan->getDateCreation());
         $history_artisan->setActivityChanged(true);
+        $history_artisan->setGovernment($artisan->getGovernment());
+        $history_artisan->setDelegation($artisan->getDelegation());
         $history_artisan->setUser($user);
 
         $form = $this->createForm('App\Form\EditActivityType', $artisan);
@@ -67,10 +69,38 @@ class ArtisanSettingController extends Controller
      */
     public function changeGovernment(Request $request, Artisan $artisan)
     {
-        $government = new Artisan();
-        $form = $this->createForm('App\Form\EditGovernmentArtisanType', $government);
+        $em =$this->getDoctrine()->getManager();
+        // get the user agent authenticated
+        $id_user=$this->get('security.token_storage')->getToken()->getUser()->getId();
+        $user = $em->getRepository('App:User')->find($id_user);
+
+        $history_artisan = new ArtisanHistory();
+        $history_artisan->setArtisan($artisan);
+        $history_artisan->setActivity($artisan->getActivity());
+        $history_artisan->setTrade($artisan->getTrades());
+        $history_artisan->setOldCin($artisan->getCin());
+        $history_artisan->setOldDateCreation($artisan->getDateCreation());
+        $history_artisan->setActivityChanged(true);
+        $history_artisan->setUser($user);
+        $history_artisan->setGovernment($artisan->getGovernment());
+        $history_artisan->setDelegation($artisan->getDelegation());
+        $form = $this->createForm('App\Form\EditGovernmentArtisanType', $artisan);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $history_artisan->setGovernmentChanged(true);
+            $em->persist($artisan);
+            $em->persist($history_artisan);
+            $em->flush();
+            $this->addFlash('notice', 'Changement d\'adresse de l\'artisan '.$artisan->getLastName().'à été effectué avec succés ');
+            // redirect to the recipe  route with last id artisan for argument
+            return  $this->redirectToRoute('change_government', array('id' => $artisan->getId()));
+
+        }
+
         return $this->render('artisan/change_government.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'artisan' => $artisan
         ));
     }
 
@@ -100,6 +130,59 @@ class ArtisanSettingController extends Controller
         return $response->setData(
             $delegation
         );
+    }
+
+    /**
+     * @Route("edit/activity/government/{id}", name="edit_activity_government")
+     * @ParamConverter("Artisan", options={"mapping": {"id":"id"}})
+     * @param Request $request
+     * @param Artisan $artisan
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getDelegationActivity(Request $request, Artisan $artisan)
+    {
+        $em = $this->getDoctrine()->getManager();
+        // get the user agent authenticated
+        $id_user=$this->get('security.token_storage')->getToken()->getUser()->getId();
+        $user = $em->getRepository('App:User')->find($id_user);
+
+        $history_artisan = new ArtisanHistory();
+        $history_artisan->setArtisan($artisan);
+        $history_artisan->setActivity($artisan->getActivity());
+        $history_artisan->setTrade($artisan->getTrades());
+        $history_artisan->setOldCin($artisan->getCin());
+        $history_artisan->setOldDateCreation($artisan->getDateCreation());
+        $history_artisan->setUser($user);
+        $history_artisan->setGovernment($artisan->getGovernment());
+        $history_artisan->setDelegation($artisan->getDelegation());
+
+        $form = $this->createForm('App\Form\EditGovActivType', $artisan);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            if ($artisan->getActivity() !== $history_artisan->getActivity())
+            {
+                $history_artisan->setActivityChanged(true);
+            }
+
+          if ($artisan->getGovernment() !== $history_artisan->getGovernment())
+          {
+              $history_artisan->setGovernmentChanged(true);
+
+          }
+
+            $em->persist($artisan);
+            $em->persist($history_artisan);
+            $em->flush();
+            $this->addFlash('notice','Opération de modification sur l\'artisan'. $artisan->getId().'a été bien sauvegardé ');
+            return $this->redirectToRoute('edit_activity_government', array('id' => $artisan->getId()));
+        }
+        return $this->render('edit_gov_activity.html.twig', array(
+            'artisan' => $artisan,
+            'form' => $form->createView()
+        ));
     }
 
 }

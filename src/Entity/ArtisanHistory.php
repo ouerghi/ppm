@@ -34,6 +34,16 @@ class ArtisanHistory
      * @ORM\JoinColumn(nullable=false)
      */
     private $trade;
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Government")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $government;
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Delegation")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $delegation;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
@@ -86,6 +96,59 @@ class ArtisanHistory
      * @ORM\Column(type="boolean")
      */
     private $activityChanged = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $governmentChanged = false;
+
+    /**
+     * @return mixed
+     */
+    public function getGovernment ()
+    {
+        return $this->government;
+    }
+
+    /**
+     * @param mixed $government
+     */
+    public function setGovernment ($government): void
+    {
+        $this->government = $government;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDelegation ()
+    {
+        return $this->delegation;
+    }
+
+    /**
+     * @param mixed $delegation
+     */
+    public function setDelegation ($delegation): void
+    {
+        $this->delegation = $delegation;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGovernmentChanged ()
+    {
+        return $this->governmentChanged;
+    }
+
+    /**
+     * @param mixed $governmentChanged
+     */
+    public function setGovernmentChanged ($governmentChanged): void
+    {
+        $this->governmentChanged = $governmentChanged;
+    }
 
     /**
      * @return mixed
