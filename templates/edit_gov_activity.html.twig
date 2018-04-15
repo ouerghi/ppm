@@ -38,28 +38,21 @@
                     <!-- mel7it -->
                     <p style="color: #fafafa;line-height: 0 !important;margin-top: -40px " >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim eveniet itaque molestiae temporibus. Ab alias amet ex fugiat harum itaque modi mollitia nemo officiis omnis quam, tenetur veniam voluptate voluptatibus.</p>
                     <!-- /mel7it -->
-                    <!-- Title -->
-                    <div class="row heading-bg">
-                        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                            <h5 class="txt-dark">Changer le gouvernorat </h5>
-                        </div>
-                        <!-- Breadcrumb -->
-                        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                            <ol class="breadcrumb">
-                                <li><a href="{{ path('home') }}">Dashboard</a></li>
-                                <li class="active"><span>Changer le gouvernorat</span></li>
-                            </ol>
-                        </div>
-                        <!-- /Breadcrumb -->
-                    </div>
-                    <!-- /Title -->
+
                     <!-- Row -->
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="panel panel-default card-view">
                                 <div class="panel-heading">
                                     <div class="pull-left">
-                                        <h6 class="panel-title txt-dark">Form</h6>
+                                        <h6 class="panel-title txt-dark">Changer gouvernorat/Activités</h6>
+                                    </div>
+                                    <div class="pull-right">
+                                        <ol class="breadcrumb">
+                                            <li><a href="{{ path('home') }}">Dashboard</a></li>
+                                            <li><a href="{{ path('artisans') }}">Liste des artisans</a></li>
+                                            <li class="active"><span>Changer le gouvernorat</span></li>
+                                        </ol>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -119,7 +112,7 @@
                                                               </div>
                                                           </div>
                                                            <button type="submit" class="btn btn-success"> Valider</button>
-                                                           <a href="{{ path('artisan_view', {id : artisan.id}) }}"  class="btn btn-danger"> Retour</a>
+
                                                            {{ form_end(form) }}
 
                                         </div>

@@ -105,14 +105,12 @@
                                                             <a href="{{ path('artisans') }}" class="btn btn-danger">Annuler</a>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
                                                         <div class="col-sm-12 mb-15">
                                                             <div class="btn-group btn-group-justified " >
                                                                 <a href="{{ path('change-activity', { id : artisan.id }) }}" class="btn btn-sm  btn-primary">Changer l' activité</a>
                                                                 <a href="{{ path('change_government', { id : artisan.id }) }}" class="btn btn-sm btn-warning">Changer le gouvernorat</a>
                                                                 <a  href="{{ path('edit_activity_government', { id : artisan.id}) }}" class="btn btn-sm btn-default">Changer gouvernorat & activité</a>
                                                             </div>
-                                                        </div>
 
                                                     {{ form_end(form) }}
                                                 </div>

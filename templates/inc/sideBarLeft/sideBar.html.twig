@@ -11,94 +11,43 @@
                 <li>
                     <a href="{{ path('artisans') }}">Liste Des  Artisan</a>
                 </li>
-                <li>
-                    <a href="{{ path('addArtisan') }}">Ajouter un  artisan</a>
-                </li>
 
             </ul>
         </li>
         <li>
-            <a href="javascript:void(0);" data-toggle="collapse" data-target="#ecom_dr"><div class="pull-left"><i class="zmdi zmdi-view-dashboard mr-20"></i><span class="right-nav-text">Tableau de board</span></div><div class="pull-right"><span class="label label-success">30</span></div><div class="clearfix"></div></a>
-            <ul id="ecom_dr" class="collapse collapse-level-1">
-                <li>
-                    <a href="{{ path('registration') }}">Ajouter un utilisateur</a>
-                </li>
-                <li>
-                    <a href="{{ path('artisan') }}">Liste Des  Artisans</a>
-                </li>
-                <li>
-                    <a href="#">Liste des Utilisateurs</a>
-                </li>
-            </ul>
+            {#<a href="javascript:void(0);" data-toggle="collapse" data-target="#ecom_dr"><div class="pull-left"><i class="zmdi zmdi-view-dashboard mr-20"></i><span class="right-nav-text">Tableau de board</span></div><div class="pull-right"><span class="label label-success">30</span></div><div class="clearfix"></div></a>#}
+            {#<ul id="ecom_dr" class="collapse collapse-level-1">#}
+                {#<li>#}
+                    {#<a href="{{ path('registration') }}">Ajouter un utilisateur</a>#}
+                {#</li>#}
+                {#<li>#}
+                    {#<a href="{{ path('artisan') }}">Liste Des  Artisans</a>#}
+                {#</li>#}
+                {#<li>#}
+                    {#<a href="#">Liste des Utilisateurs</a>#}
+                {#</li>#}
+            {#</ul>#}
         </li>
         <li>
             <a href="javascript:void(0);" data-toggle="collapse" data-target="#param_dr"><div class="pull-left"><i class="zmdi zmdi-settings mr-20"></i><span class="right-nav-text">Paramétrages </span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
             <ul id="param_dr" class="collapse collapse-level-1 two-col-list">
                 <li>
-                    <a href="javascript:void(0);" data-toggle="collapse" data-target="#groupe_dr" class="" aria-expanded="true">Groupe d'activité<div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
-                    <ul id="groupe_dr" class="collapse-level-2 collapse in" aria-expanded="true" style="">
-                        <li>
-                            <a href="{{ path('activity_index') }}">Groupe d'activité</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('activity_new') }}">Ajouter un Groupe d'activité</a>
-                        </li>
-                    </ul>
+                    <a href="{{ path('activity_index') }}">Groupe d'activité</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" data-toggle="collapse" data-target="#activite_dr" class="" aria-expanded="true">Activité<div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
-                    <ul id="activite_dr" class="collapse-level-2 collapse in" aria-expanded="true" style="">
-                        <li>
-                            <a href="{{ path('trades_index') }}">Liste d'activité</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('trades_new') }}">Ajouter une activité</a>
-                        </li>
-                    </ul>
+                    <a href="{{ path('trades_index') }}">Activités</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" data-toggle="collapse" data-target="#gov_dr" class="" aria-expanded="true">Gouvernement<div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
-                    <ul id="gov_dr" class="collapse-level-2 collapse in" aria-expanded="true" style="">
-                        <li>
-                            <a href="{{ path('government_index') }}">Liste des gouvernorats</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('government_new') }}">Ajouter un gouvernorat</a>
-                        </li>
-                    </ul>
+                    <a href="{{ path('government_index') }}">Gouvernorats</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" data-toggle="collapse" data-target="#delegation_dr" class="" aria-expanded="true">Délégations<div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
-                    <ul id="delegation_dr" class="collapse-level-2 collapse in" aria-expanded="true" style="">
-                        <li>
-                            <a href="{{ path('delegation_index') }}">Liste des délégations</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('delegation_new') }}">Ajouter une délégation</a>
-                        </li>
-                    </ul>
+                    <a href="{{ path('delegation_index') }}">Délégations</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" data-toggle="collapse" data-target="#juridique_dr" class="" aria-expanded="true">Forme Juridique<div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
-                    <ul id="juridique_dr" class="collapse-level-2 collapse in" aria-expanded="true" style="">
-                        <li>
-                            <a href="{{ path('juridique_index') }}">juridique</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('juridique_new') }}">Ajouter juridique</a>
-                        </li>
-                    </ul>
+                    <a href="{{ path('juridique_index') }}">juridique</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" data-toggle="collapse" data-target="#user_dr" class="" aria-expanded="true">Utilisateurs<div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
-                    <ul id="user_dr" class="collapse-level-2 collapse in" aria-expanded="true" style="">
-                        <li>
-                            <a href="{{ path('user_index') }}">Liste des utilisateurs</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('user_new') }}">Ajouter un utilisateur</a>
-                        </li>
-                    </ul>
+                    <a href="{{ path('user_index') }}">Utilisateurs</a>
                 </li>
 
             </ul>

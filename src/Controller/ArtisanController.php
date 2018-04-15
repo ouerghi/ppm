@@ -159,6 +159,8 @@ class ArtisanController extends Controller
             $history_artisan->setArtisan($artisan);
             $history_artisan->setActivity($artisan->getActivity());
             $history_artisan->setTrade($artisan->getTrades());
+            $history_artisan->setDelegation($artisan->getDelegation());
+            $history_artisan->setGovernment($artisan->getGovernment());
             $history_artisan->setOldCin($artisan->getCin());
             $history_artisan->setOldDateCreation($artisan->getDateCreation());
             $history_artisan->setUser($user);
@@ -221,6 +223,7 @@ class ArtisanController extends Controller
         //test if the form is valid and submitted
         if ($form->isSubmitted() && $form->isValid())
         {
+
             // update the artisan
             $em->persist($artisan);
             $em->flush();
@@ -371,6 +374,59 @@ class ArtisanController extends Controller
         $response = new JsonResponse();
         $response->setData(array('listCin' => $listCin));
         return $response;
+
+    }
+
+    /**
+     * @Route("{id}/edit", options={"expose"=true}, name="modal_edit")
+     * @param $id
+     * @return JsonResponse
+     */
+    public function modalEditArtisan($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $artisan = $em->getRepository('App:Artisan')->find($id);
+        $user = $artisan->getUser();
+        $government = $user->getGovernment()->getId();
+        $form = $this->createForm(EditArtisanType::class, $artisan,array(
+            'government' => $government
+        ));
+
+        $temp = $this->renderView('modal/edit.html.twig', array(
+            'artisan' => $artisan,
+            'form' => $form->createView()
+        ));
+        $json = new JsonResponse(array(
+            'content' => $temp
+        ));
+        return $json;
+    }
+
+    /**
+     * @Route("/edit-artisan/{id}", options={"expose":true}, name="edit_artisan")
+     * @Method({"POSt"})
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     */
+    public function editArtisan(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $artisan = $em->getRepository('App:Artisan')->find($id);
+
+        if ($request->isXmlHttpRequest()) {
+            $form = $this->createForm('App\Form\EditArtisanType', $artisan);
+            $form->handleRequest($request);
+            $em->persist($artisan);
+            $em->flush();
+            return new JsonResponse(array(
+                'res' => 'loool'
+            ));
+
+        } else {
+            return new JsonResponse(array('message' => 'Vous ne pouvez y accéder qu\'en utilisant Ajax!'), 400);
+        }
+
 
     }
 

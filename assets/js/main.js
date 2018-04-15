@@ -15,8 +15,8 @@ $("document").ready(function () {
 
         // swal with alert before delete artisan
         swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this artisan!",
+            title: "Vous êtes sûr?",
+            text: "Une fois effacé, vous ne pourrez pas récupérer cet artisan!",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -32,7 +32,7 @@ $("document").ready(function () {
                         //success function with reload after 2 seconds
                         success: function (response) {
                              swal({
-                                title : 'Deleted!',
+                                title : 'Supprimé!',
                                 message : response.message,
                                  status : response.status,
                                  icon : response.status,
@@ -47,7 +47,7 @@ $("document").ready(function () {
                         // error function
                         error: function (response) {
                             swal({
-                                title : 'ERROR can please contact admin !',
+                                title : 'Erreur veuillez contacter l\'administrateur!',
                                 message : response.message,
                                 status : response.status,
                                 icon : response.status,
@@ -57,7 +57,7 @@ $("document").ready(function () {
                     })
                     // $('#del').submit();
                 } else {
-                    swal("You canceled the operation to delete an artisan!");
+                    swal("Vous avez annulé l'opération de suppression d'un artisan!");
                 }
             });
     };

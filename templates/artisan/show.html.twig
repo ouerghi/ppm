@@ -38,22 +38,6 @@
                     <p style="color: #fafafa;line-height: 0 !important;margin-top: -40px " >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim eveniet itaque molestiae temporibus. Ab alias amet ex fugiat harum itaque modi mollitia nemo officiis omnis quam, tenetur veniam voluptate voluptatibus.</p>
                     <!-- /mel7it -->
                     <!-- Row -->
-                    <!-- Title -->
-                    <div class="row heading-bg">
-                        <div class=" col-md-4 ">
-                            <h5 class="txt-dark">Détail d'un  Artisan</h5>
-                        </div>
-                        <!-- Breadcrumb -->
-                        <div class=" col-md-8 ">
-                            <ol class="breadcrumb">
-                                <li><a href="{{ path('home') }}">Dashboard</a></li>
-                                <li><a href="{{ path('artisans') }}">Liste des  artisans</a></li>
-                                <li class="active"><span>Modifier un  artisan</span></li>
-                            </ol>
-                        </div>
-                        <!-- /Breadcrumb -->
-                    </div>
-                    <!-- /Title -->
 
                     <div class="row">
                         <div class=" col-md-12">
@@ -62,7 +46,13 @@
                                     <div class="pull-left">
                                         <h6 class="panel-title txt-dark">Detail artisan</h6>
                                     </div>
-
+                                    <div class="pull-right">
+                                        <ol class="breadcrumb">
+                                            <li><a href="{{ path('home') }}">Dashboard</a></li>
+                                            <li><a href="{{ path('artisans') }}">Liste des  artisans</a></li>
+                                            <li class="active"><span>Voir un  artisan</span></li>
+                                        </ol>
+                                    </div>
                                     <div class="clearfix"></div>
                                 </div>
 
@@ -194,19 +184,6 @@
                                                                     </div>
                                                                 </div>
                                                                 <!--/span-->
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-actions mt-10">
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <div class="row">
-                                                                        <div class="col-md-offset-3 col-md-9">
-                                                                            <a href="{{ path('artisan_view', {'id': artisan.id}) }}"  class="btn btn-success btn-icon left-icon  mr-10"> <i class="zmdi zmdi-edit"></i> <span>Modifier</span></a>
-                                                                            <a href="{{ path('artisans') }}" type="button" class="btn btn-default">Annuler</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6"> </div>
                                                             </div>
                                                         </div>
                                                     </form>

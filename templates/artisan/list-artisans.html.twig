@@ -35,19 +35,7 @@
             <div class="page-wrapper">
                 <div class="container-fluid">
                     <p style="color: #fafafa;line-height: 0 !important;margin-top: -40px " >ooLorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci alias assumenda cum dignissimos dolor eligendi explicabo, facilis illo, ipsam itaque optio, quam quasi ratione saepe sapiente tenetur ullam velit voluptatum.</p>
-                    <div class="row heading-bg">
-                        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                            <h5 class="txt-dark">Detail Artisan</h5>
-                        </div>
-                        <!-- Breadcrumb -->
-                        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                            <ol class="breadcrumb">
-                                <li><a href="{{ path('home') }}">Dashboard</a></li>
-                                <li class="active"><span>detail artisan</span></li>
-                            </ol>
-                        </div>
-                        <!-- /Breadcrumb -->
-                    </div>
+
                     {# message flash #}
                     {% for message in app.flashes('notice') %}
                         <div class="flash-notice ">
@@ -66,11 +54,24 @@
                                     <div class="pull-left">
                                         <h6 class="panel-title txt-dark">Table artisan</h6>
                                     </div>
+                                    <div class="pull-rigt">
+                                        <ol class="breadcrumb">
+                                            <li><a href="{{ path('home') }}">Dashboard</a></li>
+                                            <li class="active"><span>Liste des artisans artisan</span></li>
+                                        </ol>
+                                    </div>
                                     <div class="clearfix"></div>
                                 </div>
 
                                 <div class="panel-wrapper collapse in">
                                     <div class="panel-body">
+                                        <div class="row">
+                                          <div class="pull-right">
+                                              <a style="margin-right: 15px;width: 185px;"
+                                                 class="btn btn-success btn-icon left-icon" href="{{ path('addArtisan') }}">
+                                                  <i class="fa fa-user-plus"></i> <span>Ajouter un artisan</span></a>
+                                          </div>
+                                        </div>
                                         <div class="table-wrap">
                                             <div class="table-responsive">
                                             <table class="table" id="table_js_artisan"
@@ -98,6 +99,16 @@
                     <!-- /Row -->
                 </div>
             </div>
+
+       <!--  modal -->
+            <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content edit">
+
+                    </div>
+                </div>
+            </div>
+            <!-- /modal -->
         {% endblock %}
     </div>
 {% endblock %}
@@ -112,8 +123,7 @@
                  url: url,
                  method: "POST",
                  success: function (response) {
-                     console.log(response);
-
+                     // console.log(response);
                      $('#table_js_artisan').bootstrapTable({
                          data: response,
                          columns: [
@@ -135,18 +145,31 @@
                 let url_view =  Routing.generate('artisan_view', {id: row.id});
                  let artisan_show =  Routing.generate('artisan_show', {id: row.id});
 
-                 // console.log(row.id + ' ' + url );
+                  // console.log(row.id + ' ' + url );
                  // console.log(wiw);
+                 //href="' + url_view +'"
                  return [
                       '<a class="text-inverse pr-5" id="deleteArtisan" onclick="deleteArtisan( '+ row.id + ' , \'{{ csrf_token('delete-item') }}\')" title="" data-toggle="tooltip" data-original-title="Delete"   >  <i class="fa fa-trash text-danger"></i></a>    ',
-                      '<a href="' + url_view +'" class="text-inverse pr-5" title="" data-toggle="tooltip" data-original-title="Edit">  <i class="fa fa-edit txt-success"></i></a>',
+                      '<a class="text-inverse pr-5" data-toggle="modal" onclick="edit('+row.id+')" data-original-title="Edit">  <i class="fa fa-edit txt-success"></i></a>',
                       '<a href="' + artisan_show +'" class="text-inverse pr-5" title="" data-toggle="tooltip" data-original-title="Show">  <i class="fa fa-eye txt-warning"></i></a>',
                  ].join('');
              }
 
          });
 
-
+    //      send a ajax request to action return a content modal to edit
+         /*Modal Init*/
+        function edit(id) {
+            let url = Routing.generate('modal_edit', { id : id});
+            $.ajax({
+                method:"POST",
+                url: url,
+                success: function (data) {
+                    $('.modal-content.edit').html(data.content);
+                    $("#modalEdit").modal();
+                }
+            });
+        }
     </script>
 {% endblock %}
 
