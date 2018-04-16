@@ -3,7 +3,7 @@
 {# page to test any template render ppm/template/artisan/test.html.twig#}
 
 {% extends 'base.html.twig' %}
-{% block title %}Nouveau gouvernement{% endblock %}
+{% block title %}Nouvelle gouvernorat{% endblock %}
 {% block content %}
 
     <div class="wrapper  theme-1-active pimary-color-green">
@@ -40,22 +40,38 @@
                     <!-- mel7it -->
                     <p style="color: #fafafa;line-height: 0 !important;margin-top: -40px " >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim eveniet itaque molestiae temporibus. Ab alias amet ex fugiat harum itaque modi mollitia nemo officiis omnis quam, tenetur veniam voluptate voluptatibus.</p>
                     <!-- /mel7it -->
-                    <div class="row heading-bg">
-                        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                            <h5 class="txt-dark">Créer un  nouveau gouvernorat</h5>
-                        </div>
-                        <!-- Breadcrumb -->
+                    <div class="col-md-12">
+                        <div class="panel panel-default card-view panel-refresh">
+                            <div class="refresh-container">
+                                <div class="la-anim-1"></div>
+                            </div>
+                            <div class="panel-heading">
+                                <div class="pull-left">
+                                    <h6 class="panel-title txt-dark">Créer une nouvelle gouvernorat</h6>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="{{ path('government_index') }}" class="pull-left inline-block  mr-15">
+                                        <i class="zmdi zmdi-replay"></i>
+                                    </a>
 
-                        <!-- /Breadcrumb -->
+                                    <a class="pull-left inline-block full-screen mr-15" >
+                                        <i class="zmdi zmdi-fullscreen"></i>
+                                    </a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div id="collapse_1" class="panel-wrapper collapse in">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+
+                                            {{ include('government/_form.html.twig') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                   <div class="row">
-                       <div class="col-md-6">
-                           {{ include('government/_form.html.twig') }}
-                       </div>
-                       <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4 col-md-pull-2">
-                           <a class="btn btn-primary pull-right mt-20" href="{{ path('government_index') }}">retour à la liste</a>
-                       </div>
-                   </div>
                 </div>
             </div>
         {% endblock %}

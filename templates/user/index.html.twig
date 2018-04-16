@@ -52,7 +52,7 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div>
-                                    <a class="btn btn-primary pull-right mt-20" href="{{ path('user_new') }}">Créer un nouveau utilisateur</a>
+                                    <a class="btn btn-primary pull-right mt-20" href="{{ path('registration') }}">Créer un nouveau utilisateur</a>
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="panel-wrapper collapse in">
@@ -81,13 +81,17 @@
                                                                         {{ role }} <br>
                                                                     {% endfor %}
                                                                 </td>
-                                                                <td>{{ user.isActive ? 'Yes' : 'No' }}</td>
+                                                                <td class="{{ user.isActive ? 'success' : 'danger' }}">{{ user.isActive ? 'Oui' : 'Non' }}</td>
                                                                 <td>
-                                                                    <a href="{{ path('user_show', {'id': user.id}) }}"class="mr-25" data-toggle="tooltip" data-original-title="Voir"> <i class="fa fa-eye text-inverse m-r-10 text-info"></i> </a>
-                                                                    <a href="{{ path('user_edit', {'id': user.id}) }}" class="mr-25" data-toggle="tooltip" data-original-title="Modifier"> <i class="fa fa-pencil text-inverse m-r-10 text-success"></i> </a>
-                                                                    <a href="{{ path('user_edit_password', {'id': user.id}) }}" class="mr-25" data-toggle="tooltip" data-original-title="Modifier Password"> <i class="fa fa-lock text-inverse m-r-10 text-danger"></i> </a>
-
+                                                                    {#<a href="{{ path('trades_show', {'id': trade.id}) }}" class="btn btn-xs btn-danger btn-icon-anim btn-circle" data-toggle="tooltip" data-original-title="Voir"> <i class="fa fa-eye text-inverse m-r-10 text-info"></i> </a>#}
+                                                                    {#<a  class="btn btn-xs btn-success btn-icon-anim btn-circle" data-toggle="tooltip" data-original-title="Modifier"> <i class="icon-trash"></i> </a>#}
+                                                                    <a href="{{ path('user_show', {'id': user.id}) }}" class="btn btn-sm btn-info btn-icon-anim btn-square" data-toggle="tooltip" data-original-title="Voir"> <i class="fa fa-eye "></i> </a>
+                                                                    <a href="{{ path('user_edit', {'id': user.id}) }}" data-toggle="tooltip" data-original-title="Modifier" class="btn btn-sm btn-success btn-icon-anim btn-square"><i  class="fa fa-pencil"></i></a>
+                                                                    <a href="{{ path('user_edit_password', {'id': user.id}) }}" class="btn btn-sm btn-warning btn-icon-anim btn-square" data-toggle="tooltip" data-original-title="Modifier Password"> <i class="fa fa-lock "></i> </a>
+                                                                    {{ include('user/_delete_form.html.twig') }}
                                                                 </td>
+
+
                                                             </tr>
                                                         {% else %}
                                                             <tr>

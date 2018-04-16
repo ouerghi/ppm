@@ -72,20 +72,28 @@ class User implements UserInterface, \Serializable
      * @Assert\Length(min="5", minMessage="Your password must be at least {{ limit }} characters long")
      */
     private $password;
+
     /**
-     * @ORM\Column(name="is_active", type="boolean")
+     * @ORM\Column(type="boolean")
      */
-    private $isActive;
+    private $isActive = true;
+
+    /**
+     * @param mixed $isActive
+     */
+    public function setIsActive ( $isActive): void
+    {
+        $this->isActive = $isActive;
+    }
     /**
      * @return mixed
      */
-    public function getisActive ()
+    public function getIsActive ()
     {
         return $this->isActive;
     }
     public function __construct()
     {
-        $this->isActive = true;
         $this->roles = array('ROLE_DRC');
     }
     public function getUsername()
