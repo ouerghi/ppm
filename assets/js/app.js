@@ -2,6 +2,7 @@
 // css file to import
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css';
+import 'fullcalendar/dist/fullcalendar.min.css'
 
 import '../css/login.css';
 import  '../css/style.css'
@@ -16,6 +17,8 @@ import Popper from 'popper.js';
 global.Popper = Popper;
 require('bootstrap');
 import '../js/jquery.slimscroll'
+import 'moment'
+import 'moment/locale/fr'
 import 'switchery'
 import 'sweetalert';
 import '../js/jasny-bootstrap'
@@ -25,6 +28,11 @@ import  '../js/bootstrap-select.min'
 import '../js/bootstrap-table.min';
 import '../js/dropdown-bootstrap-extended'
 import 'jquery-autocomplete/jquery.autocomplete.css'
+import 'eonasdan-bootstrap-datetimepicker'
+import 'fullcalendar'
+import 'fullcalendar/dist/locale/fr'
+import '../js/fullcalendar-data'
+import '../js/form-picker-data'
 import '../js/init'
 import '../js/component/dynamic-activity-select'
 import '../js/component/government-delegation-select'

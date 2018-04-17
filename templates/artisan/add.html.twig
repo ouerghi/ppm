@@ -60,6 +60,17 @@
                                         <div class="form-wrap">
                                             {{ form_start(form) }}
                                             <div class="row">
+                                                <div class='col-sm-3'>
+                                                    <div class="form-group">
+                                                        {{ form_label(form.birthday) }}
+                                                        <div class='input-group'>
+                                                            {{ form_widget(form.birthday) }}
+                                                            <span class="input-group-addon">
+                                                           <span class="glyphicon glyphicon-calendar"></span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                <div class="col-md-6">
                                                    <div class="form-group mb-30">
                                                        {{ form_label(form.typeArtisan) }}
@@ -92,7 +103,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    {{ form_row(form.birthday) }}
+
                                                 </div>
                                             </div>
                                             <div class="row mb-20">
@@ -111,8 +122,16 @@
                                                 <div class="col-md-3">
                                                     {{ form_row(form.juridique) }}
                                                 </div>
-                                                <div class="col-md-3">
-                                                    {{ form_row(form.dateCreation) }}
+                                                <div class='col-sm-3 '>
+                                                    <div class="form-group ">
+                                                        {{ form_label(form.dateCreation) }}
+                                                        <div class='input-group'>
+                                                            {{ form_widget(form.dateCreation) }}
+                                                            <span class="input-group-addon">
+                                                           <span class="glyphicon glyphicon-calendar"></span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                            <div class="row">

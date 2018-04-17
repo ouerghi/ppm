@@ -48,7 +48,10 @@ class ArtisanType extends AbstractType
                 )
             ))
             ->add('birthday', BirthdayType::class, array(
-                'label' => 'Date de naissance'
+                'label' => 'Date de naissance',
+                'widget' => 'single_text',
+                'html5' => false,
+                'attr' => ['class' => 'birthday']
             ))
             ->add('cin', NumberType::class, array(
                 'attr' => array(
@@ -57,6 +60,9 @@ class ArtisanType extends AbstractType
                 )
             ))
             ->add('dateCreation', DateType::class, array(
+                'widget' => 'single_text',
+                'html5' => false,
+                'attr' => ['class' => 'dateCreation']
             ))
             ->add('typeArtisan', ChoiceType::class, array(
                 'choices' => $typeArtisan,

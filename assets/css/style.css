@@ -92,6 +92,7 @@ Project:	Droopy
 @import url(select2.min.css);
 @import url(bootstrap-table.min.css);
 @import url(lightgallery.css);
+@import url(bootstrap-datetimepicker.min.css);
 @import url(../../node_modules/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css);
 /****************************/
 /** Reset **/

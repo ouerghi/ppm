@@ -56,7 +56,7 @@ class Artisan
     /**
      * @param mixed $juridique
      */
-    public function setJuridique ($juridique): void
+    public function setJuridique (Juridique $juridique): void
     {
         $this->juridique = $juridique;
     }
@@ -135,7 +135,7 @@ class Artisan
     /**
      * @param mixed $typeArtisan
      */
-    public function setTypeArtisan ( $typeArtisan): void
+    public function setTypeArtisan ( int $typeArtisan): void
     {
         $this->typeArtisan = $typeArtisan;
     }
@@ -155,7 +155,7 @@ class Artisan
     /**
      * @param mixed $isDeleted
      */
-    public function setIsDeleted ($isDeleted): void
+    public function setIsDeleted ( $isDeleted): void
     {
         $this->isDeleted = $isDeleted;
     }
