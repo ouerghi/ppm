@@ -10,5 +10,10 @@ $('.dateCreation').datetimepicker({
     inline: true,
     format: 'YYYY-MM-DD',
 });
+$('.date_survey').datetimepicker({
+    locale: 'fr',
+    inline: true,
+    format: 'YYYY-MM-DD',
+});
 
 

@@ -24,6 +24,9 @@ class DelegationType extends AbstractType
             ->add('name', TextType::class, array(
                 'label' => 'Nom'
             ))
+            ->add('code', TextType::class, array(
+                'label' => 'Code'
+            ))
         ;
     }
 

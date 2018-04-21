@@ -3,9 +3,17 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+
+//http://www.ins.tn/sites/default/files/publication/pdf/codegeo_2013.pdf liste des codes delegations
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DelegationRepository")
+ * @UniqueEntity(
+ *     fields={"code"},
+ *     message="Le code doit être unique"
+ * )
  */
 class Delegation
 {
@@ -19,6 +27,12 @@ class Delegation
      * @ORM\Column(type="string", length=50)
      */
     private $name;
+    /**
+     * @ORM\Column(type="string", length=10,nullable=false, unique=true)
+     * @Assert\Valid()
+     * @Assert\Length(max="4")
+     */
+    private $code;
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Government", inversedBy="delegation")
      * @ORM\JoinColumn(nullable=false)
@@ -72,6 +86,22 @@ class Delegation
     public function setGovernment (Government $government): void
     {
         $this->government = $government;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCode ()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param mixed $code
+     */
+    public function setCode ($code): void
+    {
+        $this->code = $code;
     }
 
     // add your own fields

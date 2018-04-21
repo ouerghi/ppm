@@ -72,7 +72,9 @@ class DelegationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $em =  $this->getDoctrine()->getManager();
+            $em->merge($delegation);
+            $em->flush();
 
             return $this->redirectToRoute('delegation_edit', ['id' => $delegation->getId()]);
         }

@@ -1,0 +1,20 @@
+
+<form action="{{ path('event') }}" name="event" method="post">
+<div class="row mb-20">
+    <div class="col-md-6">
+           {{ form_row(form.start) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_row(form.end) }}
+    </div>
+</div>
+    <div class="row mb-20">
+        <div class="col-md-6">
+            {{ form_row(form.description) }}
+        </div>
+    </div>
+    <input type="hidden" name="artisan" value="{{ artisan }}">
+    <input type="hidden" name="user" value="{{ user }}">
+<button type="submit" class="btn btn-success btn-outline btn-icon right-icon"><span>Valider</span> <i class="fa fa-check"></i> </button>
+</form>
+

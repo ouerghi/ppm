@@ -17,7 +17,6 @@ import Popper from 'popper.js';
 global.Popper = Popper;
 require('bootstrap');
 import '../js/jquery.slimscroll'
-import 'moment'
 import 'moment/locale/fr'
 import 'switchery'
 import 'sweetalert';
@@ -29,14 +28,14 @@ import '../js/bootstrap-table.min';
 import '../js/dropdown-bootstrap-extended'
 import 'jquery-autocomplete/jquery.autocomplete.css'
 import 'eonasdan-bootstrap-datetimepicker'
-import 'fullcalendar'
-import 'fullcalendar/dist/locale/fr'
-import '../js/fullcalendar-data'
+
 import '../js/form-picker-data'
 import '../js/init'
 import '../js/component/dynamic-activity-select'
 import '../js/component/government-delegation-select'
 import '../js/component/search-artisan-cin'
+
+
 
 
 

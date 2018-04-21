@@ -1,4 +1,5 @@
 var Encore = require('@symfony/webpack-encore');
+var webpack = require('webpack');
 //   plugin to copy images to build folder automatically
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
@@ -8,6 +9,7 @@ Encore
     // the public path used by the web server to access the previous directory
     .setPublicPath('/build')
     .cleanupOutputBeforeBuild()
+    .addPlugin(new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/))
 
 
     //.enableSourceMaps(!Encore.isProduction())
@@ -17,6 +19,7 @@ Encore
     // uncomment to define the assets of the project
      .addEntry('app', './assets/js/app.js')
      .addEntry('main', './assets/js/main.js')
+    .addEntry('calendar', './assets/js/fullcalendar-data.js')
      .addEntry('login', './assets/js/login.js')
 
 
