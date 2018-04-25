@@ -63,6 +63,7 @@
                                                     <tr>
                                                         <th>Id</th>
                                                         <th>Nom</th>
+                                                        <th>Code</th>
                                                         <th>actions</th>
                                                     </tr>
                                                     </thead>
@@ -71,6 +72,7 @@
                                                         <tr>
                                                             <td>{{ government.id }}</td>
                                                             <td>{{ government.name }}</td>
+                                                            <td>{{ government.code }}</td>
                                                             <td>
                                                                 {#<a href="{{ path('government_show', {'id': trade.id}) }}" class="btn btn-xs btn-danger btn-icon-anim btn-circle" data-toggle="tooltip" data-original-title="Voir"> <i class="fa fa-eye text-inverse m-r-10 text-info"></i> </a>#}
                                                                 {#<a  class="btn btn-xs btn-success btn-icon-anim btn-circle" data-toggle="tooltip" data-original-title="Modifier"> <i class="icon-trash"></i> </a>#}

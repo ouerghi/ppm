@@ -24,6 +24,7 @@ class TradesType extends AbstractType
             ->add('name', TextType::class, array(
                 'label' => 'Nom de l\'activité'
             ))
+            ->add('code')
         ;
     }
 

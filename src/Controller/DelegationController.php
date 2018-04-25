@@ -18,11 +18,23 @@ class DelegationController extends Controller
     /**
      * @Route("/", name="delegation_index", methods="GET")
      * @param DelegationRepository $delegationRepository
+     * @param Request $request
      * @return Response
      */
-    public function index(DelegationRepository $delegationRepository): Response
+    public function index(DelegationRepository $delegationRepository, Request $request): Response
     {
-        return $this->render('delegation/index.html.twig', ['delegations' => $delegationRepository->findAll()]);
+        $em    = $this->get('doctrine.orm.entity_manager');
+        $dql   = "SELECT d FROM App\Entity\Delegation d  ";
+        $query = $em->createQuery($dql);
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            10/*limit per page*/
+        );
+
+        return $this->render('delegation/index.html.twig', ['delegations' => $pagination]);
     }
 
     /**

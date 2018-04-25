@@ -16,6 +16,7 @@ class Activity1Type extends AbstractType
             ->add('name', TextType::class, array(
                 'label' => 'Nom du groupe d\'activité'
             ))
+            ->add('code')
         ;
     }
 

@@ -3,11 +3,17 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TradesRepository")
  * @ORM\Entity
  * @ORM\Table(name="trades")
+ * @UniqueEntity(
+ *     fields={"code"},
+ *     message="Le code doit être unique"
+ * )
  */
 class Trades
 {
@@ -22,6 +28,29 @@ class Trades
      * @ORM\Column(type="string", length=255)
      */
     private $name;
+
+    /**
+     * @ORM\Column(type="string", length=10,nullable=false, unique=true)
+     * @Assert\Valid()
+     * @Assert\Length(max="4")
+     */
+    private $code;
+
+    /**
+     * @return mixed
+     */
+    public function getCode ()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param mixed $code
+     */
+    public function setCode ($code): void
+    {
+        $this->code = $code;
+    }
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Activity", inversedBy="trades")

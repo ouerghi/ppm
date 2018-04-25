@@ -5,9 +5,15 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ActivityRepository")
+ * @UniqueEntity(
+ *     fields={"code"},
+ *     message="Le code doit être unique"
+ * )
  */
 class Activity
 {
@@ -22,6 +28,29 @@ class Activity
      * @ORM\Column(type="string", length=255)
      */
     private $name;
+
+    /**
+     * @ORM\Column(type="string", length=10,nullable=false, unique=true)
+     * @Assert\Valid()
+     * @Assert\Length(max="4")
+     */
+    private $code;
+
+    /**
+     * @return mixed
+     */
+    public function getCode ()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param mixed $code
+     */
+    public function setCode ($code): void
+    {
+        $this->code = $code;
+    }
 
 
     /**

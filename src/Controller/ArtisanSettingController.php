@@ -137,10 +137,18 @@ class ArtisanSettingController extends Controller
      * @ParamConverter("Artisan", options={"mapping": {"id":"id"}})
      * @param Request $request
      * @param Artisan $artisan
+     * @param \Swift_Mailer $mailer
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getDelegationActivity(Request $request, Artisan $artisan)
+    public function getDelegationActivity(Request $request, Artisan $artisan, \Swift_Mailer $mailer)
     {
+        $message = (new \Swift_Message('artisan change de gouvernorat '))
+            ->setFrom('ouerghimahdi1@gmail.com.com')
+            ->setTo('artisan@gmail.com')
+            ->setBody(
+                'hello  artisan ',
+                'text/html'
+            );
         $em = $this->getDoctrine()->getManager();
         // get the user agent authenticated
         $id_user=$this->get('security.token_storage')->getToken()->getUser()->getId();
@@ -165,6 +173,7 @@ class ArtisanSettingController extends Controller
             if ($artisan->getActivity() !== $history_artisan->getActivity())
             {
                 $history_artisan->setActivityChanged(true);
+
             }
 
           if ($artisan->getGovernment() !== $history_artisan->getGovernment())
@@ -176,6 +185,7 @@ class ArtisanSettingController extends Controller
             $em->persist($artisan);
             $em->persist($history_artisan);
             $em->flush();
+            $mailer->send($message);
             $this->addFlash('notice','Opération de modification sur l\'artisan'. $artisan->getId().'a été bien sauvegardé ');
             return $this->redirectToRoute('edit_activity_government', array('id' => $artisan->getId()));
         }

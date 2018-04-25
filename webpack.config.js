@@ -20,6 +20,7 @@ Encore
      .addEntry('app', './assets/js/app.js')
      .addEntry('main', './assets/js/main.js')
     .addEntry('calendar', './assets/js/fullcalendar-data.js')
+    .addEntry('timePicker', './assets/js/form-picker-data.js')
      .addEntry('login', './assets/js/login.js')
 
 

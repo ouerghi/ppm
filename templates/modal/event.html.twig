@@ -2,10 +2,26 @@
 <form action="{{ path('event') }}" name="event" method="post">
 <div class="row mb-20">
     <div class="col-md-6">
-           {{ form_row(form.start) }}
+            <div class="form-group">
+                {{ form_label(form.start) }}
+                <div class='input-group'>
+                    {{ form_widget(form.start) }}
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
     </div>
     <div class="col-md-6">
-        {{ form_row(form.end) }}
+        <div class="form-group">
+            {{ form_label(form.end) }}
+            <div class='input-group'>
+                {{ form_widget(form.end) }}
+                <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+            </div>
+        </div>
     </div>
 </div>
     <div class="row mb-20">
@@ -17,4 +33,5 @@
     <input type="hidden" name="user" value="{{ user }}">
 <button type="submit" class="btn btn-success btn-outline btn-icon right-icon"><span>Valider</span> <i class="fa fa-check"></i> </button>
 </form>
+    <script src="{{ asset('build/timePicker.js') }}"></script>
 

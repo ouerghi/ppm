@@ -1,3 +1,9 @@
+import $ from 'jquery'
+global .$ = $;
+import 'bootstrap'
+import 'moment/locale/fr'
+import 'eonasdan-bootstrap-datetimepicker'
+
 
 $('.birthday').datetimepicker({
     locale: 'fr',
@@ -13,7 +19,7 @@ $('.dateCreation').datetimepicker({
 $('.date_survey').datetimepicker({
     locale: 'fr',
     inline: true,
-    format: 'YYYY-MM-DD',
+    // format: 'YYYY-MM-DD',
 });
 
 
