@@ -4,6 +4,7 @@ namespace App\Form;
 use App\Entity\Activity;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 
@@ -18,6 +19,9 @@ class ActivityType extends AbstractType
                 'class'         => 'App\Entity\Activity',
                 'choice_label'  => 'name',
             ))
+	        ->add('code', TextType::class, array(
+		        'label' => 'Code'
+	        ))
         ;
     }
 

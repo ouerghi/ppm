@@ -1,0 +1,115 @@
+
+{# page to style the render page of pdf generation ppm/template/artisan/recipe.html.twig#}
+<style type="text/css">
+    table {
+        width: 100%;
+        color: #717375;
+        font-family: helvetica;
+        line-height: 5mm;
+        border-collapse: collapse;
+    }
+    h2 { margin: 0; padding: 0; }
+    p { margin: 5px; }
+    .border th {
+        border: 1px solid #000;
+        color: white;
+        background: #000;
+        padding: 5px;
+        font-weight: normal;
+        font-size: 14px;
+        text-align: center;
+    }
+    .border td {
+        border: 1px solid #CFD1D2;
+        padding: 5px 10px;
+        text-align: center;
+    }
+    .no-border {
+        border-right: 1px solid #CFD1D2;
+        border-left: none;
+        border-top: none;
+        border-bottom: none;
+    }
+    .space {
+        padding-top: 250px;
+    }
+    .10p { width: 10%; } .15p { width: 15%; }
+    .25p { width: 25%; } .50p { width: 50%; }
+    .60p { width: 60%; } .75p { width: 75%; }
+</style>
+<page backtop="25mm" backbottom="14mm" backleft="10mm" backright="10mm" style="font-size: 12pt">
+    <page_header>
+        <table class="page_header">
+            <tr>
+                <td style="width: 80%; text-align: left"><h1>Enquete  </h1></td>
+                <td style="width: 20%; text-align: left;float: right">{{ "now"|date("m/d/Y") }}</td>
+            </tr>
+        </table>
+    </page_header>
+    <page_footer>
+        <hr />
+        <p>Fait a {{ user.government.name }}, le {{ "now"|date("m/d/Y") }}</p>
+        <p>Signature du particulier, suivie de la mension manuscrite "bon pour accord".</p>
+    </page_footer>
+    <h1>informations agent </h1>
+    {% if user is defined %}
+        <table style="vertical-align: top;">
+            <tr>
+                <td class="75p">
+                    Gouvernorat : {{ user.government.name }} <br>
+                    Nom de l'agent : {{ user.username }} <br>
+                    numéro de l'agent : {{ user.id }}
+                </td>
+                <td class="25p">
+                    Gouvernorat : {{ user.government.name }} <br>
+                    Nom de l'agent : {{ user.username }} <br>
+                    numéro de l'agent : {{ user.id }}
+                </td>
+            </tr>
+        </table>
+    {% endif %}
+            <h3 >Information artisan</h3>
+            <hr>
+    <table style="vertical-align: top;">
+        <tr>
+            <td class="50p">
+                <br><p>  Prénom De L'artisan:</p><br>
+               <p> Nom De L'artisan: </p><br>
+              <p>  Date De Naissance:</p><br>
+               <p> Nationalité: </p><br>
+            </td>
+            <td class="50p">
+                <br><p>Délégation:</p><br>
+              <p> Adresse: </p><br>
+              <p> Code postale:</p><br>
+              <p>Type Locale: </p><br>
+            </td>
+        </tr>
+    </table>
+    <hr>
+    <table style="vertical-align: top;">
+        <tr>
+            <td class="50p">
+                <br>
+                <p>Niveau: </p> <br>
+                <p>Nombre employé:</p><br>
+               <p> Qualification: </p><br>
+               <p> Statut: </p><br>
+            </td>
+            <td class="50p">
+               <p> date création:</p><br>
+               <p>Groupe d'activité: </p><br>
+               <p> Activité:</p><br>
+            </td>
+        </tr>
+    </table>
+    <hr>
+    <table style="vertical-align: top;">
+        <tr>
+            <td style="width: 100%;">
+                <br>Remarque: <br>
+            </td>
+        </tr>
+    </table>
+</page>
+

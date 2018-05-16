@@ -19,7 +19,13 @@ $('.dateCreation').datetimepicker({
 $('.date_survey').datetimepicker({
     locale: 'fr',
     inline: true,
-    // format: 'YYYY-MM-DD',
+    format: 'YYYY HH:mm:ss DD-MM'
+    //https://codereviewvideos.com/course/beginner-s-guide-to-symfony-3-forms/video/dealing-with-dates-and-times
+    //format: 'YYYY-MM-DD',
 });
+
+
+
+
 
 

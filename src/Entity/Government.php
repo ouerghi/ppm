@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GovernmentRepository")
  * @UniqueEntity(
- *     fields={"code"},
+ *     fields={"codeGovernment"},
  *     message="Le code doit être unique"
  * )
  */
@@ -31,7 +31,7 @@ class Government
      * @Assert\Valid()
      * @Assert\Length(max="4")
      */
-    private $code;
+    private $codeGovernment;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Delegation", mappedBy="government")
@@ -86,17 +86,17 @@ class Government
     /**
      * @return mixed
      */
-    public function getCode ()
+    public function getCodeGovernment ()
     {
-        return $this->code;
+        return $this->codeGovernment;
     }
 
-    /**
-     * @param mixed $code
-     */
-    public function setCode (string $code): void
+	/**
+	 * @param string $codeGovernment
+	 */
+    public function setCode (string $codeGovernment): void
     {
-        $this->code = $code;
+        $this->codeGovernment = $codeGovernment;
     }
 
 

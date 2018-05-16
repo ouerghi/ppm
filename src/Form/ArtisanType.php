@@ -11,6 +11,8 @@ use App\Repository\VilleRepository;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -29,9 +31,15 @@ class ArtisanType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $gov = $options['government'];
-        $typeArtisan = array(
-            'Artisan' => 1,
-            'Société' => 2
+
+        $grade = array(
+	        'Bac' => 'bac',
+	        'CAP' => 'cap',
+	        'BTP' => 'btp',
+	        'BTS' => 'bts',
+	        'License' => 'license',
+	        'Master' => 'master',
+	        'Ingénieur' => 'ingeneieur'
         );
 
         $builder
@@ -47,16 +55,54 @@ class ArtisanType extends AbstractType
                     'placeholder' => 'Nom de l\'artisan',
                 )
             ))
+	        ->add('grade',ChoiceType::class, array(
+	        	'choices' => $grade,
+		        'label' => 'Niveau',
+		        'attr' => ['class' => 'select2']
+	        ))
+	        ->add('nationality', TextType::class,[
+	        	'label' => 'Nationalité',
+		        'attr' => array(
+			        'placeholder' => 'Nationnalité'
+		        )
+	        ])
+	        ->add('adresse', TextType::class, array(
+		        'attr' => array(
+			        'placeholder' => 'Adresse '
+		        )))
+	        ->add('zip', IntegerType::class, array(
+		        'attr' => array(
+			        'placeholder' => 'Zip'
+		        )))
+	        ->add('employee', IntegerType::class, array(
+			        'label' => 'Nombre d\'employé',
+			        'attr' => array(
+				        'placeholder' => 'Nombre d\'employé'
+	        )))
+	        ->add('qualification', TextType::class, array(
+		        'attr' => array(
+			        'placeholder' => 'Choisir une qualification'
+	        )))
+
+	        ->add('local', ChoiceType::class, array(
+		          'choices' => [
+			        'Locataire' => '1',
+			        'propriétaire' => '0'
+		        ],
+		          'label' => 'type locale ',
+		          'attr' => ['class' => 'select2']
+	        ))
             ->add('birthday', BirthdayType::class, array(
                 'label' => 'Date de naissance',
                 'widget' => 'single_text',
                 'html5' => false,
                 'attr' => ['class' => 'birthday']
             ))
-            ->add('cin', NumberType::class, array(
+            ->add('cin', SearchType::class, array(
                 'attr' => array(
                     'placeholder' => 'Cin de  l\'artisan',
                     'class' => 'ui-widget'
+
                 )
             ))
             ->add('dateCreation', DateType::class, array(
@@ -64,12 +110,12 @@ class ArtisanType extends AbstractType
                 'html5' => false,
                 'attr' => ['class' => 'dateCreation']
             ))
-            ->add('typeArtisan', ChoiceType::class, array(
-                'choices' => $typeArtisan,
-                'data' => 1,
-                'expanded' => true,
-                'label' => 'Artisan/Société'
-            ))
+//            ->add('typeArtisan', ChoiceType::class, array(
+//                'choices' => $typeArtisan,
+//                'data' => 1,
+//                'attr' => ['class' => 'select2'],
+//                'label' => 'Artisan/Société'
+//            ))
             ->add('juridique', EntityType::class, array(
                 'class' => 'App\Entity\Juridique',
                 'placeholder' => 'Choisir une forme juridique',

@@ -1,0 +1,126 @@
+
+{# page to test any template render ppm/template/setting/index.html.twig#}
+
+{% extends 'base.html.twig' %}
+{% block content %}
+
+    <div class="wrapper  theme-1-active pimary-color-green">
+        <!--Preloader-->
+        {#<div class="preloader-it">#}
+        {#<div class="la-anim-1"></div>#}
+        {#</div>#}
+        <!--/Preloader-->
+        {% block body %}
+
+            <!-- Right Sidebar Backdrop -->
+            <div class="right-sidebar-backdrop"></div>
+            <!-- /Right Sidebar Backdrop -->
+
+            <!-- Top Menu Items -->
+            {# include the navbar from direcctory inc#}
+            {% include 'inc/navbar/nav.html.twig' %}
+            <!-- /Top Menu Items -->
+
+            {# sidebar left #}
+            {% include 'inc/sideBarLeft/sideBar.html.twig' %}
+
+            <!-- Right Sidebar Menu -->
+            {% include 'inc/navbar/sidbar.right.setting.html.twig' %}
+            <!-- /Right Sidebar Menu -->
+
+        {% endblock %}
+
+        <!-- Main Content -->
+        {% block main %}
+        <div  class="page-wrapper">
+            <div class="container-fluid">
+                <!-- mel7it -->
+                <p style="color: #fafafa;line-height: 0 !important;margin-top: -40px " >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim eveniet itaque molestiae temporibus. Ab alias amet ex fugiat harum itaque modi mollitia nemo officiis omnis quam, tenetur veniam voluptate voluptatibus.</p>
+                <!-- /mel7it -->
+
+                <div class="row">
+                    {% for message in app.flashes('notice') %}
+                        <div class="alert alert-success alert-dismissable alert-style-1">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <i class="zmdi zmdi-check"></i>{{ message }}.
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="panel panel-default card-view panel-refresh">
+                            <div class="refresh-container">
+                                <div class="la-anim-1"></div>
+                            </div>
+                            <div class="panel-heading">
+                                <div class="pull-left">
+                                    <h6 class="panel-title txt-dark">Liste des  enquêtes </h6>
+                                </div>
+                                <div class="pull-right">
+                                    <a  style="margin-top: -5px;" class="pull-left btn btn-success btn-xs mr-15 " href="{{ path('survey') }}"><i class="fa fa-file-text-o mr-15 "></i> <span>Ajouter une enquête</span></a>
+                                    <a href="{{ path('artisans') }}" class="  pull-left inline-block  mr-15">
+                                        <i class="reset zmdi zmdi-replay"></i>
+                                    </a>
+                                    <a href="#" class="pull-left inline-block full-screen mr-15">
+                                        <i class="zmdi zmdi-fullscreen"></i>
+                                    </a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div id="collapse_1" class="panel-wrapper collapse in">
+                                <div class="panel-body">
+                                    <div class="table-wrap mt-10">
+                                        <div class="table-responsive">
+                                            <table class="table  mb-0">
+                                                <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Début</th>
+                                                    <th>Fin</th>
+                                                    <th>Description</th>
+                                                    <th>Agent</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for list in survey %}
+                                                    <tr>
+                                                        <td>{{ list.id }}</td>
+                                                        <td>{{ list.start | date("m/d/Y h:m", "Africa/Tunis") }}</td>
+                                                        <td>{{ list.end | date("m/d/Y h:m") }}</td>
+                                                        <td>{{ list.description }}</td>
+                                                        <td>
+                                                            <ul class="list-icons">
+                                                            {% for user in list.users %}
+                                                                <li class="mb-10"><i class="fa fa-angle-double-right text-success"></i> {{ user.username }}
+                                                                    <a href="{{ path('print-survey', {'id': user.id }) }}" ><i class="fa fa-print text-success ml-5"></i></a>
+                                                                </li>
+                                                            {% endfor %}
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                            {# display navigation #}
+                                            <div class="navigation">
+                                                {{ knp_pagination_render(survey) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endblock %}
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+
+
+

@@ -170,3 +170,62 @@ $activity_gov.change(function () {
     });
     $artisan_trades_gov.hide();
 });
+
+// script page add company
+let $activity_company = $('#company_activity');
+
+let $company_trades = $('#company_trades');
+
+  $company_trades.hide();
+
+let tag_company = ('<div class="cssload-container">\n' +
+    '<div class="cssload-loading"><i></i><i></i><i></i><i></i></div>\n' +
+    '</div>');
+let $before_company = $("label[for=company_trades]");
+
+$before_company.before(tag_company);
+
+let $loader_company = $('.cssload-container');
+
+$loader_company.hide();
+// When activity gets selected ...
+$activity_company.change(function () {
+    $('#company_trades').empty();
+
+    // ... retrieve the corresponding form.
+    let $form_gov = $(this).closest('form');
+    // Simulate form data, but only include the selected activity value.
+    let data_company = {};
+    data_company[$activity_company.attr('name')] = $activity_company.val();
+    // Submit data via AJAX to the form's action path.
+    let id_company =$activity_company.val();
+    // let url  = 'http://localhost:8000/add-artisan/' + id;
+    let url =  Routing.generate('trade', { id : id_company });
+    console.log(url);
+    $.ajax({
+        url :url ,
+        type: $form_gov.attr('method'),
+        data : data_company,
+        beforeSend: function (jqXHR, options) {
+            $loader_company.show();
+            setTimeout(function() {
+                // null beforeSend to prevent recursive ajax call
+                $.ajax($.extend(options, {beforeSend: $.noop}));
+            }, 1000);
+            return false;
+        },
+        success: function(data) {
+            // Replace current position field ...
+            $company_trades.show();
+            $.each(data, function(i, item) {
+                console.log(data[i].name);
+                $('#company_trades').append(
+                    ( "<option value='"+data[i].id +"'>" + data[i].name + "</option>" ),
+                    $(data).find('#company_trades')
+                );
+            });
+            $loader_company.hide();
+        }
+    });
+    $company_trades.hide();
+});

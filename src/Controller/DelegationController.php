@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Delegation;
 use App\Form\DelegationType;
 use App\Repository\DelegationRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/delegation")
+ * @Security("is_granted('ROLE_ADMIN')")
  */
 class DelegationController extends Controller
 {

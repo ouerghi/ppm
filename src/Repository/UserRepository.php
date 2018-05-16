@@ -20,6 +20,16 @@ class UserRepository extends ServiceEntityRepository
     }
 
 
+    public function findByRoleByGovernment($government,$role)
+    {
+    	return $this->createQueryBuilder('u')
+		    ->where('u.government = :gov')
+		    ->setParameter('gov', $government)
+		    ->andWhere('u.roles LIKE :roles')
+		    ->setParameter('roles', '%"'.$role.'"%')
+		    ;
+    }
+
 
     /*
     public function findBySomething($value)

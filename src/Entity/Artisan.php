@@ -6,102 +6,32 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="App\Repository\ArtisanRepository")
  * @UniqueEntity(fields={"cin"}, message="This field must be unique")
  */
-class Artisan
+class Artisan extends PM
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Activity")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $activity;
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Trades")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $trades;
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Government")
-     *  @ORM\JoinColumn(nullable=false)
-     */
-    private $government;
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Delegation")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $delegation;
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Juridique")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $juridique;
+    protected $id;
 
-    /**
-     * @return mixed
-     */
-    public function getJuridique ()
-    {
-        return $this->juridique;
-    }
+	/**
+	 * @ORM\Column(type="string")
+	 */
+	private $qualification;
 
-    /**
-     * @param mixed $juridique
-     */
-    public function setJuridique (Juridique $juridique): void
-    {
-        $this->juridique = $juridique;
-    }
-    /**
-     * @return mixed
-     */
-    public function getDelegation ()
-    {
-        return $this->delegation;
-    }
-    /**
-     * @param mixed $delegation
-     */
-    public function setDelegation (Delegation $delegation): void
-    {
-        $this->delegation = $delegation;
-    }
-    /**
-     * @return mixed
-     */
-    public function getGovernment ()
-    {
-        return $this->government;
-    }
-    /**
-     * @param Government $government
-     */
-    public function setGovernment (Government $government): void
-    {
-        $this->government = $government;
-    }
-    /**
-     * @return mixed
-     */
-    public function getActivity ()
-    {
-        return $this->activity;
-    }
-    /**
-     * @param mixed $activity
-     */
-    public function setActivity ( Activity $activity): void
-    {
-        $this->activity = $activity;
-    }
+
+	/**
+	 * @ORM\Column(type="string")
+	 */
+    private $nationality;
+
+	/**
+	 * @ORM\Column(type="smallint")
+	 */
+	private $employee;
+
+
     /**
      * @ORM\Column(type="string", length=200)
      */
@@ -110,153 +40,49 @@ class Artisan
      * @ORM\Column(type="string", length=200)
      */
     private $lastName;
+
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $date;
-    /**
-     * @ORM\Column(type="integer", unique=true)
+     * @ORM\Column(type="string", unique=true)
      */
     private $cin ;
 
+	/**
+	 * @ORM\Column(type="string", length=200)
+	 */
+	private $grade;
     /**
-     * @ORM\Column(type="smallint", length=1)
-     */
-     private $typeArtisan;
-
-    /**
-     * @return mixed
-     */
-    public function getTypeArtisan ()
-    {
-        return $this->typeArtisan;
-    }
-
-    /**
-     * @param mixed $typeArtisan
-     */
-    public function setTypeArtisan ( int $typeArtisan): void
-    {
-        $this->typeArtisan = $typeArtisan;
-    }
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isDeleted = false ;
-
-    /**
-     * @return mixed
-     */
-    public function getIsDeleted ()
-    {
-        return $this->isDeleted;
-    }
-
-    /**
-     * @param mixed $isDeleted
-     */
-    public function setIsDeleted ( $isDeleted): void
-    {
-        $this->isDeleted = $isDeleted;
-    }
-
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $dateCreation ;
-
-
-    /**
-     * @return mixed
-     */
-    public function getDateCreation ()
-    {
-        return $this->dateCreation;
-    }
-    /**
-     * @param mixed $dateCreation
-     */
-    public function setDateCreation (\DateTime $dateCreation): void
-    {
-        $this->dateCreation = $dateCreation;
-    }
-    /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date",nullable=true)
      */
     private $birthday ;
 
-    /**
-     * @return mixed
-     */
-    public function getBirthday ()
-    {
-        return $this->birthday;
-    }
+	/**
+	 * @return mixed
+	 */
+	public function getBirthday() {
+		return $this->birthday;
+	}
 
-    /**
-     * @param mixed $birthday
-     */
-    public function setBirthday ( \DateTime $birthday): void
-    {
-        $this->birthday = $birthday;
-    }
+	/**
+	 * @param mixed $birthday
+	 */
+	public function setBirthday( $birthday ): void {
+		$this->birthday = $birthday;
+	}
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isActivityUpdated = false;
-    /**
-     * @return mixed
-     */
-    public function getIsActivityUpdated ()
-    {
-        return $this->isActivityUpdated;
-    }
-    /**
-     * @param mixed $isActivityUpdated
-     */
-    public function setIsActivityUpdated ($isActivityUpdated): void
-    {
-        $this->isActivityUpdated = $isActivityUpdated;
-    }
+
     /**
      * Artisan constructor.
      */
     public function __construct ()
     {
-        $this->date = new \DateTime();
-        $this->dateCreation = new \DateTime();
+       parent::__construct();
     }
-    /**
-     * @return mixed
-     */
-    public function getUser ()
-    {
-        return $this->user;
+
+    public function getType() {
+	    return parent::TYPE_Artisan;
     }
-    /**
-     * @param User $user
-     */
-    public function setUser (User $user)
-    {
-        $this->user = $user;
-    }
-    /**
-     * @return mixed
-     */
-    public function getId ()
-    {
-        //return sprintf("%'.07d",$this->id);
-        return $this->id;
-    }
-    /**
-     * @param mixed $id
-     */
-    public function setId ($id): void
-    {
-        $this->id = $id;
-    }
-    /**
+
+	/**
      * @return mixed
      */
     public function getFirstName ()
@@ -284,13 +110,7 @@ class Artisan
     {
         $this->lastName = $lastName;
     }
-    /**
-     * @return mixed
-     */
-    public function getDate ()
-    {
-        return $this->date;
-    }
+
     /**
      * @return mixed
      */
@@ -305,18 +125,65 @@ class Artisan
     {
         $this->cin = $cin;
     }
-    /**
-     * @return mixed
-     */
-    public function getTrades ()
-    {
-        return $this->trades;
-    }
-    /**
-     * @param mixed $trades
-     */
-    public function setTrades ( Trades $trades): void
-    {
-        $this->trades = $trades;
-    }
+
+
+
+	/**
+	 * @return mixed
+	 */
+	public function getQualification() {
+		return $this->qualification;
+	}
+
+	/**
+	 * @param mixed $qualification
+	 */
+	public function setQualification( $qualification ): void {
+		$this->qualification = $qualification;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getNationality() {
+		return $this->nationality;
+	}
+
+	/**
+	 * @param mixed $nationality
+	 */
+	public function setNationality( $nationality ): void {
+		$this->nationality = $nationality;
+	}
+
+
+	/**
+	 * @return mixed
+	 */
+	public function getEmployee() {
+		return $this->employee;
+	}
+
+	/**
+	 * @param mixed $employee
+	 */
+	public function setEmployee( $employee ): void {
+		$this->employee = $employee;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getGrade() {
+		return $this->grade;
+	}
+
+	/**
+	 * @param mixed $grade
+	 */
+	public function setGrade( $grade ): void {
+		$this->grade = $grade;
+	}
+
+
 }

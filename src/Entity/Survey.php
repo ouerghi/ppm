@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Entity;
-
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SurveyRepository")
@@ -16,17 +16,18 @@ class Survey
      * @ORM\Column(type="integer")
      */
     private $id;
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
-     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
-     */
+
+	/**
+	 * @ORM\ManyToMany(targetEntity="App\Entity\User", cascade={"persist"})
+	 * @ORM\JoinTable(name="pm_survey_users")
+	 */
+    private $users;
+
+	/**
+	 * @ORM\ManyToOne(targetEntity="App\Entity\User", cascade={"ALL"})
+	 */
     private $user;
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Artisan")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $artisan;
-    /**
+	/**
      * @ORM\Column(type="datetime")
      */
     private $start;
@@ -37,18 +38,72 @@ class Survey
     /**
      * @ORM\Column(type="datetime")
      */
-    private $date;
+    private $dates;
     /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
-    public function __construct ()
+
+
+    public function __construct()
     {
-        $this->date = new \DateTime();
+    	$this->users = new ArrayCollection();
+    	$this->dates = new \DateTime();
     }
 
-    /**
+	/**
+	 * @return mixed
+	 */
+	public function getUser() {
+		return $this->user;
+	}
+
+	/**
+	 * @param mixed $user
+	 */
+	public function setUser( User $user ): void {
+		$this->user = $user;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getUsers()
+	{
+		return $this->users;
+	}
+
+	/**
+	 * @param User $user
+	 */
+	public function addUser(User $user)
+	{
+		$this->users[] = $user;
+	}
+
+	/**
+	 * @param User $user
+	 */
+	public function removeUser(User $user)
+	{
+		$this->users->removeElement($user);
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getEnqueutor() {
+		return $this->enqueutor;
+	}
+
+	/**
+	 * @param mixed $enqueutor
+	 */
+	public function setEnqueutor(Enqueutor $enqueutor ): void {
+		$this->enqueutor = $enqueutor;
+	}
+	/**
      * @return mixed
      */
     public function getId ()
@@ -56,37 +111,7 @@ class Survey
         return $this->id;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getUser ()
-    {
-        return $this->user;
-    }
 
-    /**
-     * @param mixed $user
-     */
-    public function setUser ($user): void
-    {
-        $this->user = $user;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getArtisan ()
-    {
-        return $this->artisan;
-    }
-
-    /**
-     * @param mixed $artisan
-     */
-    public function setArtisan ($artisan): void
-    {
-        $this->artisan = $artisan;
-    }
 
     /**
      * @return mixed
@@ -125,16 +150,9 @@ class Survey
      */
     public function getDate ()
     {
-        return $this->date;
+        return $this->dates;
     }
 
-    /**
-     * @param mixed $date
-     */
-    public function setDate ($date): void
-    {
-        $this->date = $date;
-    }
 
     /**
      * @return mixed
@@ -151,7 +169,6 @@ class Survey
     {
         $this->description = $description;
     }
-
 
     // add your own fields
 }

@@ -24,7 +24,6 @@ class UserType extends AbstractType
         // the array of list of roles
         $role = array(
             'DRC' => 'ROLE_DRC',
-            'DMS' => 'ROLE_DMS',
             'Responsable' => 'ROLE_RESPONSABLE',
             'Administrateur' => 'ROLE_ADMIN'
         );

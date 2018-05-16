@@ -16,7 +16,7 @@ class GovernmentType extends AbstractType
             ->add('name', TextType::class,array(
                 'label' => 'Nom'
             ))
-            ->add('code')
+            ->add('codeGovernment')
         ;
     }
 

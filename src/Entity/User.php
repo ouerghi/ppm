@@ -7,27 +7,32 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields={"username"}, message="It looks like your already used this login!")
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorMap({"enqueutor" = "Enqueutor", "user" = "User"})
  */
-class User implements UserInterface, \Serializable
+ class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
+
     /**
      * @ORM\Column(type="string", length=25, unique=true)
      *  @Assert\NotBlank()
      * * @Assert\Length(min="4", minMessage="Your login must be at least {{ limit }} characters long")
      */
     private $username;
+
     /**
      * @ORM\Column(type="json_array")
      */
+
     private $roles = array();
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Government")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Government", )
      *  @ORM\JoinColumn(nullable=false)
      */
     private $government;
@@ -78,6 +83,11 @@ class User implements UserInterface, \Serializable
      */
     private $isActive = true;
 
+	/**
+	 * @ORM\Column(type="datetime", nullable=true)
+	 */
+	private $date ;
+
     /**
      * @param mixed $isActive
      */
@@ -94,8 +104,19 @@ class User implements UserInterface, \Serializable
     }
     public function __construct()
     {
-        $this->roles = array('ROLE_DRC');
+    	  $this->date = new \DateTime("now");
+//        $this->roles = array('ROLE_DRC');
     }
+
+
+
+	/**
+	 * @return mixed
+	 */
+	public function getDate() {
+		return $this->date;
+	}
+
     public function getUsername()
     {
         return $this->username;
@@ -147,4 +168,6 @@ class User implements UserInterface, \Serializable
             // $this->salt
             ) = unserialize($serialized);
     }
+
+
 }

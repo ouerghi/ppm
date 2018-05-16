@@ -60,7 +60,12 @@
                                             <div class="col-sm-12 col-xs-12 ">
                                                 <div class="button-list ">
                                                     <a href="{{ path('addArtisan') }}" class="btn btn-danger btn-rounded">Cancel</a>
+                                                    {% if artisan is defined %}
                                                     <a target="_blank" href="{{ path('printRecipe', {'id' :  artisan.id}) }}" class="btn btn-success  btn-rounded btn-outline  btn-success">Confirm</a>
+                                                    {% endif %}
+                                                    {% if company is defined %}
+                                                        <a target="_blank" href="{{ path('printRecipe', {'id' :  company.id}) }}" class="btn btn-success  btn-rounded btn-outline  btn-success">Confirm</a>
+                                                    {% endif %}
                                                 </div>
                                             </div>
                                         </div>
@@ -73,7 +78,12 @@
                         <div class="col-md-6 col-md-offset-3">
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <a type="button" href="{{ path('addArtisan') }}" class="btn btn-secondary btn-outline-danger">Cancel</a>
+                                {% if artisan is defined %}
                                 <a type="button" target="_blank" href="{{ path('printRecipe', {'id' :  artisan.id}) }}" class="btn btn-secondary btn-outline-primary">Confirm print</a>
+                                {% endif %}
+                                {% if company is defined %}
+                                    <a type="button" target="_blank" href="{{ path('printRecipe', {'id' :  company.id}) }}" class="btn btn-secondary btn-outline-primary">Confirm print</a>
+                                {% endif %}
                             </div>
                         </div>
 

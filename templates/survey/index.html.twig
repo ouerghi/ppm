@@ -37,142 +37,63 @@
                     <!-- mel7it -->
                     <p style="color: #fafafa;line-height: 0 !important;margin-top: -40px " >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim eveniet itaque molestiae temporibus. Ab alias amet ex fugiat harum itaque modi mollitia nemo officiis omnis quam, tenetur veniam voluptate voluptatibus.</p>
                     <!-- /mel7it -->
-                    <button class="btn btn-success btn-block btn-rounded btn-outline  btn-success mt-10 mb-20" data-toggle="modal" data-target="#event"> Créer une Enquête </button>
-                    <div class="row">
-                        {% for message in app.flashes('notice') %}
-                            <div class="alert alert-success alert-dismissable alert-style-1">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                <i class="zmdi zmdi-check"></i>{{ message }}.
-                            </div>
-                        {% endfor %}
-                    </div>
+
                    <div class="row">
-                       <div id='calendar'></div>
+                       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                           <div class="panel panel-default card-view panel-refresh">
+                               <div class="refresh-container">
+                                   <div class="la-anim-1"></div>
+                               </div>
+                               <div class="panel-heading">
+                                   <div class="pull-left">
+                                       <h6 class="panel-title txt-dark">Créer une enquete </h6>
+                                   </div>
+                                   <div class="pull-right">
+                                       <a href="{{ path('list-survey') }}" class="  pull-left inline-block  mr-15">
+                                           <i class=" zmdi zmdi-replay"></i>
+                                       </a>
+                                       <a href="#" class="pull-left inline-block full-screen mr-15">
+                                           <i class="zmdi zmdi-fullscreen"></i>
+                                       </a>
+                                   </div>
+                                   <div class="clearfix"></div>
+                               </div>
+                               <div id="collapse_1" class="panel-wrapper collapse in">
+                                   <div class="panel-body">
+                                       {{ form_start(form) }}
+                                   <div class="row mb-20 mt-20">
+                                       <div class="col-md-6">
+                                           {{ form_widget(form.start) }}
+                                       </div>
+                                       <div class="col-md-6">
+                                           {{ form_widget(form.end) }}
+                                       </div>
+                                   </div>
+                                       <div class="row mb-20">
+                                           <div class="col-md-6">
+                                               {{ form_widget(form.description) }}
+                                           </div>
+                                       </div>
+                                       <div class="row mb-30">
+                                           <div class="col-md-6">
+                                               {{ form_widget(form.users) }}
+                                           </div>
+                                       </div>
+                                       {{ form_end(form) }}
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
                    </div>
                 </div>
-
-
-
-
-
-
         {% endblock %}
             </div>
     </div>
-    <!-- sample modal content -->
-    <div class="modal fade bs-example-modal-lg" id="event" tabindex="-1" role="dialog" aria-labelledby="event" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog modal-lg" style="width: 100%">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h5 class="modal-title" id="myLargeModalLabel">Enquête</h5>
-                </div>
-                <div class="modal-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Nom</th>
-                                <th scope="col">Prénom</th>
-                                <th scope="col">Activité</th>
-                                <th>user</th>
-                                <td>actions</td>
-                                <td>EQ</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for artisan in artisans %}
-                                <form id="survey_form{{ artisan.id }}">
-                                    <tr>
-                                        <td >{{ artisan.id }}</td>
-                                        <td>{{ artisan.firstName }}</td>
-                                        <td>{{ artisan.lastName }}</td>
-                                        <td>{{ artisan.activity.name }}</td>
-                                        <td>
-                                            <div class="form-group mt-20">
-                                                <select class="select2" name="user" id="user{{ artisan.id }}">
-                                                    {% for user in users  %}
-                                                        <option  value="{{ user.id }}">{{ user.username }}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <input type="hidden" name="artisan" value="{{ artisan.id }}">
 
-                                        <td>
-                                            <a data-toggle="modal" data-target="#planing"  onclick="survey({{ artisan.id }})"  class="btn btn-default btn-anim btn-sm"><i class="fa fa-calendar"></i><span class="btn-text"> Enquête</span> </a>
-                                        </td>
-                                    </tr>
-                                </form>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success text-left" data-dismiss="modal">Quitter</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-                  <!-- /.modal -->
-    <!-- sample modal content -->
-    <div class="modal fade bs-example-modal-lg"  id="planing" tabindex="-1" role="dialog" aria-labelledby="planing" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog modal-lg" >
-            <div class="modal-content mt-75">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h5 class="modal-title" id="myLargeModalLabel">Enquête</h5>
-                </div>
-                <div class="modal-body event">
 
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-                  <!-- /.modal -->
 
-    <div id="fullCalModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-                    <h4 id="modalTitle" class="modal-title"></h4>
-                </div>
-                <div id="modalBody" class="modal-body"></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button class="btn btn-primary"><a id="eventUrl" target="_blank">Event Page</a></button>
-                </div>
-            </div>
-        </div>
-    </div>
 {% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script src="{{ asset('build/calendar.js') }}"></script>
-    <script>
-        function survey(id){
-            let url = Routing.generate('event');
-            let user =$('#user'+id).val();
-            let content = $('.modal-body.event');
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: {artisan:id,user:user},
-                success: function(data) {
-                    content.html(data.template);
-                    console.log(data);
-                }
-            });
-        }
-    </script>
-{%endblock %}
+
 
 
 

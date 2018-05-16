@@ -2,103 +2,124 @@
 
 namespace App\Controller;
 
+use App\Entity\PM;
 use App\Entity\Survey;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Form\SurveyType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
+
 
 
 
 class SurveyController extends Controller
 {
-    /**
-     * @Route("/survey", name="survey")
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function index()
+	/**
+	 * @Route("/survey", name="survey")
+	 * @param Request $request
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 * @throws \Exception
+	 */
+    public function index(Request $request)
     {
         // get the user
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $government = $user->getGovernment();
         $em = $this->getDoctrine()->getManager();
-        $artisans = $em->getRepository('App:Artisan')->findBy(array('government' => $government));
-        $users = $em->getRepository('App:User')->findBy(array('government' => $government));
+        $pm = $em->getRepository(PM::class)->findBy(array('government' => $government));
+        $users = $em->getRepository('App:User')->findByRoleByGovernment($government, 'ROLE_DRC');
+        $survey = new Survey();
+        $form = $this->createForm(SurveyType::class, $survey, array(
+        	'government' => $government
+        ));
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+        	$start = $survey->getStart();
+        	$end = $survey->getEnd();
+        	if ($start > $end)
+	         {
+	        	throw new \Exception('La date de début ne peut pas etre supérieur à la date de fin');
+	         }
+        	$survey->setUser($user);
+        	$em->persist($survey);
+        	$em->flush();
+	       $this->addFlash('notice', 'Votre enquete à été bien enregistré');
+	       return $this->redirectToRoute('list-survey');
+        }
        return $this->render('survey/index.html.twig', array(
-           'artisans' => $artisans,
+           'PM' => $pm,
            'users' => $users,
+	       'form' => $form->createView()
        ));
     }
-    /**
-     * @Route("/all-survey", options={"expose":true}, name="json_survey")
-     * @Method({"POST"})
-     */
-    public function getJsonSurvey()
+
+	/**
+	 * @Route("/list-survey", name="list-survey")
+	 * @param Request $request
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+    public function listSurvey(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $survey = $em->getRepository('App:Survey')->findAll();
-        $event = array();
-        foreach ($survey as $value)
-        {
-            $event[] = array(
-                'id' => $value->getId(),
-                'artisan' => $value->getArtisan()->getId(),
-                'start' => $value->getStart()->format('Y-m-d H:i:s'),
-                'end' => $value->getEnd()->format('Y-m-d H:i:s'),
-                'title' => $value->getDescription(),
-                'location' => $value->getArtisan()->getDelegation()->getName(),
-                'allDay' => true,
-                'class' => 'text-primary',
-                'durationEditable' => true,
-                'color' => 'yellow',
-                'backgroundColor' => 'green',
-                'borderColor' => 'white',
-                'textColor' => 'brown'
 
+	    $em    = $this->get('doctrine.orm.entity_manager');
+	    $dql   = "SELECT s FROM App\Entity\Survey s  ";
+	    $query = $em->createQuery($dql);
 
+	    $paginator  = $this->get('knp_paginator');
+	    $survey = $paginator->paginate(
+		    $query, /* query NOT result */
+		    $request->query->getInt('page', 1),
+		    5
+	    );
+    	return $this->render('survey/list.html.twig', array(
+    		'survey' => $survey
+	    ));
 
-            );
-        }
-        return new JsonResponse($event);
     }
 
-    /**
-     * @Route("/event", options={"expose":true}, name="event")
-     * @Method({"POST"})
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function EventSurvey(Request $request)
+	/**
+	 * @Route("/print/{id}", name="print-survey")
+	 * @param $id
+	 *
+	 * @return view
+	 */
+    public function printSurvey($id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $survey = new Survey();
-        $form = $this->createForm('App\Form\SurveyType', $survey);
-        $form->handleRequest($request);
-        if ($form->isSubmitted())
-        {
-            $artisan = $request->request->get('artisan');
-            $user = $request->request->get('user');
-            $artisan_event = $em->getRepository('App:Artisan')->find($artisan);
-            $user_event = $em->getRepository('App:User')->find($user);
-            $survey->setUser($user_event);
-            $survey->setArtisan($artisan_event);
-            $em->persist($survey);
-            $em->flush();
-            $this->addFlash('notice', "l'enquete a été bien enregistré ");
-            return $this->redirectToRoute('survey');
-        }
-        $user = $request->get('user');
-        $artisan = $request->get('artisan');
-        $template = $this->renderView('modal/event.html.twig', array(
-            'artisan'=>$artisan,
-            'user' => $user,
-            'form' => $form->createView()
-        ));
+    	$template = '';
+    	$em = $this->getDoctrine()->getManager();
+    	$user = $em->getRepository('App:User')->find($id);
+    	if ($user !== null)
+	    {
+	    	$template = $this->renderView('survey/survey.html.twig', array(
+	    		'user' => $user
+		    ));
+	    }
 
-        return new JsonResponse(array(
-                'template' => $template
-        ));
+	    // initialise the service htmlToPdf from container
+	    $html2pdf = $this->get('recipe.html2pdf');
+	    // create the pdf with the bellow option
+	    $html2pdf->create('P', 'A4', 'fr', true, 'UTF-8', array(10,15,10,15));
+	    // return a generated pdf
+	    return $html2pdf->generatePdf($template, "enquete");
+
+    }
+	/**
+	 * @Route("/tert", name="tert")
+	 */
+    public function tert()
+    {
+    	$em = $this->getDoctrine()->getManager();
+    	$sur = $em->getRepository('App:Survey')->find(1);
+
+    	$all=  $sur->getUsers();
+    	foreach ($all as $value)
+	    {
+	    	echo $value->getUsername().'<br>';
+	    }
+    	die();
     }
 
 }

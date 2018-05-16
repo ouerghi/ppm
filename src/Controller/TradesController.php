@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Trades;
 use App\Form\TradesType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/trades")
+ * @Security("is_granted('ROLE_ADMIN')")
  */
 class TradesController extends Controller
 {

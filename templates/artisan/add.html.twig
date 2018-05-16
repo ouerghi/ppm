@@ -57,57 +57,22 @@
                                 </div>
                                 <div class="panel-wrapper collapse in">
                                     <div class="panel-body">
-                                        <div class="form-wrap">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label" for="type_company">Type de la société</label>
+                                                    <select id="type_company" name="type_company" aria-describedby="companyHelp" class="select2 form-control">
+                                                        <option value="1">Artisan</option>
+                                                        <option value="2">Société</option>
+                                                    </select>
+                                                    <small id="companyHelp" class="form-text text-muted">Selectionner le type de la société.</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="add_artisan" class="form-wrap">
                                             {{ form_start(form) }}
-                                            <div class="row">
-                                                <div class='col-sm-3'>
-                                                    <div class="form-group">
-                                                        {{ form_label(form.birthday) }}
-                                                        <div class='input-group'>
-                                                            {{ form_widget(form.birthday) }}
-                                                            <span class="input-group-addon">
-                                                           <span class="glyphicon glyphicon-calendar"></span>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                               <div class="col-md-6">
-                                                   <div class="form-group mb-30">
-                                                       {{ form_label(form.typeArtisan) }}
-                                                       {{ form_errors(form.firstName) }}
-                                                       <div class="radio radio-info radio-inline">
-                                                           {{ form_widget(form.typeArtisan) }}
-                                                       </div>
-                                                   </div>
-                                               </div>
-                                            </div>
-                                            <div class="row mb-20">
-                                               <div class="col-md-4">
-                                                   <div class="form-group">
-                                                       {{ form_label(form.firstName) }}
-                                                       {{ form_errors(form.firstName) }}
-                                                       <div class="input-group">
-                                                           <div class="input-group-addon"><i class="icon-user"></i></div>
-                                                           {{ form_widget(form.firstName) }}
-                                                       </div>
-                                                   </div>
-                                               </div>
+                                            <div class="  row">
                                                 <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        {{ form_label(form.lastName) }}
-                                                        {{ form_errors(form.lastName) }}
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon"><i class="icon-user"></i></div>
-                                                            {{ form_widget(form.lastName) }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-
-                                                </div>
-                                            </div>
-                                            <div class="row mb-20">
-                                                <div class="col-md-3">
                                                     <div class="form-group">
                                                         {{ form_label(form.cin) }}
                                                         <span id="loader_cin"><i class="fa fa-spin fa-spinner"></i></span>
@@ -118,11 +83,74 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3 mt-15" id="content_search_cin"></div>
+                                                <div class="col-md-4 mt-15" id="content_search_cin"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        {{ form_label(form.firstName) }}
+                                                        {{ form_errors(form.firstName) }}
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon"><i class="icon-user"></i></div>
+                                                            {{ form_widget(form.firstName) }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        {{ form_label(form.lastName) }}
+                                                        {{ form_errors(form.lastName) }}
+                                                        <div class="input-group">
+                                                            <div class="input-group-addon"><i class="icon-user"></i></div>
+                                                            {{ form_widget(form.lastName) }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class='col-md-4'>
+                                                    <div class="form-group">
+                                                        {{ form_label(form.birthday) }}
+                                                        <div class='input-group'>
+                                                            {{ form_widget(form.birthday) }}
+                                                            <span class="input-group-addon">
+                                                           <span class="glyphicon glyphicon-calendar"></span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-20">
                                                 <div class="col-md-3">
+                                                    {{ form_row(form.local) }}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    {{ form_row(form.delegation) }}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    {{ form_row(form.adresse) }}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    {{ form_row(form.zip) }}
+                                                </div>
+                                            </div>
+                                            <div class="info_artisan row mb-20">
+                                                <div class="col-md-3">
+                                                    {{ form_row(form.grade) }}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    {{ form_row(form.nationality) }}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    {{ form_row(form.employee) }}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    {{ form_row(form.qualification) }}
+                                                </div>
+                                            </div>
+                                            <div class="row mb-20">
+                                                <div class="col-md-4">
                                                     {{ form_row(form.juridique) }}
                                                 </div>
-                                                <div class='col-sm-3 '>
+                                                <div class='col-md-4'>
                                                     <div class="form-group ">
                                                         {{ form_label(form.dateCreation) }}
                                                         <div class='input-group'>
@@ -134,11 +162,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                           <div class="row">
-                                               <div class="col-md-6">
-                                                   {{ form_row(form.delegation) }}
-                                               </div>
-                                           </div>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     {{ form_row(form.activity) }}
@@ -150,8 +173,48 @@
                                                 </div>
                                             </div>
 
-                                            <button type="submit" class="btn btn-success"> Valider</button>
+                                            <button type="submit" class="btn btn-success" name="artisan_type" value="artisan_type"> Valider</button>
                                             {{ form_end(form) }}
+                                        </div>
+                                        <div id="add_company" class="form-wrap ">
+                                            {{ form_start(form_company) }}
+                                            <div class="row mb-20">
+                                                <div class="col-md-4">
+                                                    {{ form_row(form_company.name) }}
+                                                </div>
+                                                <div class="col-md-4">
+                                                    {{ form_row(form_company.juridique) }}
+                                                </div>
+                                                <div class="col-md-4">
+                                                    {{ form_row(form_company.dateCreation) }}
+                                                </div>
+                                            </div>
+                                            <div class="row mb-20">
+                                                <div class="col-md-3">
+                                                    {{ form_row(form_company.local) }}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    {{ form_row(form_company.delegation) }}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    {{ form_row(form_company.adresse) }}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    {{ form_row(form_company.zip) }}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    {{ form_row(form_company.activity) }}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    {{ form_row(form_company.trades) }}
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-danger" name="company_type" value="company_type"> Valider</button>
+                                            {{ form_end(form_company) }}
                                         </div>
                                     </div>
                                 </div>
@@ -166,5 +229,25 @@
     </div>
 {% endblock %}
 
-
+ {% block javascripts %}
+     {{ parent() }}
+     <script>
+         $( document ).ready(function() {
+             let type_company = $('#type_company');
+             $('#add_company').hide();
+             type_company.on('change',function () {
+                let val = ($(this).val());
+                console.log(val);
+                if (val == 2 )
+                {
+                    $('#add_company').show();
+                    $('#add_artisan').hide();
+                }else{
+                    $('#add_company').hide();
+                    $('#add_artisan').show();
+                }
+            })
+         });
+     </script>
+ {% endblock %}
 

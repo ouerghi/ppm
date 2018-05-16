@@ -4,10 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Artisan;
 use App\Entity\ArtisanHistory;
+use App\Entity\Company;
+use App\Entity\CompanyHistory;
+use App\Entity\PM;
 use App\Form\ArtisanType;
+use App\Form\CompanyType;
 use App\Form\EditArtisanType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +21,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 
-
+/**
+ * @Security("is_granted('ROLE_DRC')")
+ */
 class ArtisanController extends Controller
 {
     /**
@@ -70,6 +76,7 @@ class ArtisanController extends Controller
     {
 
         $artisan = new Artisan();
+	    $company = new Company();
         $id_user=$this->get('security.token_storage')->getToken()->getUser()->getId();
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('App:User')->find($id_user);
@@ -80,26 +87,43 @@ class ArtisanController extends Controller
         $form = $this->createForm(ArtisanType::class, $artisan,array(
             'government' => $government
         ));
+        $form_company = $this->createForm(CompanyType::class, $company, array(
+        	'government' => $government
+        ));
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid())
+	    $form_company->handleRequest($request);
+        if ( ($form->isSubmitted() && $form->isValid()) || ($form_company->isSubmitted() && $form_company->isValid()) )
         {
-            $government = $artisan->getDelegation()->getGovernment();
-            $artisan->setGovernment($government);
-            // set the user for the artisan
-            $artisan->setUser($user);
-            // persist and flush the artisan entity
-            $em->persist($artisan);
-            $em->flush();
-
+	        if ($request->request->has('company')) {
+		       $government = $company->getDelegation()->getGovernment();
+		       $company->setGovernment($government);
+		       $company->setUser($user);
+		       $em->persist($company);
+		       $em->flush();
+		       $this->addFlash('notice', 'la société est enregistré avec succès, veuillez imprimer sa fiche. ');
+		        return  $this->redirectToRoute('confirmPrintRecipe', array('id' => $company->getId()));
+	        }
+	        if ($request->request->has('artisan')) {
+		        $government = $artisan->getDelegation()->getGovernment();
+		        $artisan->setGovernment($government);
+		        // set the user for the artisan
+		        $artisan->setUser($user);
+		        // persist and flush the artisan entity
+		        $em->persist($artisan);
+		        $em->flush();
+		        $this->addFlash('notice', 'l\'artisan est enregistré avec succès, veuillez imprimer sa fiche. ');
+		        return  $this->redirectToRoute('confirmPrintRecipe', array('id' => $artisan->getId()));
+	        }
             // message flash for the view
-            $this->addFlash('notice', 'the artisan is successfully registered please print his recipe ');
+
             // redirect to the recipe  route with last id artisan for argument
            return  $this->redirectToRoute('confirmPrintRecipe', array('id' => $artisan->getId()));
 
         }
 
         return $this->render('artisan/add.html.twig', [
-          'form' => $form->createView()
+          'form' => $form->createView(),
+          'form_company' => $form_company->createView()
         ]);
     }
 
@@ -150,21 +174,11 @@ class ArtisanController extends Controller
             // get the id of artisan
             $id = $request->query->get('id');
             // load artisan from database
-            $artisan = $em->getRepository('App:Artisan')->find($id);
+            $artisan = $em->getRepository(PM::class)->find($id);
             // get the user agent authenticated
             $id_user=$this->get('security.token_storage')->getToken()->getUser()->getId();
             $user = $em->getRepository('App:User')->find($id_user);
 
-            $history_artisan = new ArtisanHistory();
-            $history_artisan->setArtisan($artisan);
-            $history_artisan->setActivity($artisan->getActivity());
-            $history_artisan->setTrade($artisan->getTrades());
-            $history_artisan->setDelegation($artisan->getDelegation());
-            $history_artisan->setGovernment($artisan->getGovernment());
-            $history_artisan->setOldCin($artisan->getCin());
-            $history_artisan->setOldDateCreation($artisan->getDateCreation());
-            $history_artisan->setUser($user);
-            $history_artisan->setArtisanDeleted(true);
 
             //test if the artisan doesn't exist return an error status to the error function ajax
             if (null === $artisan) {
@@ -179,11 +193,43 @@ class ArtisanController extends Controller
             // test if the CSRF is true if of do the delete operation of artisan
             if ($this->isCsrfTokenValid('delete-item', $submittedToken))
             {
-                $artisan->setIsDeleted(true);
-                $em->persist($history_artisan);
-                //delete the artisan from database
-                $em->persist($artisan);
-                $em->flush();
+	            if ($artisan instanceof Artisan)
+	            {
+		            $history_artisan = new ArtisanHistory();
+		            $history_artisan->setArtisan($artisan);
+		            $history_artisan->setActivity($artisan->getActivity());
+		            $history_artisan->setTrade($artisan->getTrades());
+		            $history_artisan->setDelegation($artisan->getDelegation());
+		            $history_artisan->setGovernment($artisan->getGovernment());
+		            $history_artisan->setOldCin($artisan->getCin());
+		            $history_artisan->setOldDateCreation($artisan->getDateCreation());
+		            $history_artisan->setIsDeleted(true);
+		            $history_artisan->setUser($user);
+
+		            $artisan->setIsDeleted(true);
+		            $em->persist($history_artisan);
+		            //delete the artisan from database
+		            $em->persist($artisan);
+	            }
+	            if ($artisan instanceof Company)
+	            {
+		            $history_company = new CompanyHistory();
+		            $history_company->setCompany($artisan);
+		            $history_company->setName($artisan->getName());
+		            $history_company->setActivity($artisan->getActivity());
+		            $history_company->setTrade($artisan->getTrades());
+		            $history_company->setDelegation($artisan->getDelegation());
+		            $history_company->setGovernment($artisan->getGovernment());
+		            $history_company->setOldDateCreation($artisan->getDateCreation());
+		            $history_company->setIsDeleted(true);
+		            $history_company->setUser($user);
+		            $artisan->setIsDeleted(true);
+		            $em->persist($history_company);
+		            //delete the artisan from database
+		            $em->persist($artisan);
+	            }
+
+	            $em->flush();
 
                 return $json->setData(array(
                     'status' =>'success',
@@ -241,17 +287,17 @@ class ArtisanController extends Controller
         ));
     }
 
-    /**
-     * @Route("/show-artisan/{id}", options={"expose"=true}, requirements={"id" = "\d+"},  name="artisan_show")
-     * @param Request $request
-     * @param $id
-     * @return Response
-     */
-    public function showArtisan(Request $request, $id)
+	/**
+	 * @Route("/show-artisan/{id}", options={"expose"=true}, requirements={"id" = "\d+"},  name="artisan_show")
+	 * @param $id
+	 *
+	 * @return Response
+	 */
+    public function showArtisan($id)
     {
         //  load the artisan from database
         $em = $this->getDoctrine()->getManager();
-        $artisan = $em->getRepository('App:Artisan')->find($id);
+        $artisan = $em->getRepository(PM::class)->find($id);
         $user = $artisan->getUser();
 
         // test if the artisan exist else throw an exception
@@ -267,18 +313,31 @@ class ArtisanController extends Controller
         ));
     }
 
-    /**
-     * @Route("/print-recipe/{id}", name="printRecipe", requirements={"id"="\d+"})
-     * @ParamConverter("Artisan", options={"mapping":{"id": "id"}})
-     * @param Artisan $artisan
-     * @return Response
-     */
-    public function printRecipe(Artisan $artisan)
+	/**
+	 * @Route("/print-recipe/{id}", name="printRecipe", requirements={"id"="\d+"})
+	 * @param $id
+	 *
+	 * @return Response
+	 */
+    public function printRecipe($id)
     {
+	    $em = $this->getDoctrine()->getManager();
+	    $artisan = $em->getRepository('App:Artisan')->find($id);
+	    $company = $em->getRepository('App:Company')->find($id);
         // get the template
-        $template = $this->renderView('artisan/recipe.html.twig', array(
-            'artisan' => $artisan
-        ));
+	    if ($artisan !== null)
+	    {
+		    $template = $this->renderView('artisan/recipe.html.twig', array(
+			    'artisan' => $artisan
+		    ));
+	    }
+	    if ($company !== null)
+	    {
+		    $template = $this->renderView('artisan/recipe.html.twig', array(
+			    'company' => $company
+		    ));
+	    }
+
         // initialise the service htmlToPdf from container
         $html2pdf = $this->get('recipe.html2pdf');
         // create the pdf with the bellow option
@@ -288,18 +347,31 @@ class ArtisanController extends Controller
 
     }
 
-    /**
-     * @Route("/confirm-print-recipe/{id}", name="confirmPrintRecipe")
-     * @ParamConverter("artisan", options={"mapping" : {"id" : "id"}})
-     * @param Artisan $artisan
-     * @return Response
-     */
-    public function confirmPrintRecipe(Artisan $artisan)
+	/**
+	 * @Route("/confirm-print-recipe/{id}", name="confirmPrintRecipe")
+	 * @param $id
+	 *
+	 * @return Response
+	 */
+    public function confirmPrintRecipe( $id)
     {
-        // return a view with artisan instance to confirm print
-        return $this->render('artisan/confirm-print-recipe.html.twig', array(
-            'artisan' => $artisan
-        ));
+    	$em = $this->getDoctrine()->getManager();
+    	$artisan = $em->getRepository('App:Artisan')->find($id);
+    	$company = $em->getRepository('App:Company')->find($id);
+    	if ( $artisan !== null)
+	    {
+		    // return a view with artisan instance to confirm print
+		    return $this->render('artisan/confirm-print-recipe.html.twig', array(
+			    'artisan' => $artisan,
+		    ));
+	    }
+	    if ($company !== null)
+	    {
+		    // return a view with artisan instance to confirm print
+		    return $this->render('artisan/confirm-print-recipe.html.twig', array(
+			    'company' => $company
+		    ));
+	    }
     }
 
     /**
@@ -331,12 +403,12 @@ class ArtisanController extends Controller
         // check if the current user has role_admin if yes he get all artisan result
         if (true === $authorizationChecker->isGranted('ROLE_ADMIN'))
         {
-            $artisans = $em->getRepository('App:Artisan')->getArtisans();
+            $artisans = $em->getRepository(PM::class)->findBy( array('isDeleted' => '0'));
 
         }else {
             // use the method of repository getGovernmentUser
             // return the list of object artisan locate in the same ville of user ville.user = ville.artisan
-            $artisans = $em->getRepository('App:Artisan')->getGovernmentUser($govUser);
+            $artisans = $em->getRepository(PM::class)->getGovernmentUser($govUser);
         }
 
         // get the serializer service from container

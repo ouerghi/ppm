@@ -38,13 +38,12 @@
                     <p style="color: #fafafa;line-height: 0 !important;margin-top: -40px " >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim eveniet itaque molestiae temporibus. Ab alias amet ex fugiat harum itaque modi mollitia nemo officiis omnis quam, tenetur veniam voluptate voluptatibus.</p>
                     <!-- /mel7it -->
                     <!-- Row -->
-
                     <div class="row">
                         <div class=" col-md-12">
                             <div class="panel panel-default card-view">
                                 <div class="panel-heading">
                                     <div class="pull-left">
-                                        <h6 class="panel-title txt-dark">Detail artisan</h6>
+                                        <h6 class="panel-title txt-dark">Detail {{ artisan.type }} </h6>
                                     </div>
                                     <div class="pull-right">
                                         <ol class="breadcrumb">
@@ -63,28 +62,44 @@
                                                 <div class="form-wrap">
                                                     <form class="form-horizontal" role="form">
                                                         <div class="form-body">
-                                                            <h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>Info Artisan</h6>
+                                                            <h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-account mr-10"></i>Info {{ artisan.type }}</h6>
                                                             <hr class="light-grey-hr">
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label class="control-label col-md-3">Prénom:</label>
-                                                                        <div class="col-md-9">
-                                                                            <p class="form-control-static"> {{ artisan.firstName }} </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!--/span-->
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label class="control-label col-md-3">Nom:</label>
-                                                                        <div class="col-md-9">
-                                                                            <p class="form-control-static"> {{ artisan.lastName }} </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!--/span-->
-                                                            </div>
+                                                          {% if artisan.type == 'artisan' %}
+                                                              <div class="row">
+                                                                  <div class="col-md-6">
+                                                                      <div class="form-group">
+                                                                          <label class="control-label col-md-3">Prénom:</label>
+                                                                          <div class="col-md-9">
+                                                                              <p class="form-control-static"> {{ artisan.firstName }} </p>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                                  <!--/span-->
+                                                                  <div class="col-md-6">
+                                                                      <div class="form-group">
+                                                                          <label class="control-label col-md-3">Nom:</label>
+                                                                          <div class="col-md-9">
+                                                                              <p class="form-control-static"> {{ artisan.lastName }} </p>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>
+                                                                  <!--/span-->
+                                                              </div>
+                                                            {% endif %}
+                                                           {% if artisan.type == 'company' %}
+                                                               <div class="row">
+                                                                   <!--/span-->
+                                                                   <div class="col-md-6">
+                                                                       <div class="form-group">
+                                                                           <label class="control-label col-md-3">Nom de la societé</label>
+                                                                           <div class="col-md-9">
+                                                                               <p class="form-control-static"> {{ artisan.name }} </p>
+                                                                           </div>
+                                                                       </div>
+                                                                   </div>
+                                                                   <!--/span-->
+                                                               </div>
+                                                            {% endif %}
                                                             <!-- /Row -->
                                                             <div class="row">
                                                                 <div class="col-md-6">

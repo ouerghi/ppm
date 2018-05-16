@@ -2,7 +2,7 @@
 // css file to import
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css';
-import 'fullcalendar/dist/fullcalendar.min.css'
+
 
 import '../css/login.css';
 import  '../css/style.css'
@@ -28,7 +28,7 @@ import '../js/bootstrap-table.min';
 import '../js/dropdown-bootstrap-extended'
 import 'jquery-autocomplete/jquery.autocomplete.css'
 import 'eonasdan-bootstrap-datetimepicker'
-
+// import '../js/component/google-charts'
 import '../js/form-picker-data'
 import '../js/init'
 import '../js/component/dynamic-activity-select'

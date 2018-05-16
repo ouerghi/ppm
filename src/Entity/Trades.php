@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  * @ORM\Table(name="trades")
  * @UniqueEntity(
- *     fields={"code"},
+ *     fields={"codeTrades"},
  *     message="Le code doit être unique"
  * )
  */
@@ -44,9 +44,9 @@ class Trades
         return $this->code;
     }
 
-    /**
-     * @param mixed $code
-     */
+	/**
+	 * @param $code
+	 */
     public function setCode ($code): void
     {
         $this->code = $code;

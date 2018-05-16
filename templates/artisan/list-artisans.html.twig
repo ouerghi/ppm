@@ -82,10 +82,9 @@
                                                 <thead>
                                                 <tr>
                                                     <th></th>
-                                                    <th data-field="first_name" data-sortable="true" >Prénom</th>
-                                                    <th data-field="last_name" data-sortable="true">Nom</th>
-                                                    <th data-field="cin" data-sortable="true">Cin</th>
-                                                    <th data-field="government.name" data-sortable="true">Gouvernorat</th>
+                                                    <th data-field="type" data-sortable="true" >Type</th>
+                                                    <th data-field="cin" data-sortable="true">CIN</th>
+                                                    <th data-field="delegation.name" data-sortable="true">Délégation</th>
                                                 </tr>
                                                 </thead>
                                             </table>
@@ -123,7 +122,7 @@
                  url: url,
                  method: "POST",
                  success: function (response) {
-                     // console.log(response);
+                     console.log(response);
                      $('#table_js_artisan').bootstrapTable({
                          data: response,
                          columns: [

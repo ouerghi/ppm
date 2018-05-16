@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DelegationRepository")
  * @UniqueEntity(
- *     fields={"code"},
+ *     fields={"codeDelegation"},
  *     message="Le code doit être unique"
  * )
  */
@@ -28,11 +28,13 @@ class Delegation
      */
     private $name;
     /**
-     * @ORM\Column(type="string", length=10,nullable=false, unique=true)
+     * @ORM\Column(type="string", length=10,nullable=true, unique=true)
      * @Assert\Valid()
      * @Assert\Length(max="4")
      */
     private $code;
+
+
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Government", inversedBy="delegation")
      * @ORM\JoinColumn(nullable=false)
@@ -88,21 +90,19 @@ class Delegation
         $this->government = $government;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCode ()
-    {
-        return $this->code;
-    }
+	/**
+	 * @return mixed
+	 */
+	public function getCode() {
+		return $this->code;
+	}
 
-    /**
-     * @param mixed $code
-     */
-    public function setCode ($code): void
-    {
-        $this->code = $code;
-    }
+	/**
+	 * @param mixed $code
+	 */
+	public function setCode( $code ): void {
+		$this->code = $code;
+	}
 
     // add your own fields
 }

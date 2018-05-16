@@ -1,0 +1,315 @@
+{# page to test any template render ppm/template/artisan/test.html.twig#}
+
+{% extends 'base.html.twig' %}
+{% block content %}
+
+    <div class="wrapper  theme-1-active pimary-color-green">
+        <!--Preloader-->
+        {#<div class="preloader-it">#}
+        {#<div class="la-anim-1"></div>#}
+        {#</div>#}
+        <!--/Preloader-->
+        {% block body %}
+
+            <!-- Right Sidebar Backdrop -->
+            <div class="right-sidebar-backdrop"></div>
+            <!-- /Right Sidebar Backdrop -->
+
+            <!-- Top Menu Items -->
+            {# include the navbar from direcctory inc#}
+            {% include 'inc/navbar/nav.html.twig' %}
+            <!-- /Top Menu Items -->
+
+            {# sidebar left #}
+            {% include 'inc/sideBarLeft/sideBar.html.twig' %}
+
+            <!-- Right Sidebar Menu -->
+            {% include 'inc/navbar/sidbar.right.setting.html.twig' %}
+            <!-- /Right Sidebar Menu -->
+
+        {% endblock %}
+
+        <!-- Main Content -->
+        {% block main %}
+            <div class="page-wrapper">
+                <div class="container-fluid">
+
+                    <!-- mel7it -->
+                    <p style="color: #fafafa;line-height: 0 !important;margin-top: -40px " >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim eveniet itaque molestiae temporibus. Ab alias amet ex fugiat harum itaque modi mollitia nemo officiis omnis quam, tenetur veniam voluptate voluptatibus.</p>
+                    <!-- /mel7it -->
+                    {#{{ dump(artisans.content) }}#}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="panel panel-default card-view">
+                                <div class="panel-heading">
+                                    <div class="pull-left">
+                                        <h6 class="panel-title txt-dark">Artisan par gouvernement</h6>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="panel-wrapper collapse in">
+                                    <div class="panel-body">
+                                        <div class="flot-container" style="height:300px">
+                                            <div id="chart1"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="panel panel-default card-view">
+                                <div class="panel-heading">
+                                    <div class="pull-left">
+                                        <h6 class="panel-title txt-dark">artisan par groupe d'activité</h6>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="panel-wrapper collapse in">
+                                    <div class="panel-body">
+                                        <div class="flot-container" style="height:300px">
+                                            <div id="chart2" class="demo-placeholder"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="panel panel-default card-view">
+                                <div class="panel-heading">
+                                    <div class="pull-left">
+                                        <h6 class="panel-title txt-dark">Artisan par Activité</h6>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="panel-wrapper collapse in">
+                                    <div class="panel-body">
+                                        <div class="flot-container" style="height:300px">
+                                            <div id="chart3"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-default card-view">
+                                <div class="panel-heading">
+                                    <div class="pull-left">
+                                        <h6 class="panel-title txt-dark">artisan par date de création </h6>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="panel-wrapper collapse in">
+                                    <div class="panel-body">
+                                        <div class="flot-container" style="height:300px">
+                                            <div id="chart4" class="demo-placeholder"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        $( document ).ready(function () {
+            google.charts.load('current', {
+                callback: drawCharts,
+                packages: ['corechart', 'calendar'],
+                'language': 'fr'
+            });
+
+            function drawCharts() {
+                google.charts.setOnLoadCallback(drawChart);
+                google.charts.setOnLoadCallback(drawChart2);
+                google.charts.setOnLoadCallback(drawChart3);
+                google.charts.setOnLoadCallback(drawChart4);
+            }
+            //Load the 'corecharts'. You do not need to provide that as a type.
+            let url =  Routing.generate('statistic-json');
+
+            let jsonData = $.ajax({
+                method: 'post',
+                url: url,
+                dataType: "json",
+                async: false
+            }).responseText;
+            console.log(jsonData);
+            function drawChart() {
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Gouvernement');
+                data.addColumn('number', 'Nombre d\'artisan ');
+                let result = JSON.parse(jsonData);
+                console.log(result);
+                $.each(result.artisan_by_gov, function(i,result)
+                {
+                    var value=result.value;
+                    var name=result.name;
+                    data.addRows([ [name, Number.parseInt(value)]]);
+                });
+
+
+                let options = {
+                    'region': 'TN',
+                    'resolution':'provinces',
+                    'displayMode': 'markers',
+                    'forceIFrame':true,
+                    'domain': 'TN',
+                    'title':'Nombre d\'activité par artisan',
+                    'width':600,
+                    'height':300,
+                    'legend':  {
+                        'textStyle': {
+                            'color': 'blue',
+                            'fontSize': 16
+                        }
+                    },
+                    'colorAxis': {'colors': ['#2b3e4c', '#8cc448']},
+                    'datalessRegionColor': '#dedede',
+                    'defaultColor': '#dedede'
+                };
+
+                let chart = new google.visualization.GeoChart(document.getElementById('chart1'));
+
+                chart.draw(data, options);
+            }
+            function drawChart2() {
+
+                // Create the data table.
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Topping');
+                data.addColumn('number', 'Slices');
+                let result = JSON.parse(jsonData);
+                console.log(result);
+                $.each(result.artisan_by_activity, function(i,result)
+                {
+                    var value=result.value;
+                    var activity=result.activity;
+                    data.addRows([ [activity, Number.parseInt(value)]]);
+                });
+
+                // Set chart options
+                var options = {'title':'Nombre de groupe d\'activité par artisan',
+                    'width':600,
+                    'height':300};
+
+                // Instantiate and draw our chart, passing in some options.
+                var chart = new google.visualization.PieChart(document.getElementById('chart2'));
+                chart.draw(data, options);
+            }
+            function drawChart3() {
+
+                // Create the data table.
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Topping');
+                data.addColumn('number', 'Slices');
+                let result = JSON.parse(jsonData);
+                console.log(result);
+                $.each(result.artisan_by_trades, function(i,result)
+                {
+                    var value=result.value;
+                    var trades=result.trades;
+                    data.addRows([ [trades, Number.parseInt(value)]]);
+                });
+
+                // Set chart options
+                var options = {'title':'Nombre d\'activité par artisan',
+                    'width':600,
+                    'height':300};
+
+                // Instantiate and draw our chart, passing in some options.
+                var chart = new google.visualization.PieChart(document.getElementById('chart3'));
+                chart.draw(data, options);
+            }
+
+
+            // var date = new Date();
+            function toJSONLocal (date) {
+                var local = new Date(date);
+                local.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+                return local.toJSON().slice(0, 10);
+            }
+
+            function drawChart4() {
+                var data = new google.visualization.DataTable();
+                data.addColumn({ type: 'date', id: 'Date' });
+                data.addColumn({ type: 'number', id: 'Won/Loss' });
+                let result = JSON.parse(jsonData);
+                $.each(result.byDate, function(i,result)
+                {
+                    var value=result.value;
+                    var date=result.creation.date;
+                    var date = new Date(date);
+                    console.log(toJSONLocal(date));
+                    data.addRows([ [date, Number.parseInt(value)]]);
+                });
+
+                var chart = new google.visualization.Calendar(document.getElementById('chart4'));
+
+                var options = {
+                    title: "artisan par date de création",
+                    noDataPattern: {
+                        backgroundColor: '#76a7fa',
+                        color: '#a0c3ff'
+                    },
+                    calendar: {
+                        monthLabel: {
+                            fontName: 'Times-Roman',
+                            fontSize: 12,
+                            color: '#8cc448',
+                            bold: true,
+                            italic: true
+                        },
+                        monthOutlineColor: {
+                            stroke: '#76a7fa',
+                            strokeOpacity: 0.8,
+                            strokeWidth: 2
+                        },
+                        unusedMonthOutlineColor: {
+                            stroke: '#76a7fa',
+                            strokeOpacity: 0.8,
+                            strokeWidth: 1
+                        },
+                        underMonthSpace: 16,
+                        dayOfWeekLabel: {
+                            fontName: 'Times-Roman',
+                            fontSize: 12,
+                            color: '#8cc448',
+                            bold: true,
+                            italic: true,
+                        },
+                        dayOfWeekRightSpace: 10,
+                        daysOfWeek: 'DLMMJVS',
+                        cellSize: 14,
+                        cellColor: {
+                            stroke: 'a0c3ff',
+                            strokeOpacity: 0.5,
+                            strokeWidth: 1,
+                        }
+                    },
+
+                    height: 500,
+                };
+
+                chart.draw(data, options);
+            }
+
+        });
+
+
+
+    </script>
+{% endblock %}
+
+
+
+
+
