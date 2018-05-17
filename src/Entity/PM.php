@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -37,11 +38,13 @@ Abstract class PM
 	/**
 	 * @ORM\ManyToOne(targetEntity="App\Entity\Activity", cascade={"remove"} )
 	 * @ORM\JoinColumn(nullable=false)
+	 * @Assert\NotBlank()
 	 */
 	protected $activity;
 	/**
 	 * @ORM\ManyToOne(targetEntity="App\Entity\Trades", cascade={"remove"} )
 	 * @ORM\JoinColumn(nullable=false)
+	 * @Assert\NotBlank()
 	 */
 	protected $trades;
 	/**
@@ -52,20 +55,24 @@ Abstract class PM
 	/**
 	 * @ORM\ManyToOne(targetEntity="App\Entity\Delegation", cascade={"remove"} )
 	 * @ORM\JoinColumn(nullable=false)
+	 * @Assert\NotBlank()
 	 */
 	protected $delegation;
 	/**
 	 * @ORM\ManyToOne(targetEntity="App\Entity\Juridique", cascade={"remove"} )
 	 * @ORM\JoinColumn(nullable=false)
+	 * @Assert\NotBlank()
 	 */
 	protected $juridique;
 
 	/**
 	 * @ORM\Column(type="integer")
+	 * @Assert\NotBlank()
 	 */
 	protected $zip;
 	/**
 	 * @ORM\Column(type="string")
+	 * @Assert\NotBlank()
 	 */
 	protected $adresse;
 
@@ -89,6 +96,7 @@ Abstract class PM
 
 	/**
 	 * @ORM\Column(type="date")
+	 * @Assert\DateTime()
 	 */
 	protected $dateCreation;
 

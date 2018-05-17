@@ -2,9 +2,10 @@
 namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArtisanRepository")
- * @UniqueEntity(fields={"cin"}, message="This field must be unique")
+ * @UniqueEntity(fields={"cin"}, message="numéro de carte identité existant!")
  */
 class Artisan extends PM
 {
@@ -17,41 +18,52 @@ class Artisan extends PM
 
 	/**
 	 * @ORM\Column(type="string")
+	 * @Assert\NotBlank()
 	 */
 	private $qualification;
 
 
 	/**
 	 * @ORM\Column(type="string")
+	 * @Assert\NotBlank()
 	 */
     private $nationality;
 
 	/**
 	 * @ORM\Column(type="smallint")
+	 * @Assert\NotBlank()
 	 */
 	private $employee;
 
 
     /**
      * @ORM\Column(type="string", length=200)
+     * @Assert\NotBlank()
      */
     private $firstName;
     /**
      * @ORM\Column(type="string", length=200)
+     * @Assert\NotBlank()
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", unique=true)
+     * @Assert\Length(min=8)
+     *  @Assert\Length(max=8)
+     * @Assert\Regex("/^[0-9]+$/")
      */
     private $cin ;
 
 	/**
 	 * @ORM\Column(type="string", length=200)
+	 * @Assert\NotBlank()
 	 */
 	private $grade;
     /**
-     * @ORM\Column(type="date",nullable=true)
+     * @ORM\Column(type="date",nullable=false)
+     * @Assert\NotBlank()
+     * @Assert\DateTime()
      */
     private $birthday ;
 

@@ -10,6 +10,7 @@ use App\Entity\PM;
 use App\Form\ArtisanType;
 use App\Form\CompanyType;
 use App\Form\EditArtisanType;
+use App\Form\EditCompanyType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -457,17 +458,31 @@ class ArtisanController extends Controller
     public function modalEditArtisan($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $artisan = $em->getRepository('App:Artisan')->find($id);
+        $artisan = $em->getRepository(PM::class)->find($id);
         $user = $artisan->getUser();
         $government = $user->getGovernment()->getId();
-        $form = $this->createForm(EditArtisanType::class, $artisan,array(
-            'government' => $government
-        ));
 
-        $temp = $this->renderView('modal/edit.html.twig', array(
-            'artisan' => $artisan,
-            'form' => $form->createView()
-        ));
+        if ($artisan instanceof Artisan)
+        {
+	        $form = $this->createForm('App\Form\EditArtisanType', $artisan,array(
+		        'government' => $government
+	        ));
+	        $temp = $this->renderView('modal/edit.html.twig', array(
+		        'artisan' => $artisan,
+		        'form' => $form->createView()
+	        ));
+        }
+	    if ($artisan instanceof Company)
+	    {
+		    $form = $this->createForm('App\Form\EditCompanyType', $artisan, array(
+			    'government' => $government
+		    ));
+		    $temp = $this->renderView('modal/edit_company.html.twig', array(
+			    'artisan' => $artisan,
+			    'form' => $form->createView()
+		    ));
+	    }
+
         $json = new JsonResponse(array(
             'content' => $temp
         ));
@@ -484,20 +499,27 @@ class ArtisanController extends Controller
     public function editArtisan(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $artisan = $em->getRepository('App:Artisan')->find($id);
+        $artisan = $em->getRepository(PM::class)->find($id);
 
-        if ($request->isXmlHttpRequest()) {
-            $form = $this->createForm('App\Form\EditArtisanType', $artisan);
-            $form->handleRequest($request);
-            $em->persist($artisan);
-            $em->flush();
+	        if ($artisan instanceof Company)
+	        {
+		        $form = $this->createForm('App\Form\EditCompanyType', $artisan);
+		        $form->handleRequest($request);
+		        $em->persist($artisan);
+	        }
+            if ($artisan instanceof Artisan)
+            {
+	            $form = $this->createForm('App\Form\EditArtisanType', $artisan);
+	            $form->handleRequest($request);
+	            $em->persist($artisan);
+            }
+
+	        $em->flush();
             return new JsonResponse(array(
-                'res' => 'loool'
+                'res' => $artisan
             ));
 
-        } else {
-            return new JsonResponse(array('message' => 'Vous ne pouvez y accéder qu\'en utilisant Ajax!'), 400);
-        }
+
 
 
     }

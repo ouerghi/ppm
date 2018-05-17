@@ -1,0 +1,128 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <div class="pull-left">
+                    <h6 class="panel-title txt-dark">Modifier la société   {{ artisan.name }}</h6>
+                </div>
+                <div class="pull-right">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="zmdi zmdi-replay"></i></span>
+                    </button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel-wrapper collapse in">
+                <div class="panel-body">
+
+                    <div class="edit alert alert-success alert-dismissable alert-style-1" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <i class="zmdi zmdi-check"></i>Modification réussi.
+                    </div>
+
+                    <div class="form-wrap">
+                        <form name="edit_company">
+                            <div class="modal-body">
+                                <div class="form-wrap">
+                                  <div class="row">
+                                      <div class="col-md-6">
+                                          <div class="row">
+                                              <div class="col-md-12">
+                                                  <div class="form-group">
+                                                      {{ form_label(form.name) }}
+                                                      {{ form_errors(form.name) }}
+                                                      <div class="input-group">
+                                                          <div class="input-group-addon"><i class="icon-user"></i></div>
+                                                          {{ form_widget(form.name) }}
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-12">
+                                                  <div class="form-group">
+                                                      {{ form_label(form.juridique) }}
+                                                      {{ form_errors(form.juridique) }}
+                                                      <div class="input-group">
+                                                          <div class="input-group-addon"><i class="icon-user"></i></div>
+                                                          {{ form_widget(form.juridique) }}
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                          <div class="col-md12">
+                                              <div class="col-md-12">
+                                                  <div class="form-group">
+                                                      {{ form_label(form.local) }}
+                                                      {{ form_errors(form.local) }}
+                                                      <div class="input-group">
+                                                          <div class="input-group-addon"><i class="icon-basic-home"></i></div>
+                                                          {{ form_widget(form.local) }}
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-12">
+                                              <div class="form-group">
+                                                  {{ form_label(form.adresse) }}
+                                                  {{ form_errors(form.adresse) }}
+                                                  <div class="input-group">
+                                                      <div class="input-group-addon"><i class="icon-basic-anchor"></i></div>
+                                                      {{ form_widget(form.adresse) }}
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-12">
+                                              <div class="form-group">
+                                                  {{ form_label(form.zip) }}
+                                                  {{ form_errors(form.zip) }}
+                                                  <div class="input-group">
+                                                      <div class="input-group-addon"><i class="icon-basic-home"></i></div>
+                                                      {{ form_widget(form.zip) }}
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+
+                                <div class="col-sm-12 ">
+                                    <div class="btn-group btn-group-justified " >
+                                        <a onclick="editCompany('{{ artisan.id }}')"
+                                           class="btn btn-success mr-10">Modifier</a>
+                                        <a href="{{ path('edit_activity_government', { id : artisan.id}) }}"
+                                           class="btn  btn-primary">Changer gouvernorat & activité</a>
+                                        {#<a href="{{ path('change-activity', { id : artisan.id }) }}" class="btn btn-sm  btn-primary">Changer l' activité</a>#}
+                                        {#<a href="{{ path('change_government', { id : artisan.id }) }}" class="btn btn-sm btn-warning">Changer le gouvernorat</a>#}
+                                        {#<a href="{{ path('artisans') }}" class="btn btn-danger">Annuler</a>#}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="application/javascript">
+    function editCompany(id) {
+        let form = $('form[name="edit_company"]');
+        let url = Routing.generate('edit_artisan', {id: id});
+        $.ajax({
+            url: url,
+            method: "post",
+            data: form.serialize(),
+            type: "json",
+            success: function (data) {
+                $('.edit.alert').show();
+                console.log(data);
+            }
+        });
+    }
+</script>

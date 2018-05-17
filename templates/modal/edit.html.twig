@@ -21,7 +21,7 @@
                         </div>
 
                     <div class="form-wrap">
-                        <form name="edit_artisan">
+                        <form name="edit_artisan" data-toggle="validator" role="form">
                             <div class="modal-body">
                                 <div class="form-wrap">
                                     <div class="form-group">
@@ -46,6 +46,7 @@
                                         <div class="input-group">
                                             <div class="input-group-addon"><i class="icon-basic-home"></i></div>
                                             {{ form_widget(form.cin) }}
+                                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                         </div>
                                     </div>
 
@@ -88,6 +89,7 @@
             type: "json",
             success: function (data) {
                 $('.edit.alert').show();
+                console.log(data);
             }
         });
     }

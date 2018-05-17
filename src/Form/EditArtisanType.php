@@ -4,9 +4,8 @@ namespace App\Form;
 
 
 use App\Entity\Artisan;
-use App\Repository\DelegationRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,7 +19,17 @@ class EditArtisanType extends AbstractType
         $builder
             ->add('lastName', TextType::class, array('label' => 'Nom de l\'artisan'))
             ->add('firstName', TextType::class, array('label' => 'Prénom de l\'artisan'))
-            ->add('cin', TextType::class)
+	        ->add('cin', SearchType::class, array(
+		        'attr' => array(
+			        'placeholder' => 'Cin de  l\'artisan',
+			        'class' => 'ui-widget',
+			        'data-minlength' =>8,
+			        'data-error' => 'merci de mettre un numéro cin valide',
+			        'maxlength' =>8,
+			        'pattern' => '[0-9]+$'
+
+		        )
+	        ))
 
         ;
     }

@@ -30,7 +30,9 @@ $(document).ready(function () {
         let url =  Routing.generate('search_cin');
         let content = $('#content_search_cin');
         loader.show();
-          if (input.length >= 4 ) {
+        if (input.length === 0){
+            loader.hide();
+        }else if (input.length >= 4 ) {
             let data = {input : input};
             $.ajax({
                 type: "POST",

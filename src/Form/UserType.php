@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -31,7 +32,15 @@ class UserType extends AbstractType
         $builder
             ->add('username', TextType::class, array(
                 'label'=> 'Nom utilisateur',
+	            'attr' => array(
+	            	'pattern' => '^[A-Za-z0-9_]+$',
+		            'data-error' => 'login avec des lettres et des nombres et sans espace ',
+	                'placeholder' => 'Nom Utilisateur'
+	            )
             ))
+	        ->add('email', EmailType::class, array(
+	        	'attr' => array('data-error' => 'cette adresse email est invalide', 'placeholder' => 'Email')
+	        ))
             ->add('government', EntityType::class, array(
                 'class'         => 'App\Entity\Government',
                 'placeholder' => 'Selectionner un gouvernorat',
@@ -41,13 +50,21 @@ class UserType extends AbstractType
                     'class' => 'government',
                 )
             ))
-            ->add('password', PasswordType::class)
+            ->add('password', PasswordType::class, array(
+	            'attr' => array(
+		            'minlength'=> '5',
+		            'data-error' => 'votre mot de passe doit avoir au moins 5 caractères de long.',
+		            'placeholder' => 'Password'
+	            )
+
+            ))
             ->add('roles', ChoiceType::class, array(
                 'choices' => $role,
                 'multiple' => true,
                 'expanded' => true,
                 'required' => true,
                 'label' => 'Role Utilisateurs',
+	            'attr' => array('data-error' => 'champ obligatoire')
 
             ) )
         ;

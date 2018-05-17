@@ -21,7 +21,7 @@ import 'moment/locale/fr'
 import 'switchery'
 import 'sweetalert';
 import '../js/jasny-bootstrap'
-import '../js/validator.min'
+import 'bootstrap-validator'
 import '../js/select2.full.min'
 import  '../js/bootstrap-select.min'
 import '../js/bootstrap-table.min';
@@ -34,6 +34,7 @@ import '../js/init'
 import '../js/component/dynamic-activity-select'
 import '../js/component/government-delegation-select'
 import '../js/component/search-artisan-cin'
+import '../js/component/setting-company'
 
 
 

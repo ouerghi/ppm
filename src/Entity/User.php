@@ -6,7 +6,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity(fields={"username"}, message="It looks like your already used this login!")
+ * @UniqueEntity(fields={"username"}, message="Il semble que vous avez déjà utilisé ce login!")
+ * @UniqueEntity(fields={"email"}, message="On dirait que vous avez déjà cette adresse email !")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorMap({"enqueutor" = "Enqueutor", "user" = "User"})
  */
@@ -22,18 +23,27 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
     /**
      * @ORM\Column(type="string", length=25, unique=true)
      *  @Assert\NotBlank()
-     * * @Assert\Length(min="4", minMessage="Your login must be at least {{ limit }} characters long")
+     * @Assert\Length(min="4", minMessage="votre login doit avoir au moins {{ limit }} caractères de long.")
      */
     private $username;
 
-    /**
-     * @ORM\Column(type="json_array")
-     */
 
+	 /**
+	  * @ORM\Column(type="string", length=100, unique=true)
+	  *  @Assert\NotBlank()
+	  * @Assert\Email()
+	  */
+	 private $email;
+
+    /**
+     * @ORM\Column(type="json_array", nullable=false)
+     * @Assert\NotBlank()
+     */
     private $roles = array();
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Government", )
      *  @ORM\JoinColumn(nullable=false)
+     * * @Assert\NotBlank()
      */
     private $government;
     /**
@@ -74,7 +84,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
     }
     /**
      * @ORM\Column(type="string", length=64)
-     * @Assert\Length(min="5", minMessage="Your password must be at least {{ limit }} characters long")
+     * @Assert\Length(min="5", minMessage="votre mot de passe doit avoir au moins {{ limit }} caractères de long.")
      */
     private $password;
 
@@ -121,6 +131,21 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
     {
         return $this->username;
     }
+
+	 /**
+	  * @return mixed
+	  */
+	 public function getEmail() {
+		 return $this->email;
+	 }
+
+	 /**
+	  * @param mixed $email
+	  */
+	 public function setEmail( $email ): void {
+		 $this->email = $email;
+	 }
+
     public function getSalt()
     {
         // you *may* need a real salt depending on your encoder

@@ -17,7 +17,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -58,7 +58,8 @@ class ArtisanType extends AbstractType
 	        ->add('grade',ChoiceType::class, array(
 	        	'choices' => $grade,
 		        'label' => 'Niveau',
-		        'attr' => ['class' => 'select2']
+		        'required' => true,
+		        'attr' => ['class' => 'select2', 'required' => true,]
 	        ))
 	        ->add('nationality', TextType::class,[
 	        	'label' => 'Nationalité',
@@ -77,7 +78,8 @@ class ArtisanType extends AbstractType
 	        ->add('employee', IntegerType::class, array(
 			        'label' => 'Nombre d\'employé',
 			        'attr' => array(
-				        'placeholder' => 'Nombre d\'employé'
+				        'placeholder' => 'Nombre d\'employé',
+				        'required' => true,
 	        )))
 	        ->add('qualification', TextType::class, array(
 		        'attr' => array(
@@ -90,37 +92,36 @@ class ArtisanType extends AbstractType
 			        'propriétaire' => '0'
 		        ],
 		          'label' => 'type locale ',
-		          'attr' => ['class' => 'select2']
+		          'attr' => ['class' => 'select2', 'required' => true]
 	        ))
             ->add('birthday', BirthdayType::class, array(
                 'label' => 'Date de naissance',
                 'widget' => 'single_text',
                 'html5' => false,
-                'attr' => ['class' => 'birthday']
+                'attr' => ['class' => 'birthday','required' => true,]
             ))
             ->add('cin', SearchType::class, array(
                 'attr' => array(
                     'placeholder' => 'Cin de  l\'artisan',
-                    'class' => 'ui-widget'
+                    'class' => 'ui-widget',
+	                'data-minlength' =>8,
+	                'data-error' => 'merci de mettre un numéro valide',
+	                'maxlength' =>8,
+	                'pattern' => '[0-9]+$'
 
                 )
             ))
             ->add('dateCreation', DateType::class, array(
                 'widget' => 'single_text',
                 'html5' => false,
-                'attr' => ['class' => 'dateCreation']
+                'attr' => ['class' => 'dateCreation','required' => true,]
             ))
-//            ->add('typeArtisan', ChoiceType::class, array(
-//                'choices' => $typeArtisan,
-//                'data' => 1,
-//                'attr' => ['class' => 'select2'],
-//                'label' => 'Artisan/Société'
-//            ))
+
             ->add('juridique', EntityType::class, array(
                 'class' => 'App\Entity\Juridique',
                 'placeholder' => 'Choisir une forme juridique',
                 'choice_label' => 'name',
-                'attr'  => array('class' => 'select2 ')
+                'attr'  => array('class' => 'select2 ','required' => true,)
             ))
             ->add('delegation', EntityType::class, array(
                 'class'         => 'App\Entity\Delegation',
@@ -133,14 +134,14 @@ class ArtisanType extends AbstractType
                     function(DelegationRepository $government) use($gov) {
                     return $government->getDelegation($gov);
                 },
-                'attr'  => array('class' => 'select2 ville ')
+                'attr'  => array('class' => 'select2 ville ', 'required' => true,)
             ))
             ->add('activity', EntityType::class, array(
                 'class'         => 'App\Entity\Activity',
                 'placeholder' => 'Choisir un groupe d\'activité',
                 'label' => 'Choisir un groupe d\'activité',
                 'choice_label'  => 'name',
-                'attr'  => array('class' => 'select2 activity')
+                'attr'  => array('class' => 'select2 activity', 'required' => true,)
             ))
 
         ;
