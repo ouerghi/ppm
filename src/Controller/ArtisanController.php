@@ -27,14 +27,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  */
 class ArtisanController extends Controller
 {
-    /**
-     * @Route("/", name="home")
-     * @return Response
-     */
-    public function home()
-    {
-        return new Response('hello artisan');
-    }
+
     /**
      * @Route("/artisan" ,name="artisan")
      * @param AuthorizationCheckerInterface $authorizationChecker

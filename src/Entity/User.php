@@ -9,7 +9,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(fields={"username"}, message="Il semble que vous avez déjà utilisé ce login!")
  * @UniqueEntity(fields={"email"}, message="On dirait que vous avez déjà cette adresse email !")
  * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorMap({"enqueutor" = "Enqueutor", "user" = "User"})
+ * @ORM\DiscriminatorMap({"user" = "User"})
  */
  class User implements UserInterface, \Serializable
 {

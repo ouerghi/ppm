@@ -22,7 +22,7 @@ security:
             form_login:
                 login_path: login
                 check_path: login
-                default_target_path: artisan
+                default_target_path: artisans
             logout:
                 path:   /logout
                 target: /login
