@@ -4,12 +4,19 @@ namespace App\Controller;
 
 use App\Form\UserType;
 use App\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
+/**
+ * Class RegistrationController
+ * @package App\Controller
+ *@Security("is_authenticated()")
+ * @Security("is_granted('ROLE_ADMIN')")
+ */
 
 class RegistrationController extends Controller
 {

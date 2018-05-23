@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/juridique")
+ * @Security("is_authenticated()")
  * @Security("is_granted('ROLE_ADMIN')")
  */
 class JuridiqueController extends Controller

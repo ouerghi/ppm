@@ -42,6 +42,7 @@
             </li>
         {% endif %}
         <li><hr class="light-grey-hr mb-10"/></li>
+        {% if  is_granted('ROLE_RESPONSABLE') %}
         <li class="navigation-header">
             <span>Gestion Des Enquêtes</span>
             <i class="zmdi zmdi-more"></i>
@@ -49,11 +50,13 @@
         <li>
             <a  href="javascript:void(0);" data-toggle="collapse" data-target="#ui_dr"><div class="pull-left"><i class="zmdi zmdi-smartphone-setup mr-20"></i><span class="right-nav-text">Enquête</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
             <ul id="ui_dr" class="collapse collapse-level-1 two-col-list">
+
                 <li>
                     <a href="{{ path('list-survey') }}">Listes des enquête</a>
                 </li>
             </ul>
         </li>
+        {% endif %}
         {% if  is_granted('ROLE_ADMIN') %}
            <li>
               <a href="{{ path('statistic') }}" ><div class="pull-left"><i class="zmdi zmdi-chart-donut mr-20"></i><span class="right-nav-text">Statistiques </span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>

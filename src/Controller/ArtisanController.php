@@ -24,6 +24,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * @Security("is_granted('ROLE_DRC')")
+ * @Security("is_authenticated()")
  */
 class ArtisanController extends Controller
 {

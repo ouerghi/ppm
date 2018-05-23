@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/activity")
+ * @Security("is_authenticated()")
  */
 class ActivityController extends Controller
 {

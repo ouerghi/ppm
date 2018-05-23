@@ -9,12 +9,17 @@ use App\Entity\CompanyHistory;
 use App\Entity\PM;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+/**
+ * Class ArtisanSettingController
+ * @package App\Controller
+ * @Security("is_authenticated()")
+ */
 class ArtisanSettingController extends Controller
 {
     /**
@@ -22,6 +27,7 @@ class ArtisanSettingController extends Controller
      * @ParamConverter("Artisan", options={"mapping": {"id":"id"}})
      * @param Request $request
      * @param Artisan $artisan
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(Request $request, Artisan $artisan)

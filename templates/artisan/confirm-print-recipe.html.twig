@@ -55,16 +55,16 @@
                                                 <div class="clearfix"></div>
                                             </div>
                                         {% endfor %}
-                                        <p class="text-muted">please confirm the artisan's recipe impression .</p>
+                                        <p class="text-muted">veuillez confirmer l'impression de la fiche de l'artisan.</p>
                                         <div class="row ">
                                             <div class="col-sm-12 col-xs-12 ">
                                                 <div class="button-list ">
-                                                    <a href="{{ path('addArtisan') }}" class="btn btn-danger btn-rounded">Cancel</a>
+                                                    <a href="{{ path('addArtisan') }}" class="btn btn-danger btn-rounded">Annuler</a>
                                                     {% if artisan is defined %}
-                                                    <a target="_blank" href="{{ path('printRecipe', {'id' :  artisan.id}) }}" class="btn btn-success  btn-rounded btn-outline  btn-success">Confirm</a>
+                                                    <a target="_blank" href="{{ path('printRecipe', {'id' :  artisan.id}) }}" class="btn btn-success  btn-rounded btn-outline  btn-success">Confirmer</a>
                                                     {% endif %}
                                                     {% if company is defined %}
-                                                        <a target="_blank" href="{{ path('printRecipe', {'id' :  company.id}) }}" class="btn btn-success  btn-rounded btn-outline  btn-success">Confirm</a>
+                                                        <a target="_blank" href="{{ path('printRecipe', {'id' :  company.id}) }}" class="btn btn-success  btn-rounded btn-outline  btn-success">Confirmer</a>
                                                     {% endif %}
                                                 </div>
                                             </div>
@@ -77,12 +77,12 @@
                     <div class="row">
                         <div class="col-md-6 col-md-offset-3">
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                <a type="button" href="{{ path('addArtisan') }}" class="btn btn-secondary btn-outline-danger">Cancel</a>
+                                <a type="button" href="{{ path('addArtisan') }}" class="btn btn-secondary btn-outline-danger">Annuler</a>
                                 {% if artisan is defined %}
-                                <a type="button" target="_blank" href="{{ path('printRecipe', {'id' :  artisan.id}) }}" class="btn btn-secondary btn-outline-primary">Confirm print</a>
+                                <a type="button" target="_blank" href="{{ path('printRecipe', {'id' :  artisan.id}) }}" class="btn btn-secondary btn-outline-primary">Confirmer l'impression</a>
                                 {% endif %}
                                 {% if company is defined %}
-                                    <a type="button" target="_blank" href="{{ path('printRecipe', {'id' :  company.id}) }}" class="btn btn-secondary btn-outline-primary">Confirm print</a>
+                                    <a type="button" target="_blank" href="{{ path('printRecipe', {'id' :  company.id}) }}" class="btn btn-secondary btn-outline-primary">Confirmer l'impression</a>
                                 {% endif %}
                             </div>
                         </div>

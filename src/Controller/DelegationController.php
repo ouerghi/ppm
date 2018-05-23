@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/delegation")
+ * @Security("is_authenticated()")
  * @Security("is_granted('ROLE_ADMIN')")
  */
 class DelegationController extends Controller

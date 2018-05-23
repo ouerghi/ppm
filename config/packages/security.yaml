@@ -16,6 +16,7 @@ security:
         ROLE_SUPER_ADMIN: [ROLE_DRC, ROLE_RESPONSABLE, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
     firewalls:
         main:
+            access_denied_url: /denied
             pattern:    ^/
             provider: our_db_provider
             anonymous: ~
@@ -25,7 +26,7 @@ security:
                 default_target_path: artisans
             logout:
                 path:   /logout
-                target: /login
+                target: /
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }

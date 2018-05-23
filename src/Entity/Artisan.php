@@ -32,7 +32,14 @@ class Artisan extends PM
 	/**
 	 * @ORM\Column(type="smallint")
 	 * @Assert\NotBlank()
+	 * @Assert\Range(
+	 *      min = 1,
+	 *      max = 15,
+	 *      minMessage = "Nombre d'employé doit etre superieur ou égal  à {{ limit }}",
+	 *      maxMessage = "Nombre d'employé doit etre inférieur à {{ limit }}"
+	 * )
 	 */
+
 	private $employee;
 
 

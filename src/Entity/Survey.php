@@ -90,19 +90,7 @@ class Survey
 		$this->users->removeElement($user);
 	}
 
-	/**
-	 * @return mixed
-	 */
-	public function getEnqueutor() {
-		return $this->enqueutor;
-	}
 
-	/**
-	 * @param mixed $enqueutor
-	 */
-	public function setEnqueutor(Enqueutor $enqueutor ): void {
-		$this->enqueutor = $enqueutor;
-	}
 	/**
      * @return mixed
      */

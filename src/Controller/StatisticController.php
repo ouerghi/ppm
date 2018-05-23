@@ -3,10 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\PM;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Class StatisticController
+ * @package App\Controller
+ * @Security("is_authenticated()")
+ * @Security("is_granted('ROLE_ADMIN')")
+ */
 class StatisticController extends Controller
 {
     /**

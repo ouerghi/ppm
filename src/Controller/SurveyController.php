@@ -5,13 +5,18 @@ namespace App\Controller;
 use App\Entity\PM;
 use App\Entity\Survey;
 use App\Form\SurveyType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
-
-
+/**
+ * Class SurveyController
+ * @package App\Controller
+ * @Security("is_authenticated()")
+ * @Security("is_granted('ROLE_RESPONSABLE')")
+ */
 class SurveyController extends Controller
 {
 	/**
@@ -103,23 +108,8 @@ class SurveyController extends Controller
 	    // create the pdf with the bellow option
 	    $html2pdf->create('P', 'A4', 'fr', true, 'UTF-8', array(10,15,10,15));
 	    // return a generated pdf
-	    return $html2pdf->generatePdf($template, "enquete");
+	    return $html2pdf->generatePdf($template, "survey");
 
-    }
-	/**
-	 * @Route("/tert", name="tert")
-	 */
-    public function tert()
-    {
-    	$em = $this->getDoctrine()->getManager();
-    	$sur = $em->getRepository('App:Survey')->find(1);
-
-    	$all=  $sur->getUsers();
-    	foreach ($all as $value)
-	    {
-	    	echo $value->getUsername().'<br>';
-	    }
-    	die();
     }
 
 }

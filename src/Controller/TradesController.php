@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/trades")
  * @Security("is_granted('ROLE_ADMIN')")
+ * @Security("is_authenticated()")
  */
 class TradesController extends Controller
 {
