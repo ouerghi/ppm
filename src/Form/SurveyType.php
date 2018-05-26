@@ -41,6 +41,7 @@ class SurveyType extends AbstractType
 	            'attr' => array('placeholder' => 'description')
             ))
             ->add('users', EntityType::class, array(
+            	'label' => 'Agent',
             	'class' => 'App\Entity\User',
 	            'placeholder' => 'Choisir un utilisateur',
 	            'choice_label'  => 'username',

@@ -3,6 +3,7 @@
 namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -29,10 +30,16 @@ class Survey
     private $user;
 	/**
      * @ORM\Column(type="datetime")
+	 * @Assert\Type("DateTime")
      */
     private $start;
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\Type("DateTime")
+     * @Assert\Expression(
+     *     "this.getStart() < this.getEnd()",
+     *     message="La date de début doit être strictement inférieur à la date de fin"
+     * )
      */
     private $end;
     /**

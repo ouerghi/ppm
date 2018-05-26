@@ -41,12 +41,6 @@ class SurveyController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
-        	$start = $survey->getStart();
-        	$end = $survey->getEnd();
-        	if ($start > $end)
-	         {
-	        	throw new \Exception('La date de début ne peut pas etre supérieur à la date de fin');
-	         }
         	$survey->setUser($user);
         	$em->persist($survey);
         	$em->flush();
